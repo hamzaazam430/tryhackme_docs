@@ -1,0 +1,18 @@
+connect:	ssh shiba1@<ip-address> -p 22
+
+ip-address : will be available after machine is deployed
+
+shiba1 : shiba1
+
+shiba2 : pinguftw       (create file noot.txt and run the binary)
+
+shiba3 : happynootnoises (create environment variable test1234 and set its value to $USER and run the binary)
+
+shiba4 : test1234
+/etc/shiba/shiba4       <-- this one
+/opt/secret/shiba4
+/home/shiba4
+
+chmod a+x shiba4 && cat shiba4 ==> test1234
+
+

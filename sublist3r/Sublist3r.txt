@@ -1,0 +1,48 @@
+Time to scan, let's run Sublit3r against a target company domain and learn about some common domains! You can also run this via the recon tool at https://dnsdumpster.com/ or you can also just download my results from running sublist3r.
+------------------------------------------------
+			Answer the questions below
+------------------------------------------------
+
+Q: Let's run sublist3r now against nbc.com, a fairly large American news company. Run this now with the command: python3 sublist3r.py -d nbc.com -o sub-output-nbc.txt
+
+A: <| NO ANSWER NEEDED |>
+
+Q: Once that completes open up your results and take a look through them. Email domains are almost always interesting and typically have an email portal (usually Outlook) located at them. Which subdomain is likely the email portal?
+
+A: mail
+
+
+Q: Administrative control panels should never be exposed to the internet! Which subdomain is exposed that shouldn't be?
+
+A: admin
+
+
+Q: Company blogs can sometimes reveal information about internal activities, which subdomain has the company blog at it?
+
+A: blog
+
+
+Q: Development sites are often vulnerable to information disclosure or full-blown attacks. Two developer sites are exposed, which one is associated directly with web development?
+
+A: dev-www
+
+
+Q; Customer and employee help desk portals can often reveal internal nomenclature and other potentially sensitive information, which dns record might be a helpdesk portal?
+
+A: help
+
+
+Q: Single sign-on is a feature commonly used in corporate domains, which dns record is directly associated with this feature? Include both parts of this subdomain separated by a period.
+
+A: ssologin.stg
+
+
+Q: One last one for fun. NBC produced a popular sitcom about typical office work environment, which dns record might be associated with this show?
+
+A: office-words
+
+
+
+
+
+

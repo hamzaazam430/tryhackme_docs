@@ -1,0 +1,25 @@
+Linux Privilege Escalation Checklist
+====================================
+
+Useful for both pentesters and systems administrators, this checklist is focused on privilege escalation on GNU/Linux operating systems. Many of these will also apply to Unix
+systems, (FreeBSD, Solaris, etc.) and some may apply to Windows. The following information is based on the assumption that you have CLI access to the system as non-root user.
+
+This list is far from complete, it will be periodically updated.
+
+- Are there any hashes in /etc/passwd? If so, can they be cracked quickly? (JtR, HashCat)
+- Is /etc/shadow readable? If so, are the hashes easily crackable?
+- Is /etc/passwd or /etc/shadow writeable?
+- Any passwords in configuration or other files? Is the root password one of those?
+- Does the current user have sudo rights at all? If so, how can they be abused?
+- Check /home, /root, /etc/ssh for readable private ssh keys.
+- Check /home, /root, /etc/ssh for writeable public ssh keys. (authorized_keys) . If not, can an authorized_keys file be created for another user?
+- Kernel exploits?
+- Check for SUID/SGID files that may give you read/write/execute access to sensitive files.
+- Vulnerable/exploitable SUID/SGID executables.
+- Vulnerable/exploitable files with special capabilities. (This is detailed here)
+- Vulnerable/exploitable services running as another user/root, or that allow shell commands or other system access? (VNC as root for example)
+- Are shell rc files (.bashrc, .zshrc, .profile, etc.) writeable? If so, malicious commands can be added to that file, will run when the user/root logs in.
+- Writeable cron jobs, or other executables/scripts that are run by root.
+- Replaceable/writeable modules/libraries that are used by privileged executables/scripts/processes.
+- Writeable configuration files (*.conf) that are used by privileges executables/scripts/processes.
+- Are there any interesting files in /var/mail/ or /home/*/? Any passwords or useful info in /home/*/.bash_history?

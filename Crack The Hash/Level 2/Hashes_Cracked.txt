@@ -1,0 +1,29 @@
+Hash #1: F09EDCB1FCEFC6DFB23DC3505A882655FF77375ED8AA2D1C13F640FCCC2D0C85
+    Salt: --NONE--
+    CMD_$ hashid -m F09EDCB1FCEFC6DFB23DC3505A882655FF77375ED8AA2D1C13F640FCCC2D0C85
+    CMD_$ hashcat -m 1400 hash-1-sha256.txt /usr/share/wordlists/rockyou.txt -o cracked.txt
+    CMD_$ cat cracked.txt 
+    -> paule
+
+
+Hash #2: 1DFECA0C002AE40B8619ECF94819CC1B
+    Salt: --NONE--
+    CMD_$ hashid -m 1DFECA0C002AE40B8619ECF94819CC1B
+    CMD_$ hashcat -m 1000 hash-2-ntlm.txt /usr/share/wordlists/rockyou.txt -o cracked2.txt
+    CMD_$ cat cracked2.txt 
+    -> n63umy8lkf4i
+
+
+Hash #3: $6$aReallyHardSalt$6WKUTqzq.UQQmrm0p/T7MPpMbGNnzXPMAXi4bJMl9be.cfi3/qxIf.hsGpS41BqMhSrHVXgMpdjS6xeKZAs02.
+    Salt: aReallyHardSalt
+    CMD_$ hashcat -m 1800 hash-3-sha512-salted.txt /usr/share/wordlists/rockyou.txt -o cracked3.txt
+    CMD_$ cat cracked3.txt 
+    -> waka99
+
+
+Hash #4: e5d8870e5bdd26602cab8dbe07a942c8669e56d6
+    Salt: tryhackme
+    CMD_$ hashcat -m 110 hash-4-sha1-salted.txt /usr/share/wordlists/rockyou.txt -o cracked4.txt
+    CMD_$ cat cracked4.txt 
+    -> 481616481616
+

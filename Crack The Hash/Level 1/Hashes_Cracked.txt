@@ -1,0 +1,31 @@
+Hash #1: 48bb6e862e54f2a795ffc4e541caed4d
+    CMD_$ john --format=raw-md5 hash-1-md5.txt
+    CMD_$ john --show --format=raw-md5 hash-1-md5.txt
+    -> easy
+
+
+Hash #2: CBFDAC6008F9CAB4083784CBD1874F76618D2A97
+    CMD_$ john --format=raw-sha1 --wordlist=/usr/share/wordlists/rockyou.txt hash-2-sha1.txt
+    CMD_$ john --show --format=raw-sha1 hash-2-sha1.txt
+    -> password123
+
+
+Hash #3: 1C8BFE8F801D79745C4631D09FFF36C82AA37FC4CCE4FC946683D7B336B63032
+    CMD_$ john --format=raw-sha256 --wordlist=/usr/share/wordlists/rockyou.txt hash-3-sha256.txt
+    CMD_$ john --show --format=raw-sha256 hash-3-sha256.txt
+    -> letmein
+
+
+Hash #4: $2y$12$Dwt1BZj6pcyc3Dy1FWZ5ieeUznr71EeNkJkUlypTsgbX1H68wsRom
+    CMD_$ john --format=bcrypt --wordlist=/usr/share/wordlists/rockyou.txt hash-4-bcrypt.txt --max-len=4
+    CMD_$ john --show --format=bcrypt hash-4-bcrypt.txt
+    -> bleh
+
+
+Hash #5: 279412f945939ba78ce0758d3fd83daa
+    CMD_$ john --format=raw-md4 --wordlist=/usr/share/wordlists/rockyou.txt hash-5-md4.txt --rules=hashcat
+    CMD_$ john --show --format=raw-md4 hash-5-md4.txt
+    -> Eternity22
+
+
+

