@@ -35,5 +35,17 @@ $ cat /etc/update-motd.d/00-header
 ...
 <checkout the last line>
 ...
-
 ``` 
+
+# Severity 2 - Broken Authentication
+
+## [Severity 2] Broken Authentication Practical
+
+Q: What is the flag that you found in darren's account?
+A: fe86079416a21a3c99937fea8874b667
+
+Q: Now try to do the same trick and see if you can login as arthur.
+A: --NO NEED--
+
+Q: What is the flag that you found in arthur's account?
+A: d9ac0f7db4fda460ac3edeb75d75e16e
