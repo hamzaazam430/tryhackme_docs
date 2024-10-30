@@ -1,0 +1,78 @@
+# Dirsearch started Wed Oct 30 21:30:05 2024 as: /usr/bin/dirsearch -u http://10.10.183.217/
+
+403   278B   http://10.10.183.217/.ht_wsr.txt
+403   278B   http://10.10.183.217/.htaccess.bak1
+403   278B   http://10.10.183.217/.htaccess.orig
+403   278B   http://10.10.183.217/.htaccess.sample
+403   278B   http://10.10.183.217/.htaccess_extra
+403   278B   http://10.10.183.217/.htaccess_orig
+403   278B   http://10.10.183.217/.htaccess_sc
+403   278B   http://10.10.183.217/.htaccessBAK
+403   278B   http://10.10.183.217/.htaccessOLD
+403   278B   http://10.10.183.217/.htaccessOLD2
+403   278B   http://10.10.183.217/.html
+403   278B   http://10.10.183.217/.htm
+403   278B   http://10.10.183.217/.htaccess.save
+403   278B   http://10.10.183.217/.htpasswd_test
+403   278B   http://10.10.183.217/.httr-oauth
+403   278B   http://10.10.183.217/.htpasswds
+403   278B   http://10.10.183.217/.php
+301   312B   http://10.10.183.217/api    -> REDIRECTS TO: http://10.10.183.217/api/
+404    34B   http://10.10.183.217/api/2/explore/
+404    34B   http://10.10.183.217/api/
+404    34B   http://10.10.183.217/api/2/issue/createmeta
+404    34B   http://10.10.183.217/api/__swagger__/
+404    34B   http://10.10.183.217/api/api
+404    34B   http://10.10.183.217/api/_swagger_/
+404    34B   http://10.10.183.217/api/api-docs
+404    34B   http://10.10.183.217/api/apidocs
+404    34B   http://10.10.183.217/api/apidocs/swagger.json
+404    34B   http://10.10.183.217/api/application.wadl
+404    34B   http://10.10.183.217/api/batch
+404    34B   http://10.10.183.217/api/docs
+404    34B   http://10.10.183.217/api/config
+404    34B   http://10.10.183.217/api/error_log
+404    34B   http://10.10.183.217/api/jsonws
+404    34B   http://10.10.183.217/api/index.html
+404    34B   http://10.10.183.217/api/login.json
+404    34B   http://10.10.183.217/api/jsonws/invoke
+404    34B   http://10.10.183.217/api/package_search/v4/documentation
+404    34B   http://10.10.183.217/api/profile
+404    34B   http://10.10.183.217/api/snapshots
+404    34B   http://10.10.183.217/api/proxy
+404    34B   http://10.10.183.217/api/spec/swagger.json
+404    34B   http://10.10.183.217/api/swagger-ui.html
+404    34B   http://10.10.183.217/api/swagger
+404    34B   http://10.10.183.217/api/cask/graphql
+404    34B   http://10.10.183.217/api/docs/
+404    34B   http://10.10.183.217/api/swagger.yaml
+404    34B   http://10.10.183.217/api/swagger.json
+404    34B   http://10.10.183.217/api/swagger/index.html
+404    34B   http://10.10.183.217/api/swagger.yml
+404    34B   http://10.10.183.217/api/swagger/static/index.html
+404    34B   http://10.10.183.217/api/swagger/swagger
+404    34B   http://10.10.183.217/api/timelion/run
+404    34B   http://10.10.183.217/api/swagger/ui/index
+404    34B   http://10.10.183.217/api/v1
+404    34B   http://10.10.183.217/api/v1/
+404    34B   http://10.10.183.217/api/v1/swagger.json
+404    34B   http://10.10.183.217/api/v2
+404    34B   http://10.10.183.217/api/v2/
+404    34B   http://10.10.183.217/api/v2/swagger.yaml
+404    34B   http://10.10.183.217/api/v2/helpdesk/discover
+404    34B   http://10.10.183.217/api/v3
+404    34B   http://10.10.183.217/api/v1/swagger.yaml
+404    34B   http://10.10.183.217/api/v2/swagger.json
+404    34B   http://10.10.183.217/api/whoami
+404    34B   http://10.10.183.217/api/vendor/phpunit/phpunit/phpunit
+404    34B   http://10.10.183.217/api/version
+404    34B   http://10.10.183.217/api/v4
+200   523B   http://10.10.183.217/assets/
+301   315B   http://10.10.183.217/assets    -> REDIRECTS TO: http://10.10.183.217/assets/
+301   316B   http://10.10.183.217/console    -> REDIRECTS TO: http://10.10.183.217/console/
+302     0B   http://10.10.183.217/console/    -> REDIRECTS TO: /login?response=unauthorised
+200   143KB  http://10.10.183.217/favicon.ico
+301   314B   http://10.10.183.217/login    -> REDIRECTS TO: http://10.10.183.217/login/
+200   609B   http://10.10.183.217/login/
+403   278B   http://10.10.183.217/server-status
+403   278B   http://10.10.183.217/server-status/
