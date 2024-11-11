@@ -179,6 +179,18 @@ customers
 At this point we can dump all of the data from the table, but we won't necessarily know what each column means unless we look at the table information. First let's use `PRAGMA table_info(customers);` to see the table information, then we'll use `SELECT * FROM customers;` to dump the information from the table:
 
 ```
+sqlite> PRAGMA table_info(customers);
+0|custID|INT|1| |1
+1|custName|TEXT|1| |0
+2|creditCard|TEXT|0| |0
+3|password|TEXT|1| |0
+sqlite> SELECT * FROM customers;
+0|Joy Paulson|4916 9012 2231 7905|5f4dcc3b5aa765d61d8327deb882cf99
+1|John Walters|5298 0704 2379 5940|f80f6c5a2a0d5ba2471600758452799c
+2|Lena Abdul|5575 0248 8055 2348|23003be56f641fb9fb1be75a851a0340
+3|Andrew Miller|4716 3986 3908 1152|4b525f7ca79080d159d559662c9247e80
+4|Keith Wayman|5324 9581 9808 7840|277fa27ecb7cfcd264aeb2067fb4d6f8
+5|Annett Scholz|4716 2571 8467 6859|8c728e685ddde9f7fbbc4521555e29639
 ```
 
 We can see from the table information that there are four columns: custID, custName, creditCard and password. You may notice that this matches up with the results. Take the first row:
@@ -190,3 +202,84 @@ We have the custID (0), the custName (Joy Paulson), the creditCard (4916 9012 22
 
 In the next task we'll look at cracking this hash.
 
+## Sensitive Data Exposure (Supporting Material 2)
+
+In the previous task we saw how to query an SQLite database for sensitive data. We found a collection of password hashes, one for each user. In this task we will briefly cover how to crack these.
+
+When it comes to hash cracking, Kali comes pre-installed with various tools -- if you know how to use these then feel free to do so; however, they are outwith the scope of this material.
+
+Instead we will be using the online tool: Crackstation. This website is extremely good at cracking weak password hashes. For more complicated hashes we would need more sophisticated tools; however, all of the crackable password hashes used in today's challenge are weak MD5 hashes, which Crackstation should handle very nicely indeed.
+
+When we navigate to the website we are met with the following interface:
+
+![File Password Hash Cracker](/OWASP%20Top%2010/Severity%203/pics/o10sev3.1.png)
+
+Let's try pasting in the password hash for Joy Paulson which we found in the previous task (`5f4dcc3b5aa765d61d8327deb882cf99`). We solve the Captcha, then click the "Crack Hashes" button:
+
+![File Password Hash Cracker](/OWASP%20Top%2010/Severity%203/pics/o10sev3.2.png)
+
+We see that the hash was successfully broken, and that the user's password was "password" -- how secure!
+
+It's worth noting that Crackstation works using a massive wordlist. If the password is not in the wordlist then Crackstation will not be able to break the hash.
+
+The challenge is guided, so if Crackstation fails to break a hash in today's box you can assume that the hash has been specifically designed to not be crackable.
+
+# XML External Entity
+
+![XML External Entity](/OWASP%20Top%2010/Severity%204/pics/o10sev4.1.png)
+
+An XML External Entity (XXE) attack is a vulnerability that abuses features of XML parsers/data. It often allows an attacker to interact with any backend or external systems that the application itself can access and can allow the attacker to read the file on that system. They can also cause Denial of Service (DoS) attack or could use XXE to perform Server-Side Request Forgery (SSRF) inducing the web application to make requests to other applications. XXE may even enable port scanning and lead to remote code execution.
+
+There are two types of XXE attacks: in-band and out-of-band (OOB-XXE).
+1) An in-band XXE attack is the one in which the attacker can receive an immediate response to the XXE payload.
+
+2) out-of-band XXE attacks (also called blind XXE), there is no immediate response from the web application and attacker has to reflect the output of their XXE payload to some other file or their own server.
+
+## XML External Entity - eXtensible Markup Language
+
+Before we move on to learn about XXE exploitation we'll have to understand XML properly.
+
+What is XML?
+
+XML (eXtensible Markup Language) is a markup language that defines a set of rules for encoding documents in a format that is both human-readable and machine-readable. It is a markup language used for storing and transporting data. 
+
+Why we use XML?
+
+1. XML is platform-independent and programming language independent, thus it can be used on any system and supports the technology change when that happens.
+
+2. The data stored and transported using XML can be changed at any point in time without affecting the data presentation.
+
+3. XML allows validation using DTD and Schema. This validation ensures that the XML document is free from any syntax error.
+
+4. XML simplifies data sharing between various systems because of its platform-independent nature. XML data doesn’t require any conversion when transferred between different systems.
+
+Syntax
+
+Every XML document mostly starts with what is known as XML Prolog.
+
+`<?xml version="1.0" encoding="UTF-8"?>`
+
+
+Above the line is called XML prolog and it specifies the XML version and the encoding used in the XML document. This line is not compulsory to use but it is considered a `good practice` to put that line in all your XML documents.
+
+Every XML document must contain a `ROOT` element. For example:
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<mail>
+   <to>falcon</to>
+   <from>feast</from>
+   <subject>About XXE</subject>
+   <text>Teach about XXE</text>
+</mail>
+```
+
+
+In the above example the `<mail>` is the ROOT element of that document and `<to>`, `<from>`, `<subject>`, `<text>` are the children elements. If the XML document doesn't have any root element then it would be consideredwrong or invalid XML doc.
+
+Another thing to remember is that XML is a case sensitive language. If a tag starts like `<to>` then it has to end by `</to>` and not by something like `</To>`(notice the capitalization of T)
+
+Like HTML we can use attributes in XML too. The syntax for having attributes is also very similar to HTML. For example:
+`<text category = "message">You need to learn about XXE</text>`
+
+In the above example `category` is the attribute name and `message` is the attribute value.

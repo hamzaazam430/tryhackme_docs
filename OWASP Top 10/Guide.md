@@ -122,3 +122,31 @@ A: **qwertyuiop**
 
 Q: Login as the admin. What is the flag?
 A: **THM{Yzc2YjdkMjE5N2VjMzNhOTE3NjdiMjdl}**
+
+# Severity 4 - XML External Entity
+
+## [Severity 4] XML External Entity - eXtensible Markup Language
+
+Q: Full form of XML
+A: **Extensible Markup Language**
+
+Q: Is it compulsory to have XML prolog in XML documents?
+A: **no**
+
+Q: Can we validate XML documents against a schema?
+A: **yes**
+
+Q: How can we specify XML version and encoding in XML document?
+A: **XML Prolog**
+
+
+## [Severity 4] XML External Entity - DTD
+
+Q: How do you define a new ELEMENT?
+A: **!ELEMENT**
+
+Q: How do you define a ROOT element?
+A: **!DOCTYPE**
+
+Q: How do you define a new ENTITY?
+A:
